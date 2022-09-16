@@ -3,10 +3,10 @@ package hu.plantshop.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import hu.plantshop.domain.User;
+import hu.plantshop.domain.Role;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    User findByEmail(String email);
+    Role findByName(String name);
 }
