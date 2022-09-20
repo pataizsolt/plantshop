@@ -1,9 +1,12 @@
 import User from "./components/User";
+import Header from "./components/header/Header";
+import Register from "./components/register/Register";
 
 function App() {
   return (
-    <div className="container">
-      <User />
+    <div>
+      <Header />
+      <Register />
     </div>
   );
 }
