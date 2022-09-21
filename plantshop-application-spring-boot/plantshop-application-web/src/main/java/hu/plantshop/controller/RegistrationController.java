@@ -13,14 +13,14 @@ import hu.plantshop.service.RegistrationService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping(path = "api/v1/registration")
+@RequestMapping(path = "api/v1")
 @AllArgsConstructor
 @CrossOrigin
 public class RegistrationController {
     AppUserService appUserService;
     RegistrationService registrationService;
 
-    @PostMapping
+    @PostMapping("/registration")
     public String register(@RequestBody RegistrationRequest request) {
         return registrationService.register(request);
     }

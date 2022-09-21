@@ -1,7 +1,7 @@
 import { Form, Button, Container } from "react-bootstrap"
 import { useState } from 'react'
 
-export default function Register() {
+export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [firstName, setFirstName] = useState('')
@@ -9,7 +9,7 @@ export default function Register() {
 
     const handleClick = (e) => {
         e.preventDefault()
-        const user = { email, password, firstName, lastName }
+        const user = { email, password}
         console.log(user)
         fetch("http://localhost:8080/api/v1/registration", {
             method: "POST",
@@ -31,16 +31,8 @@ export default function Register() {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicFirstName">
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control type="firstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicLastName">
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control type="lastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                </Form.Group>
                 <Button variant="primary" type="submit" onClick={handleClick}>
-                    Submit
+                    Log in
                 </Button>
             </Form>
         </Container>

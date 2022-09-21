@@ -15,6 +15,7 @@ public class RegistrationService{
     private final AppUserService appUserService;
     public String register(RegistrationRequest registrationRequest) {
 
+
         return appUserService.signUpUser(
             new AppUser(
                 registrationRequest.getFirstName(),
