@@ -1,23 +1,31 @@
 import { Form, Button, Container } from "react-bootstrap"
-import { useState } from 'react'
+import React, { useState } from 'react'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
+    const [msg, setMsg] = useState('');
+    const navigate = useNavigate();
 
-    const handleClick = (e) => {
-        e.preventDefault()
-        const user = { email, password, firstName, lastName }
-        console.log(user)
-        fetch("http://localhost:8080/api/v1/registration", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(user)
-        }).then(() => {
-            console.log("new user added")
-        })
+    const handleClick = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post('http://localhost:8080/api/v1/registration', {
+                email: email,
+                password: password,
+                firstName: firstName,
+                lastName: lastName
+            });
+            navigate.push("/");
+        } catch (error) {
+            if (error.response) {
+                setMsg(error.response.data.msg);
+            }
+        }
     }
 
     return (

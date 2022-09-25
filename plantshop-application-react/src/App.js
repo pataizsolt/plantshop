@@ -1,13 +1,26 @@
-import User from "./components/User";
-import Header from "./components/header/Header";
 import Register from "./components/register/Register";
+import Dashboard from "./components/dashboard/Dashboard";
+import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import { BrowserRouter } from "react-router-dom";
+import Login from "./components/login/Login";
 
 function App() {
   return (
-    <div>
-      <Header />
-      <Register />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/dashboard">
+          <Navbar />
+          <Dashboard />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
