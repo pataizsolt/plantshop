@@ -1,6 +1,5 @@
 package hu.plantshop;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,8 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import hu.plantshop.domain.AppUser;
 import hu.plantshop.domain.AppUserRole;
 import hu.plantshop.repository.AppUserRepository;
-import hu.plantshop.security.PasswordEncoder;
-import hu.plantshop.service.AppUserService;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class Application {

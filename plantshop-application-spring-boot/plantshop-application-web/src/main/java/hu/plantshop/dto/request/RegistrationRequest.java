@@ -1,4 +1,4 @@
-package hu.plantshop.dto;
+package hu.plantshop.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class LoginRequest {
+public class RegistrationRequest {
+    private final String firstName;
+    private final String lastName;
     private final String email;
     private final String password;
 

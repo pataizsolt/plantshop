@@ -1,15 +1,27 @@
 package hu.plantshop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.plantshop.service.AppUserService;
+import hu.plantshop.dto.response.MessageResponse;
 
+@CrossOrigin(origins = "*", maxAge = 4800)
 @RestController
-@CrossOrigin
+@RequestMapping("/api/test")
 public class UserController {
-    @Autowired
-    private AppUserService appUserService;
 
+    @GetMapping("/all")
+    public MessageResponse allAccess() {
+        return new MessageResponse("Server is up.....");
+    }
+
+    @GetMapping("/greeting")
+    @PreAuthorize("isAuthenticated()")
+    public MessageResponse userAccess() {
+
+        return new MessageResponse("Congratulations! You are an authenticated user.");
+    }
 }
