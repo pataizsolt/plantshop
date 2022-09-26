@@ -20,7 +20,7 @@ public class Application {
     @Bean
     CommandLineRunner run(AppUserRepository appUserRepository, BCryptPasswordEncoder passwordEncoder) {
         return args -> {
-            appUserRepository.save(new AppUser("asd", "asd", "asdasdgg", passwordEncoder.encode("asdasdgg"), AppUserRole.ADMIN));
+            appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), AppUserRole.ADMIN));
         };
     }
 }

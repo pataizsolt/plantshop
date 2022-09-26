@@ -1,27 +1,127 @@
-import Register from "./components/register/Register";
-import Dashboard from "./components/dashboard/Dashboard";
-import { Route, Routes } from "react-router-dom";
-import Navbar from "./components/navbar/Navbar";
-import { BrowserRouter } from "react-router-dom";
-import Login from "./components/login/Login";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Router, Routes, Route, Link } from "react-router-dom";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/dashboard">
-          <Navbar />
-          <Dashboard />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+import Login from "./components/login/login.component";
+import Register from "./components/register/register.component";
+import Profile from "./components/profile/profile.component";
+import User from "./components/profile/user.component";
+import { logout } from "./actions/auth";
+import { clearMessage } from "./actions/message";
+import { history } from "./helper/history";
+import EventBus from "./common/EventBus";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.logOut = this.logOut.bind(this);
+
+    this.state = {
+      currentUser: undefined,
+    };
+
+    history.listen((location) => {
+      props.dispatch(clearMessage());
+    });
+  }
+
+  componentDidMount() {
+    const user = this.props.user;
+
+    if (user) {
+      this.setState({
+        currentUser: user
+      });
+    }
+
+    EventBus.on("logout", () => {
+      this.logOut();
+    });
+  }
+
+  componentWillUnmount() {
+    EventBus.remove("logout");
+  }
+
+  logOut() {
+    this.props.dispatch(logout());
+    this.setState({
+      currentUser: undefined,
+    });
+  }
+
+  render() {
+    const { currentUser } = this.state;
+
+    return (
+      <Router history={history}>
+        <div>
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <Link to={"/"} className="navbar-brand">
+              Knowledgefactory
+            </Link>
+            <div className="navbar-nav mr-auto">
+
+              {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/user"} className="nav-link">
+                    Resource
+                  </Link>
+                </li>
+              )}
+            </div>
+
+            {currentUser ? (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link to={"/profile"} className="nav-link">
+                    Profile
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <a href="/login" className="nav-link"
+                    onClick={this.logOut}>
+                    LogOut
+                  </a>
+                </li>
+              </div>
+            ) : (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link to={"/login"} className="nav-link">
+                    Login
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to={"/register"} className="nav-link">
+                    Sign Up
+                  </Link>
+                </li>
+              </div>
+            )}
+          </nav>
+
+          <div className="container mt-3">
+            <Routes>
+              <Route exact path={["/", "/register"]} component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/user" component={User} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
+    );
+  }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(App);

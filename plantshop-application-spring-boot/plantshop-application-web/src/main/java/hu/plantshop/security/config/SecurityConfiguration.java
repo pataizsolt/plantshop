@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import hu.plantshop.security.jwt.AuthEntryPointJwt;
 import hu.plantshop.security.jwt.AuthTokenFilter;
+import hu.plantshop.security.jwt.JwtUtils;
 import hu.plantshop.service.AppUserService;
 import lombok.AllArgsConstructor;
 
@@ -27,6 +29,8 @@ public class SecurityConfiguration {
     private AuthEntryPointJwt unauthorizedHandler;
 
     private AppUserService appUserService;
+
+    private JwtUtils jwtUtils;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)
@@ -42,7 +46,7 @@ public class SecurityConfiguration {
             .antMatchers("/api/test/**")
             .permitAll().anyRequest().authenticated();
 
-        http.addFilterBefore(authenticationJwtTokenFilter(),
+        http.addFilterBefore(new AuthTokenFilter(jwtUtils, appUserService),
             UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -51,11 +55,6 @@ public class SecurityConfiguration {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
     }
 
     @Bean
