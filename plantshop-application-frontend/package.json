@@ -1,5 +1,5 @@
 {
-  "name": "plantshop-application-react",
+  "name": "plantshop-application-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,21 +7,13 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
-    "bootstrap": "5.2",
-    "bulma": "^0.9.4",
-    "history": "^5.3.0",
-    "jwt-decode": "^3.1.2",
+    "bootstrap": "^5.2.1",
+    "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0",
-    "react-redux": "^7.2.1",
     "react-router-dom": "^6.4.1",
-    "react-scripts": "^5.0.1",
-    "react-validation": "^3.0.7",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "validator": "^13.1.1",
+    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

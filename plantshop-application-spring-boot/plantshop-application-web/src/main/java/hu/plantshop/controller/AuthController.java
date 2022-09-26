@@ -63,6 +63,6 @@ public class AuthController {
 
         appUserRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("user registered successfully!"));
+        return authenticateuser(new LoginRequest(user.getEmail(), registrationRequest.getPassword()));
     }
 }
