@@ -11,7 +11,7 @@ const PrivateContent = () => {
     useEffect(() => {
         PostService.getAllPrivatePosts().then(
             (response) => {
-                setPrivatePosts(response.data);
+                setPrivatePosts(response.data.message);
             },
             (error) => {
                 console.log("Private page", error.response);
