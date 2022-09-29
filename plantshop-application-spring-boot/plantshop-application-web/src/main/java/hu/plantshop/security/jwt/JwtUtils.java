@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import hu.plantshop.domain.AppUser;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -19,9 +19,9 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JwtUtils {
 	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
-	@Value("76300000")
+	@Value("${accesstoken.expire}")
 	private int jwtExpirationMs;
-	@Value("randomsecretjelszo")
+	@Value("${jwt.secret.password}")
 	private String jwtSecret;
 
 	public boolean validateJwtToken(String authToken) {
@@ -43,16 +43,13 @@ public class JwtUtils {
 		return false;
 	}
 
-	public String generateJwtToken(Authentication authentication) {
-
-		AppUser userPrincipal = (AppUser) authentication.getPrincipal();
-
-		return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
+	public String generateJwtTokenFromEmail(String email) {
+		return Jwts.builder().setSubject((email)).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	}
 
-	public String getUserNameFromJwtToken(String token) {
+	public String getEmailFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
 
