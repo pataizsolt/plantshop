@@ -1,7 +1,10 @@
 package hu.plantshop.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,23 +39,28 @@ public class AppUser implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
-    @Enumerated(EnumType.STRING)
-    private AppUserRole appUserRole;
+    @ManyToMany
+    private Set<AppUserRole> appUserRoles;
     private Boolean locked = false;
     private Boolean enabled = true;
 
-    public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
+    public AppUser(String firstName, String lastName, String email, String password, Set<AppUserRole> appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.appUserRole = appUserRole;
+        this.appUserRoles = appUserRole;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserRole.name());
-        return Collections.singletonList(authority);
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+
+        for (AppUserRole role : appUserRoles) {
+            list.add(new SimpleGrantedAuthority(role.getAuthority()));
+        }
+
+        return list;
     }
 
     @Override

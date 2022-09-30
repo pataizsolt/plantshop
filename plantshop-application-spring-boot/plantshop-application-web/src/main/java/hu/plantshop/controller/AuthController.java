@@ -1,5 +1,8 @@
 package hu.plantshop.controller;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +25,7 @@ import hu.plantshop.dto.response.JwtResponse;
 import hu.plantshop.dto.response.MessageResponse;
 import hu.plantshop.dto.response.TokenRefreshResponse;
 import hu.plantshop.repository.AppUserRepository;
+import hu.plantshop.repository.AppUserRoleRepository;
 import hu.plantshop.security.exception.TokenRefreshException;
 import hu.plantshop.security.jwt.JwtUtils;
 import hu.plantshop.security.service.RefreshTokenService;
@@ -36,6 +40,8 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     AppUserRepository appUserRepository;
+
+    AppUserRoleRepository appUserRoleRepository;
 
     PasswordEncoder encoder;
 
@@ -66,9 +72,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
 
+        AppUserRole initialRole = appUserRoleRepository.findAppUserRoleByName("USER");
         // Create new user account
         AppUser user = new AppUser(registrationRequest.getFirstName(), registrationRequest.getLastName(), registrationRequest.getEmail(),
-            encoder.encode(registrationRequest.getPassword()), AppUserRole.USER);
+            encoder.encode(registrationRequest.getPassword()), Collections.singleton(initialRole));
 
         appUserRepository.save(user);
 
