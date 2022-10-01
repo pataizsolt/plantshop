@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class AppUser implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<AppUserRole> appUserRoles;
     private Boolean locked = false;
     private Boolean enabled = true;
@@ -54,7 +55,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> list = new ArrayList<>();
 
         for (AppUserRole role : appUserRoles) {
             list.add(new SimpleGrantedAuthority(role.getAuthority()));

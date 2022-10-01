@@ -2,6 +2,11 @@ package hu.plantshop.controller;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,14 +31,15 @@ import hu.plantshop.dto.response.MessageResponse;
 import hu.plantshop.dto.response.TokenRefreshResponse;
 import hu.plantshop.repository.AppUserRepository;
 import hu.plantshop.repository.AppUserRoleRepository;
+import hu.plantshop.security.exception.NoRefreshTokenException;
 import hu.plantshop.security.exception.TokenRefreshException;
 import hu.plantshop.security.jwt.JwtUtils;
 import hu.plantshop.security.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequestMapping("/api/auth")
 @AllArgsConstructor
 public class AuthController {
@@ -50,7 +56,7 @@ public class AuthController {
     RefreshTokenService refreshTokenService;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateuser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateuser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
@@ -62,12 +68,15 @@ public class AuthController {
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
+        Cookie cookie = new Cookie("refreshtoken", refreshToken.getToken());
+        response.addCookie(cookie);
+
         return ResponseEntity
-            .ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(), userDetails.getEmail()));
+            .ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(), userDetails.getEmail(), userDetails.getAppUserRoles()));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody RegistrationRequest registrationRequest) {
+    public ResponseEntity<?> registerUser(@RequestBody RegistrationRequest registrationRequest, HttpServletResponse response) {
         if (appUserRepository.existsByEmail(registrationRequest.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
@@ -79,22 +88,36 @@ public class AuthController {
 
         appUserRepository.save(user);
 
-        return authenticateuser(new LoginRequest(user.getEmail(), registrationRequest.getPassword()));
+        return authenticateuser(new LoginRequest(user.getEmail(), registrationRequest.getPassword()), response);
     }
 
     @PostMapping("/refreshtoken")
-    public ResponseEntity<?> refreshtoken(@RequestBody TokenRefreshRequest request) {
-        String requestRefreshToken = request.getRefreshtoken();
+    public ResponseEntity<?> refreshtoken(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String requestRefreshToken = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("refreshtoken")) {
+                    requestRefreshToken = cookie.getValue();
+                }
+            }
+        }
 
-        return refreshTokenService.findByToken(requestRefreshToken)
-            .map(refreshTokenService::verifyExpiration)
-            .map(RefreshToken::getAppUser)
-            .map(user -> {
-                String token = jwtUtils.generateJwtTokenFromEmail(user.getEmail());
-                return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
-            })
-            .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
-                "Refresh token is not in database!"));
+        if(requestRefreshToken == null) {
+            throw new NoRefreshTokenException();
+        }
+        else{
+            String finalRequestRefreshToken = requestRefreshToken;
+            return refreshTokenService.findByToken(requestRefreshToken)
+                .map(refreshTokenService::verifyExpiration)
+                .map(RefreshToken::getAppUser)
+                .map(user -> {
+                    String token = jwtUtils.generateJwtTokenFromEmail(user.getEmail());
+                    return ResponseEntity.ok(new TokenRefreshResponse(token, finalRequestRefreshToken));
+                })
+                .orElseThrow(() -> new TokenRefreshException(finalRequestRefreshToken,
+                    "Refresh token is not in database!"));
+        }
     }
 
     @PostMapping("/signout")

@@ -8,7 +8,7 @@ const getAllPublicPosts = () => {
 };
 
 const getAllPrivatePosts = () => {
-    return axios.get(API_URL + "/greeting", { headers: authHeader() });
+    return axios.get(API_URL + "/greeting");
 };
 
 const postService = {

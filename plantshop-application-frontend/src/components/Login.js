@@ -1,30 +1,59 @@
-import React from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import authService from '../services/AuthenticationService'
+import { useRef, useState, useEffect } from 'react';
+import useAuth from '../hooks/useAuth';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import axios from '../api/axios';
+const LOGIN_URL = '/api/auth/signin';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate()
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+    const [email, setEmail] = useState('asd@asd.com');
+    const [password, setPassword] = useState('asd123');
+    const [errMsg, setErrMsg] = useState('');
+
+    useEffect(() => {
+        setErrMsg('');
+    }, [email, password])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-            await authService.login(email, password).then(
-                () => {
-                    navigate("/");
-                    window.location.reload();
-                },
-                (error) => {
-                    console.log(error);
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({ email, password }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
                 }
             );
+            console.log(JSON.stringify(response?.data));
+            //console.log(JSON.stringify(response));
+            const accessToken = response?.data?.accessToken;
+            const roles = response?.data?.roles;
+            setAuth({ email, password, roles, accessToken });
+            setEmail('');
+            setPassword('');
+            navigate(from, { replace: true });
         } catch (err) {
-            console.log(err);
+            console.log(err)
+            if (!err?.response) {
+                setErrMsg('No Server Response');
+            } else if (err.response?.status === 400) {
+                setErrMsg('Missing Username or Password');
+            } else if (err.response?.status === 401) {
+                setErrMsg('Unauthorized');
+            } else {
+                setErrMsg('Login Failed');
+            }
+            console.log(errMsg)
         }
-    };
+    }
 
 
     return (
