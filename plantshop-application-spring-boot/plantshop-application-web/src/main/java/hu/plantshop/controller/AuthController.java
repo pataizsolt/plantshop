@@ -91,12 +91,7 @@ public class AuthController {
 
         return authenticateuser(new LoginRequest(user.getEmail(), registrationRequest.getPassword()), response);
     }
-
-<<<<<<< HEAD
     @GetMapping("/refreshtoken")
-=======
-    @PostMapping("/refreshtoken")
->>>>>>> 97f642fbe221af51dcc37458f15a56ba08963f18
     public ResponseEntity<?> refreshtoken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String requestRefreshToken = null;
