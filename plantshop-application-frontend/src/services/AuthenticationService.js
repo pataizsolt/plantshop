@@ -11,8 +11,8 @@ const signup = (firstName, lastName, email, password) => {
             password,
         })
         .then((response) => {
-            if (response.data.token) {
-                localStorage.setItem("token", JSON.stringify(response.data.token));
+            if (response.data.accessToken) {
+                localStorage.setItem("token", JSON.stringify(response.data.accessToken));
             }
 
             return response.data;
@@ -26,8 +26,8 @@ const login = (email, password) => {
             password,
         })
         .then((response) => {
-            if (response.data.token) {
-                localStorage.setItem("token", JSON.stringify(response.data.token));
+            if (response.data.accessToken) {
+                localStorage.setItem("token", JSON.stringify(response.data.accessToken));
             }
 
             return response.data;

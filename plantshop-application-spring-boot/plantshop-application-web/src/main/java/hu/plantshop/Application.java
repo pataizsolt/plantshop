@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import hu.plantshop.domain.AppUser;
 import hu.plantshop.domain.AppUserRole;
@@ -24,6 +26,16 @@ public class Application {
     CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, BCryptPasswordEncoder passwordEncoder) {
         return args -> {
             appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
+
+        };
+    }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/auth/signin").allowedOrigins("http://localhost:8080");
+            }
         };
     }
 }
