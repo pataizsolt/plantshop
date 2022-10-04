@@ -25,6 +25,7 @@ public class Application {
     @Bean
     CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, BCryptPasswordEncoder passwordEncoder) {
         return args -> {
+            appUserRoleRepository.save(new AppUserRole(null, "USER"));
             appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
 
         };

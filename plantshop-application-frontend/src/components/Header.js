@@ -1,7 +1,6 @@
 import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import authService from '../services/AuthenticationService'
 
 
 const Header = () => {
@@ -14,7 +13,7 @@ const Header = () => {
                     <Nav.Item><Link to='/login'>Login</Link></Nav.Item>
                     <Nav.Item><Link to='/register'>Register</Link></Nav.Item>
                     <Nav.Item><Link to='/private'>Private</Link></Nav.Item>
-                    <Nav.Item><Link to="/"><span onClick={authService.logout}>Logout</span></Link></Nav.Item>
+                    <Nav.Item><Link to="/">Logout</Link></Nav.Item>
                 </Nav>
             </Container>
         </Navbar>

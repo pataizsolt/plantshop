@@ -1,8 +1,11 @@
 package hu.plantshop.controller;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -69,7 +72,13 @@ public class AuthController {
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
         Cookie cookie = new Cookie("refreshtoken", refreshToken.getToken());
+        cookie.setHttpOnly(true);
+        //cookie.setSecure(true);
+        Cookie emailCookie = new Cookie("id", userDetails.getId().toString());
+        emailCookie.setHttpOnly(true);
+        //emailCookie.setSecure(true);
         response.addCookie(cookie);
+        response.addCookie(emailCookie);
 
         return ResponseEntity
             .ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(), userDetails.getEmail(), userDetails.getAppUserRoles()));
@@ -120,10 +129,29 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
-    public ResponseEntity<?> logoutUser() {
-        AppUser userDetails = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long userId = userDetails.getId();
-        refreshTokenService.deleteByUserId(userId);
+    public ResponseEntity<?> logoutUser(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+
+        String requestRefreshToken = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("refreshtoken")) {
+                    requestRefreshToken = cookie.getValue();
+                }
+            }
+        }
+        refreshTokenService.deleteByRefreshToken(requestRefreshToken);
+
+        if (cookies != null){
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0);
+                cookie.setHttpOnly(true);
+                //cookie.setSecure(true);
+                response.addCookie(cookie);
+            }
+        }
+
         return ResponseEntity.ok(new MessageResponse("Log out successful!"));
     }
 }
