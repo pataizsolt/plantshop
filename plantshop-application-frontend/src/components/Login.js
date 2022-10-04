@@ -1,5 +1,4 @@
-import { Form, Button } from 'react-bootstrap'
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -57,22 +56,26 @@ const Login = () => {
 
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)}
-                    value={email} />
-            </Form.Group>
+        < div className="container text-center" >
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}
-                    value={password} />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </Form>
+            <main className="form-signin w-50 m-auto">
+                <form onSubmit={handleSubmit}>
+                    <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+
+                    <div className="form-floating mb-3">
+                        <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)}
+                            value={email} />
+                        <label htmlFor="floatingInput">Email address</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input type="password" className="form-control" id="floatingPassword" placeholder="Password" onChange={(e) => setPassword(e.target.value)}
+                            value={password} />
+                        <label htmlFor="floatingPassword">Password</label>
+                    </div>
+                    <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                </form>
+            </main>
+        </div>
     )
 }
 
