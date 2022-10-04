@@ -5,7 +5,9 @@ import Register from './components/Register';
 import Error from './components/Error';
 import PrivateContent from './components/PrivateContent';
 
+
 function App() {
+
   return (
 
     <Routes>
