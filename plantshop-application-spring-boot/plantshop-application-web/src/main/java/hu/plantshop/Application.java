@@ -11,8 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import hu.plantshop.domain.Address;
 import hu.plantshop.domain.AppUser;
 import hu.plantshop.domain.AppUserRole;
+import hu.plantshop.repository.AddressRepository;
 import hu.plantshop.repository.AppUserRepository;
 import hu.plantshop.repository.AppUserRoleRepository;
 
@@ -23,20 +25,13 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, BCryptPasswordEncoder passwordEncoder) {
+    CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, BCryptPasswordEncoder passwordEncoder) {
         return args -> {
-            appUserRoleRepository.save(new AppUserRole(null, "USER"));
-            appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
+            appUserRoleRepository.save(new AppUserRole("USER"));
+            addressRepository.save(new Address("8319", "Mordor", "mostmarelmegyekedzeni utca", "223"));
+            //appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
+            appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444"));
 
-        };
-    }
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/auth/signin").allowedOrigins("http://localhost:8080");
-            }
         };
     }
 }

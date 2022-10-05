@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Error from './components/Error';
 import PrivateContent from './components/PrivateContent';
+import Profile from './components/Profile';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/private' element={<PrivateContent />} />
+        <Route path='/profile' element={<Profile />} />
         <Route path='*' element={<Error />} />
       </Route>
     </Routes>

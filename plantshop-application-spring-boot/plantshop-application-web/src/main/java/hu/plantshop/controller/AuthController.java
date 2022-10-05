@@ -73,12 +73,12 @@ public class AuthController {
 
         Cookie cookie = new Cookie("refreshtoken", refreshToken.getToken());
         cookie.setHttpOnly(true);
-        //cookie.setSecure(true);
-        Cookie emailCookie = new Cookie("id", userDetails.getId().toString());
-        emailCookie.setHttpOnly(true);
+        cookie.setSecure(false);
+        //Cookie emailCookie = new Cookie("id", userDetails.getId().toString());
+        //emailCookie.setHttpOnly(true);
         //emailCookie.setSecure(true);
         response.addCookie(cookie);
-        response.addCookie(emailCookie);
+        //response.addCookie(emailCookie);
 
         return ResponseEntity
             .ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(), userDetails.getEmail(), userDetails.getAppUserRoles()));

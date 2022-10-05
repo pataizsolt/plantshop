@@ -14,13 +14,17 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class AppUserRole implements GrantedAuthority {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
+
+    public AppUserRole(String name) {
+        id = null;
+        this.name = name;
+    }
 
     @Override
     public String getAuthority() {
