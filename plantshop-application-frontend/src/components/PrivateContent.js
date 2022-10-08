@@ -19,7 +19,7 @@ const PrivateContent = () => {
                 console.log(response.data);
             } catch (err) {
                 console.error(err);
-                navigate('/api/auth/login', { state: { from: location }, replace: true });
+                navigate('/login', { state: { from: location }, replace: true });
             }
         }
 

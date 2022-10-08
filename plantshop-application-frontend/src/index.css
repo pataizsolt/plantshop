@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.carousel-item {
+  background-color: black;
+  color: black;
+  position: relative;
+  max-height: 32rem;
+
+}
+
+.overlay-image {
+  position: relative;
+  opacity: 0.8;
+}
+
+.link {
+  text-decoration: none;
+}

@@ -23,7 +23,7 @@ const Profile = () => {
                 console.log(userData);
             } catch (err) {
                 console.error(err);
-                navigate('/api/auth/login', { state: { from: location }, replace: true });
+                navigate('/login', { state: { from: location }, replace: true });
             }
         }
 
@@ -37,7 +37,7 @@ const Profile = () => {
 
     return (
         <div className="container text-left w-50" >
-            <table class="table table-s">
+            <table className="table table-s">
                 <thead>
                     <tr>
                         <th scope="col" colspan="2">Personal data</th>

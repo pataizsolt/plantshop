@@ -5,6 +5,7 @@ import Register from './components/Register';
 import Error from './components/Error';
 import PrivateContent from './components/PrivateContent';
 import Profile from './components/Profile';
+import LandingPage from './components/LandingPage';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
 
     <Routes>
       <Route path='/' element={<Home />} >
+        <Route path='/home' element={<LandingPage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/private' element={<PrivateContent />} />
