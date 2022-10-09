@@ -43,7 +43,7 @@ const Header = () => {
                 </div> */}
                 <div className="row-2">
                     {['sm'].map((expand) => (
-                        <Navbar key={expand} bg="dark" variant="dark" expand={expand}>
+                        <Navbar key={expand} className="bg-custom-dark" variant='dark' expand={expand}>
                             <Container fluid>
                                 <Navbar.Brand as={Link} to="/home">Indoor Gardeners</Navbar.Brand>
                                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />

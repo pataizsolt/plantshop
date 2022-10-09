@@ -2,7 +2,7 @@ import React from 'react'
 import flowers from '../assets/flowers.jpg'
 import garden from '../assets/garden.jpg'
 import japangarden from '../assets/japangarden.jpg'
-import { Carousel } from 'react-bootstrap'
+import { Carousel, Container, Row, Col } from 'react-bootstrap'
 
 const LandingPage = () => {
     return (
@@ -46,6 +46,16 @@ const LandingPage = () => {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
+            <div className='spacer layer-1'></div>
+            <div className='spacer layer-2'>
+                <div className='wavetext'>
+                    <h3>Third slide label</h3>
+                    <p>
+                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                    </p>
+                </div>
+            </div>
+
             {/* 
   Multi
   line
