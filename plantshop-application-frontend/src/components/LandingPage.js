@@ -7,6 +7,16 @@ import { Carousel, Container, Row, Col } from 'react-bootstrap'
 const LandingPage = () => {
     return (
         <>
+            <div className='spacer layer-1'></div>
+            <div className='spacer layer-2'>
+                <div className='wavetext'>
+                    <h3>Third slide label</h3>
+                    <p>
+                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                    </p>
+                </div>
+            </div>
+            {/*
             <Carousel>
                 <Carousel.Item>
                     <img
@@ -46,17 +56,9 @@ const LandingPage = () => {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-            <div className='spacer layer-1'></div>
-            <div className='spacer layer-2'>
-                <div className='wavetext'>
-                    <h3>Third slide label</h3>
-                    <p>
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                    </p>
-                </div>
-            </div>
+            
 
-            {/* 
+             
   Multi
   line
   comment
