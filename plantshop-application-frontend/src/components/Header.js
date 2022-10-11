@@ -1,5 +1,4 @@
 import React from 'react'
-import { Navbar, Nav, Container, NavDropdown, Offcanvas, Form, Button, ButtonGroup } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import useLogout from '../hooks/useLogout'
 import { BsPerson, BsCart } from "react-icons/bs";
@@ -261,8 +260,10 @@ const Header = () => {
                                 <div className="p-2 text-gray-400">Indoor Gardeners</div>
                             </div>
                             <div className="ml-auto flex items-center">
-                                <div className="flex lg:ml-6">
-                                    <ProfileDropdown />
+                                <div className="ml-4 flow-root lg:ml-6">
+                                    <a href="#" className="group -m-2 flex items-center p-2">
+                                        <ProfileDropdown />
+                                    </a>
                                 </div>
                                 {/* Cart */}
                                 <div className="ml-4 flow-root lg:ml-6">
@@ -275,23 +276,13 @@ const Header = () => {
                                         <span className="sr-only">items in cart, view bag</span>
                                     </a>
                                 </div>
-                                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                        Sign in
-                                    </a>
-                                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                                        Create account
-                                    </a>
-                                </div>
                             </div>
-
                         </div>
                     </nav>
 
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="border-b border-gray-200">
-                            <div className="flex h-16 items-center">
+                            <div className="flex h-16 items-center justify-center">
                                 <button
                                     type="button"
                                     className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
@@ -300,21 +291,6 @@ const Header = () => {
                                     <span className="sr-only">Open menu</span>
                                     <BsPerson className="h-6 w-6" aria-hidden="true" />
                                 </button>
-
-                                {/* Logo
-                                <div className="ml-4 flex lg:ml-0">
-                                    <a href="#">
-                                        <span className="sr-only">Your Company</span>
-                                        <img
-                                            className="h-8 w-auto"
-                                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                            alt=""
-                                        />
-                                    </a>
-                                </div>
-                                 */}
-
-                                {/* Flyout menus */}
                                 <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">
                                     <div className="flex h-full space-x-8">
                                         {navigation.categories.map((category) => (
@@ -343,35 +319,11 @@ const Header = () => {
                                                             leaveFrom="opacity-100"
                                                             leaveTo="opacity-0"
                                                         >
-                                                            <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
-                                                                {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
+                                                            <Popover.Panel className="absolute z-10 inset-x-0 top-full text-sm text-gray-500">
                                                                 <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
-
                                                                 <div className="relative bg-white">
                                                                     <div className="mx-auto max-w-7xl px-8">
                                                                         <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
-                                                                            {/*
-                                                                            <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                                                                {category.featured.map((item) => (
-                                                                                    <div key={item.name} className="group relative text-base sm:text-sm">
-                                                                                        <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                                                                            <img
-                                                                                                src={item.imageSrc}
-                                                                                                alt={item.imageAlt}
-                                                                                                className="object-cover object-center"
-                                                                                            />
-                                                                                        </div>
-                                                                                        <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                                                                            <span className="absolute inset-0 z-10" aria-hidden="true" />
-                                                                                            {item.name}
-                                                                                        </a>
-                                                                                        <p aria-hidden="true" className="mt-1">
-                                                                                            Shop now
-                                                                                        </p>
-                                                                                    </div>
-                                                                                ))}
-                                                                            </div>
-                                                                            */}
                                                                             <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
                                                                                 {category.sections.map((section) => (
                                                                                     <div key={section.name}>
@@ -420,81 +372,6 @@ const Header = () => {
                     </nav>
                 </header >
             </div >
-            {/*<div>
-                 <div className="row-1">
-                    <Navbar bg="dark" variant="dark">
-                        <Container>
-                            <Navbar.Brand>Indoor Gardeners</Navbar.Brand>
-                            <Nav className="me-auto">
-                                <Nav.Item><Link to='/'>Home</Link></Nav.Item>
-                                <Nav.Item><Link to='/login'>Login</Link></Nav.Item>
-                                <Nav.Item><Link to='/register'>Register</Link></Nav.Item>
-                                <Nav.Item><Link to='/private'>Private</Link></Nav.Item>
-                                <Nav.Item><Link to='/profile'>Profile</Link></Nav.Item>
-                                <Nav.Item><Link to='/home'>Home</Link></Nav.Item>
-                                <button className='btn btn-success' onClick={wrapper}>logout</button>
-                            </Nav>
-                        </Container>
-                    </Navbar>
-                </div> */}
-            {/*<div className="row-2">
-                    {['sm'].map((expand) => (
-                        <Navbar key={expand} className="bg-custom-dark" variant='dark' expand={expand}>
-                            <Container fluid>
-                                <Navbar.Brand as={Link} to="/home">Indoor Gardeners</Navbar.Brand>
-                                <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-                                <Navbar.Offcanvas
-                                    id={`offcanvasNavbar-expand-${expand}`}
-                                    aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-                                    placement="end"
-                                >
-                                    <Offcanvas.Header closeButton>
-                                        <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                                            Menu
-                                        </Offcanvas.Title>
-                                    </Offcanvas.Header>
-                                    <Offcanvas.Body>
-                                        <Nav className="justify-content-end flex-grow-1 pe-3">
-                                            <Nav.Link as={Link} to="/home">Home</Nav.Link>
-                                            <NavDropdown
-                                                menuVariant='dark'
-                                                title={<BsPerson />}
-                                                id={`offcanvasNavbarDropdown-expand-${expand}`}
-                                                as={ButtonGroup}
-                                                align={{ lg: 'end' }}
-                                            >
-                                                {isEmpty(auth) ?
-                                                    <>
-                                                        <NavDropdown.Item>
-                                                            <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                                                        </NavDropdown.Item>
-                                                        <NavDropdown.Item>
-                                                            <Nav.Link as={Link} to="/register">Register</Nav.Link>
-                                                        </NavDropdown.Item>
-                                                    </>
-                                                    :
-                                                    <>
-                                                        <NavDropdown.Item>
-                                                            <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-                                                        </NavDropdown.Item>
-                                                        <NavDropdown.Divider />
-                                                        <NavDropdown.Item>
-                                                            <Nav.Link onClick={wrapper}>Logout</Nav.Link>
-                                                        </NavDropdown.Item>
-                                                    </>
-                                                }
-
-
-                                            </NavDropdown>
-                                        </Nav>
-                                    </Offcanvas.Body>
-                                </Navbar.Offcanvas>
-                            </Container>
-                        </Navbar>
-                    ))}
-                </div>
-            </div>*/}
-
         </>
     );
 }

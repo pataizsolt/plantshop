@@ -16,20 +16,6 @@ code {
     monospace;
 }
 
-
-.carousel-item {
-  background-color: black;
-  color: black;
-  position: relative;
-  max-height: 32rem;
-
-}
-
-.overlay-image {
-  position: relative;
-  opacity: 0.8;
-}
-
 .link {
   text-decoration: none;
 }
@@ -48,14 +34,6 @@ code {
 
 .layer-2 {
   background-image: url('./assets/wavebottom.svg');
-}
-
-.bg-custom-dark {
-  background-color: #191817;
-}
-
-body {
-  background-color: #191817;
 }
 
 .wavetext {

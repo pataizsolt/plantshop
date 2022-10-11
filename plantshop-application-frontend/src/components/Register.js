@@ -82,44 +82,129 @@ const Register = () => {
 
 
     return (
-
-
-        < div className="container text-center" >
-
-            <main className="form-signin w-50 m-auto">
-                <form onSubmit={handleSubmit}>
-                    <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-
-                    <div className="form-floating mb-3">
-                        <input type="email" className="form-control" id="floatingInput" onChange={(e) => setEmail(e.target.value)} value={email} />
-                        <label htmlFor="floatingInput">Email address</label>
+        <>
+            <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div className="w-full max-w-md space-y-8">
+                    <div>
+                        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+                            Register your account
+                        </h2>
                     </div>
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                        <input type="hidden" name="remember" defaultValue="true" />
+                        <div className="-space-y-px rounded-md shadow-sm">
+                            <div>
+                                <label htmlFor="email-address" className="sr-only">
+                                    Email address
+                                </label>
+                                <input
+                                    id="email-address"
+                                    name="email"
+                                    type="email"
+                                    autoComplete="email"
+                                    required
+                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Email address"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={email}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="firstName" className="sr-only">
+                                    First name
+                                </label>
+                                <input
+                                    id="firstName"
+                                    name="firstName"
+                                    type="firstName"
+                                    required
+                                    className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="First name"
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    value={firstName}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="lastName" className="sr-only">
+                                    Last name
+                                </label>
+                                <input
+                                    id="lastName"
+                                    name="lastName"
+                                    type="lastName"
+                                    required
+                                    className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Last Name"
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    value={lastName}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="password" className="sr-only">
+                                    Password
+                                </label>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    required
+                                    className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={password}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="match-password" className="sr-only">
+                                    Password
+                                </label>
+                                <input
+                                    id="match-password"
+                                    name="match-password"
+                                    type="match-password"
+                                    required
+                                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Password"
+                                    onChange={(e) => setMatchPassword(e.target.value)}
+                                    value={matchPassword}
+                                />
+                            </div>
+                        </div>
 
-                    <div className="form-floating mb-3">
-                        <input type="firstName" className="form-control" id="floatingFirstName" onChange={(e) => setFirstName(e.target.value)} value={firstName} />
-                        <label htmlFor="floatingFirstName">First Name</label>
+                        {/*<div className="flex items-center justify-between">
+                         <div className="flex items-center">
+                            <input
+                                id="remember-me"
+                                name="remember-me"
+                                type="checkbox"
+                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            />
+                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                                Remember me
+                            </label>
+                        </div>
+
+                        <div className="text-sm">
+                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                Forgot your password?
+                            </a>
+                        </div>
                     </div>
+                    */}
 
-                    <div className="form-floating mb-3">
-                        <input type="lastName" className="form-control" id="floatingLastName" onChange={(e) => setLastName(e.target.value)} value={lastName} />
-                        <label htmlFor="floatingLastName">Last Name</label>
-                    </div>
-
-                    <div className="form-floating mb-3">
-                        <input type="password" className="form-control" id="floatingPassword" onChange={(e) => setPassword(e.target.value)} value={password} />
-                        <label htmlFor="floatingPassword">Password</label>
-                    </div>
-
-                    <div className="form-floating mb-3">
-                        <input type="matchPassword" className="form-control" id="floatingMatchPassword" onChange={(e) => setMatchPassword(e.target.value)} value={matchPassword} />
-                        <label htmlFor="floatingMatchPassword">Password</label>
-                    </div>
-
-                    <button disabled={!validEmail || !validPassword || !validMatch ? true : false} className="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
-                </form>
-            </main>
-
-        </div>
+                        <div>
+                            <button
+                                type="submit"
+                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                disabled={!validEmail || !validPassword || !validMatch ? true : false}
+                            >
+                                Sign up
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </>
     )
 }
 
