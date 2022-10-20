@@ -36,13 +36,13 @@ const Profile = () => {
     }, [])
 
     return (
-        <div class="flex flex-col items-center justify-center">
-            <div class="py-2 inline-block">
-                <div class="overflow-hidden">
-                    <table class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-">
-                        <thead class="border-b">
+        <div className="flex flex-col items-center justify-center">
+            <div className="py-2 inline-block">
+                <div className="overflow-hidden">
+                    <table className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-">
+                        <thead className="border-b">
                             <tr>
-                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left" colspan="2">
+                                <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left" colSpan="2">
                                     Personal data
                                 </th>
                             </tr>

@@ -1,9 +1,12 @@
 package hu.plantshop.domain;
 
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -20,18 +23,15 @@ public class Product {
     @GeneratedValue
     private Long id;
     private Integer price;
-    @ManyToOne
-    private Category category;
-    @ManyToOne
-    private Subcategory subcategory;
+    @ManyToMany
+    private List<Category> category;
     private Integer stock;
     private String name;
     private String description;
 
-    public Product(Integer price, Category category, Subcategory subcategory, Integer stock, String name, String description) {
+    public Product(Integer price, List<Category> category, Integer stock, String name, String description) {
         this.price = price;
         this.category = category;
-        this.subcategory = subcategory;
         this.stock = stock;
         this.name = name;
         this.description = description;

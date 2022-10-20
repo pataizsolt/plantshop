@@ -91,8 +91,8 @@ const navigation = {
         },
     ],
     pages: [
-        { name: 'Company', href: '/home' },
-        { name: 'Stores', href: '/profile' },
+        { name: 'Store', href: '/store' },
+        { name: 'random', href: '/profile' },
     ],
 }
 
