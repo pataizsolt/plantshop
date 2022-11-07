@@ -2,12 +2,21 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from '../api/axios'
+import useAuth from '../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 const EMAIL_REGEX = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/api/auth/signup';
 
 const Register = () => {
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
@@ -44,13 +53,7 @@ const Register = () => {
         // if button enabled with JS hack
         const v1 = EMAIL_REGEX.test(email);
         const v2 = PWD_REGEX.test(password);
-        if (!v1 || !v2) {
-            setErrMsg("Invalid Entry");
-            console.log(errMsg)
-            console.log(v1)
-            console.log(v2)
-            return;
-        }
+
         try {
             const response = await axios.post(REGISTER_URL,
                 JSON.stringify({ firstName, lastName, email, password }),
@@ -69,6 +72,13 @@ const Register = () => {
             setLastName('');
             setPassword('');
             setMatchPassword('');
+
+
+            const accessToken = response?.data?.accessToken;
+            const roles = response?.data?.roles;
+            setAuth({ email, password, roles, accessToken });
+            navigate(from, { replace: true });
+
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -196,7 +206,7 @@ const Register = () => {
                             <button
                                 type="submit"
                                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                disabled={!validEmail || !validPassword || !validMatch ? true : false}
+
                             >
                                 Sign up
                             </button>

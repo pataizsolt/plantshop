@@ -12,5 +12,5 @@ public class UserInfoResponse {
     String email;
     String phoneNumber;
     String deliveryAddress;
-    String billingAdress;
+    String billingAddress;
 }

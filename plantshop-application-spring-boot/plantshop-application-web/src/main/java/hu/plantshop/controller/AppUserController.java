@@ -49,6 +49,7 @@ public class AppUserController {
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
         AppUser user = appUserService.loadAppUserFromJwt(jwt);
-        return ResponseEntity.ok(new UserInfoResponse(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getDeliveryAddress().toString(), user.getBillingAddress().toString()));
+        String s = "";
+        return ResponseEntity.ok(new UserInfoResponse(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber() == null ? "-" : user.getPhoneNumber(), user.getDeliveryAddress() == null ? "-" : user.getDeliveryAddress().toString(), user.getBillingAddress() == null ? "-" : user.getBillingAddress().toString()));
     }
 }
