@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,10 +17,13 @@ public class Category {
     @GeneratedValue
     private Long id;
     private String categoryName;
+
+    private String href;
     private Long parentId;
 
-    public Category(String categoryName, Long parentId) {
+    public Category(String categoryName, String href, Long parentId) {
         this.categoryName = categoryName;
+        this.href = href;
         this.parentId = parentId;
     }
 }

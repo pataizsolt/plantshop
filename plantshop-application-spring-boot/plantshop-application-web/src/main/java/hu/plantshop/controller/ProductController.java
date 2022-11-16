@@ -31,7 +31,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<?> getCurrentUser() {
+    public ResponseEntity<?> getAllProducts() {
         List<ProductResponse> products = productService.getAllProducts();
         if(products.size() == 0) {
             return ResponseEntity.ok("no products");

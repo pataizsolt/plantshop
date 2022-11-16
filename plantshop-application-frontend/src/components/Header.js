@@ -6,7 +6,8 @@ import useAuth from '../hooks/useAuth';
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import ProfileDropdown from './ProfileDropdown';
-
+import { useEffect } from 'react';
+import axios from '../api/axios';
 
 const navigation = {
     categories: [
@@ -96,6 +97,43 @@ const navigation = {
     ],
 }
 
+const categoriesNavigation1 = {
+    "categories": [
+        {
+            "mainCategory": {
+                "id": 5,
+                "categoryName": "Category2",
+                "href": "category2",
+                "parentId": null
+            },
+            "subCategories": []
+        },
+        {
+            "mainCategory": {
+                "id": 4,
+                "categoryName": "Category1",
+                "href": "category1",
+                "parentId": null
+            },
+            "subCategories": [
+                {
+                    "id": 6,
+                    "categoryName": "SubCategory1",
+                    "href": "scategory1",
+                    "parentId": 4
+                },
+                {
+                    "id": 7,
+                    "categoryName": "SubCategory2",
+                    "href": "scategory2",
+                    "parentId": 4
+                }
+            ]
+        }
+    ]
+}
+
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -104,6 +142,23 @@ const Header = () => {
     const { auth } = useAuth();
     const logout = useLogout();
     const navigate = useNavigate();
+    const [categoriesNavigation, setCategoriesNavigation] = useState();
+    const [isFetching, setIsFetching] = useState(true);
+
+    useEffect(() => {
+        axios.get('/api/store/categories').then(resp => {
+            console.log(resp.data)
+
+
+
+            setCategoriesNavigation(resp.data)
+            setIsFetching(false);
+            console.log(categoriesNavigation);
+        });
+    }, [])
+
+
+
 
     function isEmpty(anObject) {
 
@@ -159,68 +214,67 @@ const Header = () => {
                                         </button>
                                     </div>
 
+
                                     {/* Links */}
-                                    <Tab.Group as="div" className="mt-2">
-                                        <div className="border-b border-gray-200">
-                                            <Tab.List className="-mb-px flex space-x-8 px-4">
-                                                {navigation.categories.map((category) => (
-                                                    <Tab
-                                                        key={category.name}
-                                                        className={({ selected }) =>
-                                                            classNames(
-                                                                selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent',
-                                                                'flex-1 whitespace-nowrap border-b-2 py-4 px-1 text-base font-medium'
-                                                            )
-                                                        }
-                                                    >
-                                                        {category.name}
-                                                    </Tab>
-                                                ))}
-                                            </Tab.List>
-                                        </div>
-                                        <Tab.Panels as={Fragment}>
-                                            {navigation.categories.map((category) => (
-                                                <Tab.Panel key={category.name} className="space-y-10 px-4 pt-10 pb-8">
-                                                    <div className="grid grid-cols-2 gap-x-4">
-                                                        {category.featured.map((item) => (
-                                                            <div key={item.name} className="group relative text-sm">
-                                                                <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                                                    <img src={item.imageSrc} alt={item.imageAlt} className="object-cover object-center" />
-                                                                </div>
-                                                                <a href={item.href} className="mt-6 block font-medium text-gray-900">
-                                                                    <span className="absolute inset-0 z-10" aria-hidden="true" />
-                                                                    {item.name}
+                                    {isFetching ? (<div></div>) : (
+                                        <Tab.Group as="div" className="mt-2">
+                                            <div className="border-b border-gray-200">
+                                                <Tab.List className="-mb-px flex space-x-8 px-4">
+                                                    {categoriesNavigation.categories.map((category) => (
+                                                        <Tab
+                                                            key={category.mainCategory.categoryName}
+                                                            className={({ selected }) =>
+                                                                classNames(
+                                                                    selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent',
+                                                                    'flex-1 whitespace-nowrap border-b-2 py-4 px-1 text-base font-medium'
+                                                                )
+                                                            }
+                                                        >
+                                                            {category.mainCategory.categoryName}
+                                                        </Tab>
+                                                    ))}
+                                                </Tab.List>
+                                            </div>
+                                            <Tab.Panels as={Fragment}>
+                                                {categoriesNavigation.categories.map((category) => (
+                                                    <Tab.Panel key={category.mainCategory.categoryName} className="space-y-10 px-4 pt-10 pb-8">
+
+                                                        <div key={category.mainCategory.categoryName}>
+                                                            <p id={`${category.mainCategory.categoryName}-heading-mobile`} className="font-medium text-gray-900">
+                                                                <a href={category.mainCategory.href} className="-m-2 block p-2 text-gray-500">
+                                                                    {category.mainCategory.categoryName}
                                                                 </a>
-                                                                <p aria-hidden="true" className="mt-1">
-                                                                    Shop now
-                                                                </p>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                    {category.sections.map((section) => (
-                                                        <div key={section.name}>
-                                                            <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
-                                                                {section.name}
                                                             </p>
                                                             <ul
                                                                 role="list"
-                                                                aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
+                                                                aria-labelledby={`${category.mainCategory.categoryName}-heading-mobile`}
                                                                 className="mt-6 flex flex-col space-y-6"
                                                             >
-                                                                {section.items.map((item) => (
-                                                                    <li key={item.name} className="flow-root">
+                                                                {category.subCategories.map((item) => (
+                                                                    <li key={item.mainCategory} className="flow-root">
                                                                         <a href={item.href} className="-m-2 block p-2 text-gray-500">
-                                                                            {item.name}
+                                                                            {item.categoryName}
                                                                         </a>
                                                                     </li>
                                                                 ))}
                                                             </ul>
                                                         </div>
-                                                    ))}
-                                                </Tab.Panel>
-                                            ))}
-                                        </Tab.Panels>
-                                    </Tab.Group>
+
+
+
+
+
+
+                                                    </Tab.Panel>
+                                                ))}
+                                            </Tab.Panels>
+                                        </Tab.Group>
+
+
+
+                                    )}
+
+
 
                                     <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                                         {navigation.pages.map((page) => (
@@ -231,6 +285,7 @@ const Header = () => {
                                             </div>
                                         ))}
                                     </div>
+
 
                                     <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                                         <div className="flow-root">
@@ -280,6 +335,8 @@ const Header = () => {
                         </div>
                     </nav>
 
+
+
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="border-b border-gray-200">
                             <div className="flex h-16 items-center justify-center">
@@ -291,10 +348,98 @@ const Header = () => {
                                     <span className="sr-only">Open menu</span>
                                     <BsPerson className="h-6 w-6" aria-hidden="true" />
                                 </button>
-                                <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">
+
+                                {isFetching ? (<div></div>) : (
+                                    <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">
+                                        <div className="flex h-full space-x-8">
+                                            {categoriesNavigation.categories.map((category) => (
+                                                <Popover key={category.mainCategory.categoryName} className="flex">
+                                                    {({ open }) => (
+                                                        <>
+                                                            <div className="relative flex">
+                                                                <Popover.Button
+                                                                    className={classNames(
+                                                                        open
+                                                                            ? 'border-indigo-600 text-indigo-600'
+                                                                            : 'border-transparent text-gray-700 hover:text-gray-800',
+                                                                        'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
+                                                                    )}
+                                                                >
+                                                                    {category.mainCategory.categoryName}
+                                                                </Popover.Button>
+                                                            </div>
+
+                                                            <Transition
+                                                                as={Fragment}
+                                                                enter="transition ease-out duration-200"
+                                                                enterFrom="opacity-0"
+                                                                enterTo="opacity-100"
+                                                                leave="transition ease-in duration-150"
+                                                                leaveFrom="opacity-100"
+                                                                leaveTo="opacity-0"
+                                                            >
+                                                                <Popover.Panel className="absolute z-10 inset-x-0 top-full text-sm text-gray-500">
+                                                                    <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
+                                                                    <div className="relative bg-white">
+                                                                        <div className="mx-auto max-w-7xl px-8">
+                                                                            <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
+                                                                                <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
+
+                                                                                    <div key={category.mainCategory.categoryName}>
+                                                                                        <p id={`${category.mainCategory.categoryName}-heading`} className="font-medium text-gray-900">
+
+                                                                                            <a href={category.mainCategory.href} className="hover:text-gray-800">
+                                                                                                {category.mainCategory.categoryName}
+                                                                                            </a>
+                                                                                        </p>
+                                                                                        <ul
+                                                                                            role="list"
+                                                                                            aria-labelledby={`${category.mainCategory.categoryName}-heading`}
+                                                                                            className="mt-6 space-y-6 sm:mt-4 sm:space-y-4 list-none"
+                                                                                        >
+                                                                                            {category.subCategories.map((item) => (
+                                                                                                <li key={item.categoryName} className="flex">
+                                                                                                    <a href={item.href} className="hover:text-gray-800">
+                                                                                                        {item.categoryName}
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            ))}
+                                                                                        </ul>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </Popover.Panel>
+                                                            </Transition>
+                                                        </>
+                                                    )}
+                                                </Popover>
+                                            ))}
+
+
+
+                                            {navigation.pages.map((page) => (
+                                                <Link
+                                                    key={page.name}
+                                                    to={page.href}
+                                                    className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                                                >
+                                                    {page.name}
+                                                </Link>
+                                            ))}
+
+
+                                        </div>
+                                    </Popover.Group>
+                                )}
+
+
+                                {/* <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">
                                     <div className="flex h-full space-x-8">
-                                        {navigation.categories.map((category) => (
-                                            <Popover key={category.name} className="flex">
+                                        {categoriesNavigation.categories.map((category) => (
+                                            <Popover key={category.mainCategory.categoryName} className="flex">
                                                 {({ open }) => (
                                                     <>
                                                         <div className="relative flex">
@@ -306,7 +451,7 @@ const Header = () => {
                                                                     'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
                                                                 )}
                                                             >
-                                                                {category.name}
+                                                                {category.mainCategory.categoryName}
                                                             </Popover.Button>
                                                         </div>
 
@@ -325,26 +470,29 @@ const Header = () => {
                                                                     <div className="mx-auto max-w-7xl px-8">
                                                                         <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
                                                                             <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
-                                                                                {category.sections.map((section) => (
-                                                                                    <div key={section.name}>
-                                                                                        <p id={`${section.name}-heading`} className="font-medium text-gray-900">
-                                                                                            {section.name}
-                                                                                        </p>
-                                                                                        <ul
-                                                                                            role="list"
-                                                                                            aria-labelledby={`${section.name}-heading`}
-                                                                                            className="mt-6 space-y-6 sm:mt-4 sm:space-y-4 list-none"
-                                                                                        >
-                                                                                            {section.items.map((item) => (
-                                                                                                <li key={item.name} className="flex">
-                                                                                                    <a href={item.href} className="hover:text-gray-800">
-                                                                                                        {item.name}
-                                                                                                    </a>
-                                                                                                </li>
-                                                                                            ))}
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                ))}
+
+                                                                                <div key={category.mainCategory.categoryName}>
+                                                                                    <p id={`${category.mainCategory.categoryName}-heading`} className="font-medium text-gray-900">
+
+                                                                                        <a href={category.mainCategory.href} className="hover:text-gray-800">
+                                                                                            {category.mainCategory.categoryName}
+                                                                                        </a>
+                                                                                    </p>
+                                                                                    <ul
+                                                                                        role="list"
+                                                                                        aria-labelledby={`${category.mainCategory.categoryName}-heading`}
+                                                                                        className="mt-6 space-y-6 sm:mt-4 sm:space-y-4 list-none"
+                                                                                    >
+                                                                                        {category.subCategories.map((item) => (
+                                                                                            <li key={item.categoryName} className="flex">
+                                                                                                <a href={item.href} className="hover:text-gray-800">
+                                                                                                    {item.categoryName}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        ))}
+                                                                                    </ul>
+                                                                                </div>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -356,6 +504,8 @@ const Header = () => {
                                             </Popover>
                                         ))}
 
+
+                                        
                                         {navigation.pages.map((page) => (
                                             <Link
                                                 key={page.name}
@@ -365,8 +515,10 @@ const Header = () => {
                                                 {page.name}
                                             </Link>
                                         ))}
+
+
                                     </div>
-                                </Popover.Group>
+                                </Popover.Group>*/}
                             </div>
                         </div>
                     </nav>

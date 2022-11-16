@@ -37,12 +37,12 @@ public class Application {
             addressRepository.save(new Address("8319", "Mordor", "mostmarelmegyekedzeni utca", "223"));
             //appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
             appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444"));
-            Category mainCategory1 = new Category("Category1", null);
+            Category mainCategory1 = new Category("Category1", "category1", null);
             categoryRepository.save(mainCategory1);
-            categoryRepository.save(new Category("Category2", null));
+            categoryRepository.save(new Category("Category2",  "category2", null));
             List<Category> categories = new ArrayList<>();
-            Category category1 = new Category("SubCategory1", 4L);
-            Category category2 = new Category("SubCategory2", 4L);
+            Category category1 = new Category("SubCategory1", "scategory1",  4L);
+            Category category2 = new Category("SubCategory2", "scategory2",  4L);
             categories.add(category1);
             categories.add(category2);
             categories.add(mainCategory1);
