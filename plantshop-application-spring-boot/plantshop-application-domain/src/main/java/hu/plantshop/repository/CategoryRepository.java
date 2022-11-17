@@ -11,4 +11,6 @@ import hu.plantshop.domain.Category;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     List<Category> getCategoriesByParentId(Long id);
+
+    Category getCategoryByHref(String categoryName);
 }

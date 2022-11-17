@@ -1,8 +1,11 @@
 package hu.plantshop.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,19 +15,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Category {
+public class BranchCategory {
     @Id
     @GeneratedValue
     private Long id;
     private String categoryName;
 
-    private String href;
-    private Long parentId;
+    @OneToMany
+    private List<Category> mainCategories;
 
-    public Category(String categoryName, Long parentId) {
+    public BranchCategory(String categoryName, List<Category> mainCategories) {
         this.categoryName = categoryName;
-        String href = categoryName.toLowerCase().replaceAll(" ", "-");
-        this.href = href;
-        this.parentId = parentId;
+        this.mainCategories = mainCategories;
     }
 }

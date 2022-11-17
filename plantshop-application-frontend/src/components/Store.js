@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Products from './Products'
 
 const Store = () => {
+
+
     return (
-        <Products />
+        < Products />
     )
 }
 
