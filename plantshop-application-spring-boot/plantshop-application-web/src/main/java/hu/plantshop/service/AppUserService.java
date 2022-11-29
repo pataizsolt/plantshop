@@ -1,10 +1,15 @@
 package hu.plantshop.service;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+
+import javax.security.auth.login.CredentialNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -43,5 +48,17 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email).orElseThrow(()
             -> new UsernameNotFoundException
             ("user Not Found"));
+    }
+
+    public AppUser getUserFromRequest(HttpServletRequest httpServletRequest) throws CredentialNotFoundException {
+        String headerAuth = httpServletRequest.getHeader("Authorization");
+        String jwt = null;
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+            jwt = headerAuth.substring(7);
+        }
+        if(!jwtUtils.validateJwtToken(jwt)){
+            throw new CredentialNotFoundException();
+        }
+        return loadAppUserFromJwt(jwt);
     }
 }

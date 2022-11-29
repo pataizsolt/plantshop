@@ -60,4 +60,8 @@ public class ProductService {
         }
         return response;
     }
+
+    public Product getProductById(Long id){
+        return productRepository.getProductById(id);
+    }
 }

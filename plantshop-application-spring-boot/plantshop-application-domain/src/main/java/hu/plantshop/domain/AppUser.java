@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -54,12 +56,17 @@ public class AppUser implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = true;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Basket basket;
+
     public AppUser(String firstName, String lastName, String email, String password, Set<AppUserRole> appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.appUserRoles = appUserRole;
+        this.basket = new Basket();
+
     }
 
     public AppUser(String firstName, String lastName, String email, String password, Set<AppUserRole> appUserRoles, Address deliveryAddress, Address billingAddress, String phoneNumber) {
@@ -71,6 +78,7 @@ public class AppUser implements UserDetails {
         this.billingAddress = billingAddress;
         this.phoneNumber = phoneNumber;
         this.appUserRoles = appUserRoles;
+        this.basket = new Basket();
     }
 
     @Override

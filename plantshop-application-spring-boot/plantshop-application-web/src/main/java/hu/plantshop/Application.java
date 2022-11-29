@@ -98,7 +98,7 @@ public class Application {
 
 
 
-            Category category1 = new Category("tulipan?",  mainCategory1.getId());
+            Category category1 = new Category("tulipan",  mainCategory1.getId());
             Category category2 = new Category("nincs ilyen",  mainCategory2.getId());
             Category category3 = new Category("hmmmm",  mainCategory3.getId());
             Category category4 = new Category("hello kitty",  mainCategory4.getId());

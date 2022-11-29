@@ -39,17 +39,24 @@ public class AppUserController {
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getCurrentUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String headerAuth = request.getHeader("Authorization");
+    public ResponseEntity<?> getCurrentUser(HttpServletRequest request) throws IOException {
+        /*String headerAuth = request.getHeader("Authorization");
         String jwt = null;
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
             jwt = headerAuth.substring(7);
         }
         if(!jwtUtils.validateJwtToken(jwt)){
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }*/
+        //AppUser user = appUserService.loadAppUserFromJwt(jwt);
+        AppUser user;
+        try{
+            user = appUserService.getUserFromRequest(request);
         }
-        AppUser user = appUserService.loadAppUserFromJwt(jwt);
-        String s = "";
+        catch (Exception e) {
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+
         return ResponseEntity.ok(new UserInfoResponse(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber() == null ? "-" : user.getPhoneNumber(), user.getDeliveryAddress() == null ? "-" : user.getDeliveryAddress().toString(), user.getBillingAddress() == null ? "-" : user.getBillingAddress().toString()));
     }
 }
