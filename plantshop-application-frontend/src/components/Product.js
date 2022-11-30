@@ -1,13 +1,16 @@
 import React from 'react'
-import axios from '../api/axios';
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const BASKET_URL = '/api/store/addtobasket';
 
 const Product = ({ product }) => {
 
+    const axiosPrivate = useAxiosPrivate();
+
     const handleClick = (id) => {
+        console.log(id);
         // Update cart item quantity if already in cart
-        axios.post(BASKET_URL + "/" + { id },
+        axiosPrivate.post(BASKET_URL + "/" + id,
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true

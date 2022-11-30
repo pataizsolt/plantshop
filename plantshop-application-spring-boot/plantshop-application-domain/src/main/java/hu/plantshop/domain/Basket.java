@@ -3,6 +3,7 @@ package hu.plantshop.domain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,9 +28,7 @@ public class Basket {
 
     @OneToMany
     private List<Product> products;
-
     private Long quantity;
-
     private Long price;
 
     public Basket() {

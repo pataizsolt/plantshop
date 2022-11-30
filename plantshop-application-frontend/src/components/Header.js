@@ -136,6 +136,10 @@ const categoriesNavigation1 = {
 }
 
 
+
+
+
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -146,6 +150,7 @@ const Header = () => {
     const navigate = useNavigate();
     const [categoriesNavigation, setCategoriesNavigation] = useState();
     const [isFetching, setIsFetching] = useState(true);
+
 
     useEffect(() => {
         axios.get('/api/store/categories').then(resp => {
@@ -158,6 +163,10 @@ const Header = () => {
             console.log(categoriesNavigation);
         });
     }, [])
+
+
+
+
 
 
 
@@ -243,9 +252,9 @@ const Header = () => {
 
                                                         <div key={category.mainCategory.categoryName}>
                                                             <p id={`${category.mainCategory.categoryName}-heading-mobile`} className="font-medium text-gray-900">
-                                                                <a href={category.mainCategory.href} className="-m-2 block p-2 text-gray-500">
+                                                                <Link to={category.mainCategory.href} className="-m-2 block p-2 text-gray-500">
                                                                     {category.mainCategory.categoryName}
-                                                                </a>
+                                                                </Link>
                                                             </p>
                                                             <ul
                                                                 role="list"
@@ -254,9 +263,9 @@ const Header = () => {
                                                             >
                                                                 {category.subCategories.map((item) => (
                                                                     <li key={item.mainCategory} className="flow-root">
-                                                                        <a href={item.href} className="-m-2 block p-2 text-gray-500">
+                                                                        <Link to={item.href} className="-m-2 block p-2 text-gray-500">
                                                                             {item.categoryName}
-                                                                        </a>
+                                                                        </Link>
                                                                     </li>
                                                                 ))}
                                                             </ul>
@@ -281,9 +290,9 @@ const Header = () => {
                                     <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                                         {navigation.pages.map((page) => (
                                             <div key={page.name} className="flow-root">
-                                                <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
-                                                    {page.name}
-                                                </a>
+                                                <Link to={page.href} className="-m-2 block p-2 font-medium text-gray-900">
+                                                    <span>{page.name}</span>
+                                                </Link>
                                             </div>
                                         ))}
                                     </div>
@@ -291,14 +300,14 @@ const Header = () => {
 
                                     <div className="space-y-6 border-t border-gray-200 py-6 px-4">
                                         <div className="flow-root">
-                                            <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                                            <Link to="#" className="-m-2 block p-2 font-medium text-gray-900">
                                                 Sign in
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="flow-root">
-                                            <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
+                                            <Link to="#" className="-m-2 block p-2 font-medium text-gray-900">
                                                 Create account
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </Dialog.Panel>
@@ -318,9 +327,9 @@ const Header = () => {
                             </div>
                             <div className="ml-auto flex items-center">
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <a href="#" className="group -m-2 flex items-center p-2">
+                                    <Link to="#" className="group -m-2 flex items-center p-2">
                                         <ProfileDropdown />
-                                    </a>
+                                    </Link>
                                 </div>
                                 {/* Cart */}
                                 <div className="ml-4 flow-root lg:ml-6">
@@ -466,9 +475,9 @@ const Header = () => {
                                                                                                 < div key={element.mainCategory.categoryName} >
                                                                                                     <p id={`${element.mainCategory.categoryName}-heading`} className="font-medium text-gray-900">
 
-                                                                                                        <a href={`/store/${element.mainCategory.href}`} className="hover:text-gray-800">
+                                                                                                        <Link to={`/store/${element.mainCategory.href}`} className="hover:text-gray-800">
                                                                                                             {element.mainCategory.categoryName}
-                                                                                                        </a>
+                                                                                                        </Link>
                                                                                                     </p>
 
                                                                                                     <ul
@@ -478,9 +487,9 @@ const Header = () => {
                                                                                                     >
                                                                                                         {element.subCategories.map((item) => (
                                                                                                             <li key={item.categoryName} className="flex">
-                                                                                                                <a href={`/store/${item.href}`} className="hover:text-gray-800">
+                                                                                                                <Link to={`/store/${item.href}`} className="hover:text-gray-800">
                                                                                                                     {item.categoryName}
-                                                                                                                </a>
+                                                                                                                </Link>
                                                                                                             </li>
                                                                                                         ))}
                                                                                                     </ul>
