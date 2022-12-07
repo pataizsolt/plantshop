@@ -35,6 +35,8 @@ public class AppUserController {
 
     private AppUserService appUserService;
 
+
+
     private JwtUtils jwtUtils;
 
     @GetMapping("/profile")

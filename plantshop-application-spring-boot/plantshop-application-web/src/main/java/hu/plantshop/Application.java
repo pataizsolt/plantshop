@@ -1,30 +1,48 @@
 package hu.plantshop;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.multipart.MultipartFile;
 
 import hu.plantshop.domain.Address;
 import hu.plantshop.domain.AppUser;
 import hu.plantshop.domain.AppUserRole;
 import hu.plantshop.domain.BranchCategory;
 import hu.plantshop.domain.Category;
+import hu.plantshop.domain.FileEntity;
 import hu.plantshop.domain.Product;
 import hu.plantshop.repository.AddressRepository;
 import hu.plantshop.repository.AppUserRepository;
 import hu.plantshop.repository.AppUserRoleRepository;
 import hu.plantshop.repository.BranchCategoryRepository;
 import hu.plantshop.repository.CategoryRepository;
+import hu.plantshop.repository.FileRepository;
 import hu.plantshop.repository.ProductRepository;
+import hu.plantshop.service.FileService;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class Application {
@@ -33,7 +51,8 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository) {
+    @Transactional
+    CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository, FileService fileService, FileRepository fileRepository) {
         return args -> {
             appUserRoleRepository.save(new AppUserRole("USER"));
             addressRepository.save(new Address("8319", "Mordor", "mostmarelmegyekedzeni utca", "223"));
@@ -41,7 +60,21 @@ public class Application {
             appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444"));
 
 
+            Resource resource = new ClassPathResource("pictures/sample.jpg");
 
+            InputStream input = resource.getInputStream();
+
+            File file = resource.getFile();
+
+
+
+            String name = "sample.jpg";
+            String contentType = "image/jpg";
+
+            MultipartFile multipartFile = new MockMultipartFile(name,
+                file.getName(), contentType, IOUtils.toByteArray(input));
+
+            fileService.save(multipartFile);
 
 
 
@@ -168,6 +201,12 @@ public class Application {
             branchCategoryRepository.save(new BranchCategory("Pots", mainCategories2));
             branchCategoryRepository.save(new BranchCategory("Accessories", mainCategories3));
 
+
+
+
+
+
+
             productRepository.save(new Product(100, subCategories1, 10, "product", "productdescription"));
             productRepository.save(new Product(100, subCategories2, 101, "product2", "productdescription2"));
             productRepository.save(new Product(100, subCategories3, 101, "product3", "productdescription2"));
@@ -183,6 +222,16 @@ public class Application {
 
 
 
+
+
+
+
+
+
+
+
         };
+
+
     }
 }

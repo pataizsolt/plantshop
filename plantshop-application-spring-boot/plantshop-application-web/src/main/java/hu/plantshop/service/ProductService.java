@@ -1,14 +1,17 @@
 package hu.plantshop.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import hu.plantshop.controller.FilesController;
 import hu.plantshop.domain.Category;
+import hu.plantshop.domain.FileEntity;
 import hu.plantshop.domain.Product;
+import hu.plantshop.dto.response.FileResponse;
 import hu.plantshop.dto.response.ProductResponse;
 import hu.plantshop.repository.CategoryRepository;
 import hu.plantshop.repository.ProductRepository;
@@ -35,7 +38,17 @@ public class ProductService {
                     subCategories.add(categorie.getCategoryName());
                 }
             }
-            response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories,  product.getStock(), product.getName(), product.getDescription()));
+            if(product.getPictures()!=null){
+                List<FileResponse> images = new ArrayList<>();
+                for (FileEntity file : product.getPictures()) {
+                    images.add(mapToFileResponse(file));
+                }
+                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), images));
+            }
+            else{
+                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList()));
+            }
+
         }
         return response;
     }
@@ -56,12 +69,38 @@ public class ProductService {
                     subCategories.add(category.getCategoryName());
                 }
             }
-            response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories,  product.getStock(), product.getName(), product.getDescription()));
+            if(product.getPictures().size()>0){
+                List<FileResponse> images = new ArrayList<>();
+                for (FileEntity file : product.getPictures()) {
+                    images.add(mapToFileResponse(file));
+                }
+                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), images));
+            }
+            else{
+                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList()));
+            }
+
+
         }
         return response;
     }
 
     public Product getProductById(Long id){
         return productRepository.getProductById(id);
+    }
+
+    private FileResponse mapToFileResponse(FileEntity fileEntity) {
+        String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
+            .path("/api/files/")
+            .path(fileEntity.getId())
+            .toUriString();
+        FileResponse fileResponse = new FileResponse();
+        fileResponse.setId(fileEntity.getId());
+        fileResponse.setName(fileEntity.getName());
+        fileResponse.setContentType(fileEntity.getContentType());
+        fileResponse.setSize(fileEntity.getSize());
+        fileResponse.setUrl(downloadURL);
+
+        return fileResponse;
     }
 }
