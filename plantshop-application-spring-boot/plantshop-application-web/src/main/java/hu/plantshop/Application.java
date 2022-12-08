@@ -129,37 +129,44 @@ public class Application {
             List<Category> subCategories10 = new ArrayList<>();
             List<Category> subCategories11 = new ArrayList<>();
 
+            List<Category> subCategories12 = new ArrayList<>();
+            List<Category> subCategories13 = new ArrayList<>();
+
+            List<Category> subCategories14 = new ArrayList<>();
+            List<Category> subCategories15 = new ArrayList<>();
 
 
-            Category category1 = new Category("tulipan",  mainCategory1.getId());
-            Category category2 = new Category("nincs ilyen",  mainCategory2.getId());
-            Category category3 = new Category("hmmmm",  mainCategory3.getId());
-            Category category4 = new Category("hello kitty",  mainCategory4.getId());
-            Category category5 = new Category("pusztulat",  mainCategory5.getId());
-            Category category6 = new Category("10/10 modern kocsogok",  mainCategory6.getId());
-            Category category7 = new Category("bimbozas 1",  mainCategory7.getId());
-            Category category8 = new Category("hogyan neveld a kocsog novenyed part2",  mainCategory7.getId());
-            Category category9 = new Category("mutragya",  mainCategory8.getId());
-            Category category10 = new Category("guano",  mainCategory8.getId());
-            Category category11 = new Category("szar ugymond",  mainCategory8.getId());
-            Category category12 = new Category("kokuszhej",  mainCategory9.getId());
-            Category category13 = new Category("fold az utcarol",  mainCategory9.getId());
-            Category category14 = new Category("Ontozo kanna<3",  mainCategory10.getId());
-            Category category15 = new Category("Kancso",  mainCategory10.getId());
+
+            Category category1 = new Category("Tulips",  mainCategory1.getId());
+            Category category2 = new Category("Safe for cats",  mainCategory2.getId());
+            Category category3 = new Category("Orchids",  mainCategory3.getId());
+            Category category4 = new Category("Jack O' Lantern styled",  mainCategory4.getId());
+            Category category5 = new Category("Refurbished",  mainCategory5.getId());
+            Category category6 = new Category("Abstract",  mainCategory6.getId());
+            Category category7 = new Category("Flowers",  mainCategory7.getId());
+            Category category8 = new Category("Gardening",  mainCategory7.getId());
+            Category category9 = new Category("Synthetic fertilizer",  mainCategory8.getId());
+            Category category10 = new Category("Guano",  mainCategory8.getId());
+            Category category11 = new Category("Natural cow-based fertilizer",  mainCategory8.getId());
+            Category category12 = new Category("Coconut soil",  mainCategory9.getId());
+            Category category13 = new Category("Flower soil",  mainCategory9.getId());
+            Category category14 = new Category("Watering cans",  mainCategory10.getId());
+            Category category15 = new Category("Sprinklers",  mainCategory10.getId());
 
 
 
             subCategories1.add(category1);
             subCategories1.add(mainCategory1);
-            subCategories2.add(category2);
-            subCategories2.add(mainCategory2);
-            subCategories3.add(category3);
+
+            subCategories2.add(category3);
+            subCategories2.add(mainCategory3);
+
             subCategories3.add(mainCategory4);
             subCategories3.add(category4);
-            subCategories4.add(category5);
+
             subCategories4.add(mainCategory5);
-            subCategories4.add(category6);
-            subCategories4.add(mainCategory6);
+            subCategories4.add(category5);
+
             subCategories5.add(category7);
             subCategories5.add(mainCategory7);
             subCategories6.add(category8);
@@ -170,14 +177,25 @@ public class Application {
             subCategories8.add(mainCategory8);
             subCategories9.add(category11);
             subCategories9.add(mainCategory8);
-            subCategories9.add(category12);
-            subCategories9.add(mainCategory9);
-            subCategories10.add(mainCategory9);
-            subCategories10.add(category13);
-            subCategories11.add(category14);
+
+            subCategories10.add(mainCategory10);
+            subCategories10.add(category14);
             subCategories11.add(mainCategory10);
             subCategories11.add(category15);
-            subCategories11.add(mainCategory10);
+
+            subCategories12.add(category13);
+            subCategories12.add(mainCategory9);
+
+
+            subCategories13.add(category12);
+            subCategories13.add(mainCategory9);
+
+            subCategories14.add(category6);
+            subCategories14.add(mainCategory6);
+
+            subCategories15.add(category2);
+            subCategories15.add(mainCategory2);
+
 
 
 
@@ -196,40 +214,24 @@ public class Application {
             categoryRepository.save(category13);
             categoryRepository.save(category14);
             categoryRepository.save(category15);
-
             branchCategoryRepository.save(new BranchCategory("Indoor Plants", mainCategories1));
             branchCategoryRepository.save(new BranchCategory("Pots", mainCategories2));
             branchCategoryRepository.save(new BranchCategory("Accessories", mainCategories3));
-
-
-
-
-
-
-
-            productRepository.save(new Product(100, subCategories1, 10, "product", "productdescription"));
-            productRepository.save(new Product(100, subCategories2, 101, "product2", "productdescription2"));
-            productRepository.save(new Product(100, subCategories3, 101, "product3", "productdescription2"));
-            productRepository.save(new Product(100, subCategories4, 101, "product4", "productdescription2"));
-            productRepository.save(new Product(100, subCategories5, 101, "product5", "productdescription2"));
-            productRepository.save(new Product(100, subCategories6, 101, "product6", "productdescription2"));
-            productRepository.save(new Product(100, subCategories7, 101, "product7", "productdescription2"));
-            productRepository.save(new Product(100, subCategories8, 101, "product8", "productdescription2"));
-            productRepository.save(new Product(100, subCategories9, 101, "product9", "productdescription2"));
-            productRepository.save(new Product(100, subCategories10, 101, "product10", "productdescription2"));
-            productRepository.save(new Product(100, subCategories11, 101, "product11", "productdescription2"));
-
-
-
-
-
-
-
-
-
-
-
-
+            productRepository.save(new Product(100, subCategories1, 10, "Tulip", "productdescription"));
+            productRepository.save(new Product(100, subCategories2, 10, "Orchid", "productdescription"));
+            productRepository.save(new Product(100, subCategories15, 10, "Friendly plant", "productdescription"));
+            productRepository.save(new Product(100, subCategories3, 101, "Halloween planter", "productdescription2"));
+            productRepository.save(new Product(100, subCategories4, 101, "90's styled pot", "productdescription2"));
+            productRepository.save(new Product(100, subCategories5, 101, "How to raise your Orchid babies", "productdescription2"));
+            productRepository.save(new Product(100, subCategories6, 101, "Gardening 101", "productdescription2"));
+            productRepository.save(new Product(100, subCategories14, 101, "DesignerBrand planter", "productdescription2"));
+            productRepository.save(new Product(100, subCategories7, 101, "YourFavBrand fertilizer", "productdescription2"));
+            productRepository.save(new Product(100, subCategories8, 101, "Organic guano", "productdescription2"));
+            productRepository.save(new Product(100, subCategories9, 101, "CowFarm original fertilizer", "productdescription2"));
+            productRepository.save(new Product(100, subCategories10, 101, "BestChoice watering can", "productdescription2"));
+            productRepository.save(new Product(100, subCategories11, 101, "generic sprinkler", "productdescription2"));
+            productRepository.save(new Product(105, subCategories12, 101, "Generic flower soil", "productdescription2"));
+            productRepository.save(new Product(105, subCategories13, 101, "Generic coconut soil", "productdescription2"));
         };
 
 
