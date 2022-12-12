@@ -55,7 +55,7 @@ public class Application {
     CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository, FileService fileService, FileRepository fileRepository) {
         return args -> {
             appUserRoleRepository.save(new AppUserRole("USER"));
-            addressRepository.save(new Address("8319", "Mordor", "mostmarelmegyekedzeni utca", "223"));
+            addressRepository.save(new Address("8319", "Mordor", "Sample utca", "223"));
             //appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
             appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444"));
 

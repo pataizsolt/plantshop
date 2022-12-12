@@ -78,6 +78,7 @@ public class FilesController {
             .collect(Collectors.toList());
     }
 
+
     private FileResponse mapToFileResponse(FileEntity fileEntity) {
         String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
             .path("/api/files/")

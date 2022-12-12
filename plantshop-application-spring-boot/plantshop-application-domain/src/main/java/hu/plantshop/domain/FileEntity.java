@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import lombok.AllArgsConstructor;
@@ -28,5 +29,6 @@ public class FileEntity {
     private String contentType;
     private Long size;
     @Lob
+    @Type(type = "org.hibernate.type.ImageType")
     private byte[] data;
 }

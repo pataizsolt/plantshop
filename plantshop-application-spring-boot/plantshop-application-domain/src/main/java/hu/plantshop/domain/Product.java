@@ -35,7 +35,7 @@ public class Product {
     private String name;
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileEntity> pictures;
 
     public Product(Integer price, List<Category> category, Integer stock, String name, String description) {
