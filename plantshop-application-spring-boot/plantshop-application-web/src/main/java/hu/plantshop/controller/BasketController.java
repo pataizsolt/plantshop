@@ -1,21 +1,18 @@
 package hu.plantshop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import hu.plantshop.domain.BasketItem;
+import hu.plantshop.dto.request.ChangeProductQuantityRequest;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import hu.plantshop.domain.AppUser;
 import hu.plantshop.domain.Basket;
@@ -54,8 +51,25 @@ public class BasketController {
 
         Product product = productService.getProductById(id);
 
-        if(!user.getBasket().getProducts().contains(product)) {
-            user.getBasket().getProducts().add(product);
+        List<Product> products = new ArrayList<>();
+
+        /*for (BasketItem basketItem : user.getBasket().getProducts()) {
+            products.add(basketItem.getProduct());
+            if(basketItem.getProduct().equals(product)){
+                basketItem.setQuantity(basketItem.getQuantity()+1);
+                return ResponseEntity.ok("This product is already in your basket!");
+            }
+        }*/
+        for (int i = 0; i < user.getBasket().getProducts().size(); i++) {
+            products.add(user.getBasket().getProducts().get(i).getProduct());
+            if(user.getBasket().getProducts().get(i).getProduct().equals(product)){
+                user.getBasket().getProducts().get(i).setQuantity(user.getBasket().getProducts().get(i).getQuantity()+1);
+                return ResponseEntity.ok("This product is already in your basket!");
+            }
+        }
+
+        if(!products.contains(product)) {
+            user.getBasket().getProducts().add(new BasketItem(null, product, 1L));
         }
         else {
             return ResponseEntity.ok("This product is already in your basket!");
@@ -63,6 +77,34 @@ public class BasketController {
 
 
 
+        return ResponseEntity.ok("ok");
+    }
+
+    @PostMapping("changeproductquantity")
+    @ResponseBody
+    @PreAuthorize("isAuthenticated()")
+    @Transactional
+    public ResponseEntity<?> changeProductQuantity(HttpServletRequest request, @RequestBody ChangeProductQuantityRequest changeProductQuantityRequest) {
+        AppUser user;
+        try{
+            user = appUserService.getUserFromRequest(request);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+
+        Product product = productService.getProductById(changeProductQuantityRequest.getProductId());
+
+        List<Product> products = new ArrayList<>();
+
+        for (int i = 0; i < user.getBasket().getProducts().size(); i++) {
+            products.add(user.getBasket().getProducts().get(i).getProduct());
+            if(user.getBasket().getProducts().get(i).getProduct().equals(product)){
+                user.getBasket().getProducts().get(i).setQuantity(changeProductQuantityRequest.getQuantity());
+                return ResponseEntity.ok("This product is already in your basket!");
+            }
+        }
         return ResponseEntity.ok("ok");
     }
 
@@ -74,6 +116,7 @@ public class BasketController {
             return ResponseEntity.ok(new BasketResponse(basket));
         }
         catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
     }

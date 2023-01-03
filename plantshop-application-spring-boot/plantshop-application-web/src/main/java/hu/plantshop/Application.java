@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,8 +15,12 @@ import java.util.Optional;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import hu.plantshop.domain.*;
+import hu.plantshop.repository.*;
+import hu.plantshop.service.AppUserService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,36 +33,26 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
-import hu.plantshop.domain.Address;
-import hu.plantshop.domain.AppUser;
-import hu.plantshop.domain.AppUserRole;
-import hu.plantshop.domain.BranchCategory;
-import hu.plantshop.domain.Category;
-import hu.plantshop.domain.FileEntity;
-import hu.plantshop.domain.Product;
-import hu.plantshop.repository.AddressRepository;
-import hu.plantshop.repository.AppUserRepository;
-import hu.plantshop.repository.AppUserRoleRepository;
-import hu.plantshop.repository.BranchCategoryRepository;
-import hu.plantshop.repository.CategoryRepository;
-import hu.plantshop.repository.FileRepository;
-import hu.plantshop.repository.ProductRepository;
 import hu.plantshop.service.FileService;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class Application {
+    @PersistenceContext
+    EntityManager entityManager;
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
     @Bean
-    @Transactional
-    CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository, FileService fileService, FileRepository fileRepository) {
+
+    CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository, FileService fileService, OrderRepository orderRepository, OrderItemRepository orderItemRepository) {
         return args -> {
             appUserRoleRepository.save(new AppUserRole("USER"));
-            addressRepository.save(new Address("8319", "Mordor", "Sample utca", "223"));
+            Address address = new Address("8319", "Mordor", "Sample utca", "223");
+            addressRepository.save(address);
             //appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
-            appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444"));
+            AppUser user = new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444");
+            appUserRepository.save(user);
 
 
             Resource resource = new ClassPathResource("pictures/sample.jpg");
@@ -217,7 +212,10 @@ public class Application {
             branchCategoryRepository.save(new BranchCategory("Indoor Plants", mainCategories1));
             branchCategoryRepository.save(new BranchCategory("Pots", mainCategories2));
             branchCategoryRepository.save(new BranchCategory("Accessories", mainCategories3));
-            productRepository.save(new Product(100, subCategories1, 10, "Tulip", "productdescription"));
+
+
+            Product product = new Product(100, subCategories1, 10, "Tulip", "productdescription");
+            productRepository.save(product);
             productRepository.save(new Product(100, subCategories2, 10, "Orchid", "productdescription"));
             productRepository.save(new Product(100, subCategories15, 10, "Friendly plant", "productdescription"));
             productRepository.save(new Product(100, subCategories3, 101, "Halloween planter", "productdescription2"));
@@ -232,7 +230,18 @@ public class Application {
             productRepository.save(new Product(100, subCategories11, 101, "generic sprinkler", "productdescription2"));
             productRepository.save(new Product(105, subCategories12, 101, "Generic flower soil", "productdescription2"));
             productRepository.save(new Product(105, subCategories13, 101, "Generic coconut soil", "productdescription2"));
+
+
+            //OrderItem orderItem = new OrderItem(null, new Product(100, subCategories1, 10, "Tulip2", "productdescription"), 3L);
+            //orderItemRepository.save(orderItem);
+            //Order order = new Order("asd", "asd", "asd@asd.com", new Address("8319", "asd", "Sample utca", "223"), new Address("8319", "asd", "Sample utca", "223"), "phonenumber", new AppUser("asda", "asda", "asda@asd.com", passwordEncoder.encode("asda123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444"), Collections.singletonList(orderItem));
+            //orderRepository.saveAndFlush(order);
+            //Order order = new Order("asd", "asd", "asd@asd.com", Collections.singletonList(orderItemRepository.findOrderItemById(48L)), "phonenumber");
+            //orderRepository.save(order);
+
         };
+
+
 
 
     }

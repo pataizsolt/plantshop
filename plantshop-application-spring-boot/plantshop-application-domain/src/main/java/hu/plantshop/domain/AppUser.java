@@ -59,6 +59,9 @@ public class AppUser implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     private Basket basket;
 
+    @OneToMany
+    private List<Order> orders;
+
     public AppUser(String firstName, String lastName, String email, String password, Set<AppUserRole> appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;

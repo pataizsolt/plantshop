@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.plantshop.domain.Basket;
+import hu.plantshop.domain.BasketItem;
 import hu.plantshop.domain.Product;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,10 +20,10 @@ public class BasketResponse {
     public BasketResponse(Basket basket) {
         this.id = basket.getId();
         List<ProductInBasketResponse> productInBasketResponses = new ArrayList<>();
-        for (Product product : basket.getProducts()) {
-            productInBasketResponses.add(new ProductInBasketResponse(product.getId(), product.getPrice(), product.getStock(), 1, product.getName()));
-            this.quantity++;
-            this.price += product.getPrice();
+        for (BasketItem product : basket.getProducts()) {
+            productInBasketResponses.add(new ProductInBasketResponse(product.getProduct().getId(), product.getProduct().getPrice(), product.getProduct().getStock(), product.getQuantity().intValue(), product.getProduct().getName()));
+            this.quantity += product.getQuantity();
+            this.price += product.getProduct().getPrice();
         }
         this.products = productInBasketResponses;
 

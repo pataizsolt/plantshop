@@ -31,6 +31,10 @@ public class AppUserService implements UserDetailsService {
     private JwtUtils jwtUtils;
     private AppUserRepository appUserRepository;
 
+    public AppUser getUserById(Long id) {
+        return appUserRepository.findById(id).get();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email)
         throws UsernameNotFoundException {

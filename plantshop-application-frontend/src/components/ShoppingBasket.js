@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import NumericInput from 'react-numeric-input';
 
 
 const BASKET_URL = '/api/store';
@@ -75,6 +76,7 @@ const ShoppingBasket = () => {
 
     return (
         <>
+
             {isFetching ? (<div></div>) : (
                 <div className="flex h-full max-w-7xl mx-auto flex-col overflow-y-scroll bg-white shadow-xl">
                     <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
@@ -101,7 +103,21 @@ const ShoppingBasket = () => {
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-1 items-end justify-between text-sm">
-                                                    <p className="text-gray-500">Qty {product.quantity}</p>
+
+
+                                                    <NumericInput
+                                                        name="Quantity"
+                                                        className="form-control"
+                                                        value={product.quantity}
+                                                        min={0}
+                                                        max={10}
+                                                        step={1}
+                                                        precision={0}
+                                                        size={5}
+                                                        mobile
+                                                        inputmode="numeric"
+                                                        strict
+                                                    />
 
                                                     <div className="flex">
                                                         <button

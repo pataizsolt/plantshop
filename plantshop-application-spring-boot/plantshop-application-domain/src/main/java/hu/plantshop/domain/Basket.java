@@ -5,13 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,14 +20,12 @@ public class Basket {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
-    private List<Product> products;
-    private Long quantity;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<BasketItem> products;
     private Long price;
 
     public Basket() {
         this.products = new ArrayList<>();
-        this.quantity = (long) 0;
         this.price = 0L;
     }
 }

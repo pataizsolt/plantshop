@@ -47,7 +47,11 @@ public class BasketService {
 
         Product removeProduct = productService.getProductById(id);
 
-        user.getBasket().getProducts().remove(removeProduct);
+        for (int i = 0; i < user.getBasket().getProducts().size(); i++) {
+            if(user.getBasket().getProducts().get(i).getProduct().equals(removeProduct)){
+                user.getBasket().getProducts().remove(user.getBasket().getProducts().get(i));
+            }
+        }
 
         return new ResponseEntity<>("Item "+ id + "deleted from user's basket", HttpStatus.OK);
     }
