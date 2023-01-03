@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import NumericInput from 'react-numeric-input';
+import BasketProduct from './BasketProduct';
 
 
 const BASKET_URL = '/api/store';
@@ -85,7 +86,8 @@ const ShoppingBasket = () => {
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
                                     {basketData.products.map((product) => (
                                         <li key={product.id} className="flex py-6">
-                                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                            <BasketProduct product={product} handleClick={() => handleClick(product.id)} />
+                                            {/*<div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 <img
                                                     src={product.imageSrc}
                                                     alt={product.imageAlt}
@@ -130,7 +132,7 @@ const ShoppingBasket = () => {
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </div>
+                                    </div>*/}
                                         </li>
                                     ))}
                                 </ul>
