@@ -216,20 +216,20 @@ public class Application {
 
             Product product = new Product(100, subCategories1, 10, "Tulip", "productdescription");
             productRepository.save(product);
-            productRepository.save(new Product(100, subCategories2, 10, "Orchid", "productdescription"));
+            productRepository.save(new Product(100, subCategories2, 2, "Orchid", "productdescription"));
             productRepository.save(new Product(100, subCategories15, 10, "Friendly plant", "productdescription"));
             productRepository.save(new Product(100, subCategories3, 101, "Halloween planter", "productdescription2"));
             productRepository.save(new Product(100, subCategories4, 101, "90's styled pot", "productdescription2"));
-            productRepository.save(new Product(100, subCategories5, 101, "How to raise your Orchid babies", "productdescription2"));
-            productRepository.save(new Product(100, subCategories6, 101, "Gardening 101", "productdescription2"));
+            productRepository.save(new Product(100, subCategories5, 6, "How to raise your Orchid babies", "productdescription2"));
+            productRepository.save(new Product(100, subCategories6, 17, "Gardening 101", "productdescription2"));
             productRepository.save(new Product(100, subCategories14, 101, "DesignerBrand planter", "productdescription2"));
             productRepository.save(new Product(100, subCategories7, 101, "YourFavBrand fertilizer", "productdescription2"));
-            productRepository.save(new Product(100, subCategories8, 101, "Organic guano", "productdescription2"));
-            productRepository.save(new Product(100, subCategories9, 101, "CowFarm original fertilizer", "productdescription2"));
-            productRepository.save(new Product(100, subCategories10, 101, "BestChoice watering can", "productdescription2"));
-            productRepository.save(new Product(100, subCategories11, 101, "generic sprinkler", "productdescription2"));
-            productRepository.save(new Product(105, subCategories12, 101, "Generic flower soil", "productdescription2"));
-            productRepository.save(new Product(105, subCategories13, 101, "Generic coconut soil", "productdescription2"));
+            productRepository.save(new Product(100, subCategories8, 3, "Organic guano", "productdescription2"));
+            productRepository.save(new Product(100, subCategories9, 5, "CowFarm original fertilizer", "productdescription2"));
+            productRepository.save(new Product(100, subCategories10, 2, "BestChoice watering can", "productdescription2"));
+            productRepository.save(new Product(100, subCategories11, 1, "generic sprinkler", "productdescription2"));
+            productRepository.save(new Product(105, subCategories12, 11, "Generic flower soil", "productdescription2"));
+            productRepository.save(new Product(105, subCategories13, 1, "Generic coconut soil", "productdescription2"));
 
 
             //OrderItem orderItem = new OrderItem(null, new Product(100, subCategories1, 10, "Tulip2", "productdescription"), 3L);

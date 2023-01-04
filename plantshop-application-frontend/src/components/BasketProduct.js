@@ -8,10 +8,28 @@ const BasketProduct = (props) => {
 
     const axiosPrivate = useAxiosPrivate();
 
+    const [quantity, setQuantity] = useState(props.product.quantity);
+    const [productId, setProductId] = useState(props.product.id);
 
 
+    function updateQuantity() {
+        axiosPrivate.post(BASKET_URL + "/changeproductquantity",
+            JSON.stringify({ productId, quantity }),
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            }
+        ).then(resp => {
+            console.log(resp);
+        });
+    }
+
+    useEffect(() => {
+        console.log(props.product.stock)
+        updateQuantity();
 
 
+    });
 
 
 
@@ -41,15 +59,18 @@ const BasketProduct = (props) => {
                     <NumericInput
                         name="Quantity"
                         className="form-control"
-                        value={props.product.quantity}
-                        min={0}
-                        max={10}
+                        min={1}
+                        max={props.product.stock}
                         step={1}
                         precision={0}
                         size={5}
                         mobile
                         inputmode="numeric"
                         strict
+                        value={quantity}
+                        onChange={value =>
+                            setQuantity(value)
+                        }
                     />
 
                     <div className="flex">

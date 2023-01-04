@@ -86,7 +86,7 @@ const ShoppingBasket = () => {
                                 <ul role="list" className="-my-6 divide-y divide-gray-200">
                                     {basketData.products.map((product) => (
                                         <li key={product.id} className="flex py-6">
-                                            <BasketProduct product={product} handleClick={() => handleClick(product.id)} />
+                                            <BasketProduct product={product} handleClick={() => handleClick(product.id)} refresh={() => refreshBasketData()} />
                                             {/*<div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 <img
                                                     src={product.imageSrc}
@@ -141,11 +141,7 @@ const ShoppingBasket = () => {
                     </div>
 
                     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                            <p>{basketData.quantity}</p>
-                            <p>{basketData.price}</p>
-                        </div>
-                        <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+
                         <div className="mt-6">
                             <a
                                 href="#"
