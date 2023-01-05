@@ -20,7 +20,8 @@ public class OrderItem {
     Product product;
     Long quantity;
 
-
-
-
+    public OrderItem(Product product, Long quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
 }

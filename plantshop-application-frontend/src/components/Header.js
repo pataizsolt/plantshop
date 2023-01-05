@@ -96,6 +96,7 @@ const navigation = {
     pages: [
         { name: 'Store', href: '/store' },
         { name: 'random', href: '/profile' },
+        { name: 'checkout', href: '/checkout' }
     ],
 }
 

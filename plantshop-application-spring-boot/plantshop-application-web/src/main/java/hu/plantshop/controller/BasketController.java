@@ -105,14 +105,31 @@ public class BasketController {
                 return ResponseEntity.ok("This product is already in your basket!");
             }
         }
+
+
+
+
+
         return ResponseEntity.ok("ok");
     }
 
     @GetMapping("getbasket")
     @ResponseBody
+    @Transactional
     public ResponseEntity<?> getProductsByCategoryName(HttpServletRequest request) {
         try{
             Basket basket = basketService.getBasketByRequest(request);
+
+            Long sum = 0L;
+            for (BasketItem basketItem : basket.getProducts()) {
+                sum += basketItem.getQuantity()*basketItem.getProduct().getPrice();
+            }
+            if(sum != basket.getPrice()){
+                basket.setPrice(sum);
+            }
+            System.out.println("ASDASDASDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+basket.getPrice());
+
+
             return ResponseEntity.ok(new BasketResponse(basket));
         }
         catch (Exception e) {

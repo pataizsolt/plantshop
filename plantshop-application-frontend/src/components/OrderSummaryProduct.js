@@ -3,18 +3,15 @@ import NumericInput from 'react-numeric-input'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useEffect, useState } from 'react';
 const BASKET_URL = '/api/store';
-const BasketProduct = (props) => {
+const OrderSummaryProduct = (props) => {
 
 
     const axiosPrivate = useAxiosPrivate();
 
     const [quantity, setQuantity] = useState(props.product.quantity);
     const [productId, setProductId] = useState(props.product.id);
-    const [subtotal, setSubtotal] = useState(props.product.price * props.product.quantity);
+    const [subtotal, setSubtotal] = useState(props.product.price * props.product.quantity)
 
-    const updateSubtotal = () => {
-        setSubtotal(props.product.price * quantity);
-    }
 
     function updateQuantity() {
         axiosPrivate.post(BASKET_URL + "/changeproductquantity",
@@ -25,14 +22,15 @@ const BasketProduct = (props) => {
             }
         ).then(resp => {
             console.log(resp);
-            updateSubtotal();
-
         });
     }
 
     useEffect(() => {
-        console.log(quantity)
+        console.log(props.product.stock)
         updateQuantity();
+        setSubtotal(props.product.price * props.product.quantity);
+
+
     });
 
 
@@ -60,38 +58,14 @@ const BasketProduct = (props) => {
                 <div className="flex flex-1 items-end justify-between text-sm">
 
 
-                    <NumericInput
-                        name="Quantity"
-                        className="form-control"
-                        min={1}
-                        max={props.product.stock}
-                        step={1}
-                        precision={0}
-                        size={5}
-                        mobile
-                        inputmode="numeric"
-                        strict
-                        value={quantity}
-                        onChange={value =>
-                            setQuantity(value)
-                        }
-                    />
 
-                    <div className="flex">
-                        <button
-                            type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={props.handleClick}
 
-                        >
-                            Remove
-                        </button>
+                    <p>Quantity: {props.product.quantity}</p>
 
-                    </div>
                 </div>
             </div>
         </>
     )
 }
 
-export default BasketProduct
+export default OrderSummaryProduct

@@ -59,8 +59,8 @@ public class AppUser implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     private Basket basket;
 
-    @OneToMany
-    private List<Order> orders;
+    //@OneToMany(cascade = CascadeType.ALL)
+    //private List<Order> orders;
 
     public AppUser(String firstName, String lastName, String email, String password, Set<AppUserRole> appUserRole) {
         this.firstName = firstName;
@@ -69,6 +69,7 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.appUserRoles = appUserRole;
         this.basket = new Basket();
+        //this.orders = new ArrayList<Order>();
 
     }
 
@@ -82,6 +83,7 @@ public class AppUser implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.appUserRoles = appUserRoles;
         this.basket = new Basket();
+        //this.orders = new ArrayList<Order>();
     }
 
     @Override

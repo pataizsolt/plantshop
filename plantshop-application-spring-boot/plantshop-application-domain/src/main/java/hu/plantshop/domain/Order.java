@@ -13,6 +13,7 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "orderofuser")
 public class Order {
     @Id
     @GeneratedValue
@@ -31,6 +32,10 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderItem> items;
 
+    private boolean paid;
+
+    private boolean closed;
+
     public Order(String billingName, String deliveryName, String email, String phoneNumber, Address deliveryAddress, Address billingAddress, AppUser appUser, List<OrderItem> items) {
         this.date = LocalDateTime.now();
         this.billingName = billingName;
@@ -41,6 +46,8 @@ public class Order {
         this.billingAddress = billingAddress;
         this.appUser = appUser;
         this.items = items;
+        this.closed = false;
+        this.paid = false;
     }
 }
 

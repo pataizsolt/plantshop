@@ -13,9 +13,11 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 public class OrderRequest {
-    String billingName;
-    String deliveryName;
+    String name;
     String email;
-    List<OrderItemRequest> items;
     String phoneNumber;
+    String city;
+    String street;
+    String houseNumber;
+    String zipcode;
 }

@@ -23,9 +23,9 @@ public class BasketResponse {
         for (BasketItem product : basket.getProducts()) {
             productInBasketResponses.add(new ProductInBasketResponse(product.getProduct().getId(), product.getProduct().getPrice(), product.getProduct().getStock(), product.getQuantity().intValue(), product.getProduct().getName()));
             this.quantity += product.getQuantity();
-            this.price += product.getProduct().getPrice();
         }
         this.products = productInBasketResponses;
+        this.price = basket.getPrice();
 
     }
 }
