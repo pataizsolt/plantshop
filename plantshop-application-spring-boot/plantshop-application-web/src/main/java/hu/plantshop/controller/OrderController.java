@@ -3,6 +3,8 @@ package hu.plantshop.controller;
 import hu.plantshop.domain.*;
 import hu.plantshop.dto.request.LoginRequest;
 import hu.plantshop.dto.request.OrderRequest;
+import hu.plantshop.dto.response.OrderInfoResponse;
+import hu.plantshop.dto.response.ProductInBasketResponse;
 import hu.plantshop.repository.AddressRepository;
 import hu.plantshop.repository.OrderItemRepository;
 import hu.plantshop.repository.OrderRepository;
@@ -31,7 +33,7 @@ public class OrderController {
 
     private final OrderItemRepository orderItemRepository;
 
-    @PostMapping("createOrder")
+    @PostMapping("createorder")
     @Transactional
     public ResponseEntity<?> orderItems(@RequestBody OrderRequest orderRequest, HttpServletRequest request) throws CredentialNotFoundException {
         Address address = addressRepository.save(new Address(
@@ -63,6 +65,44 @@ public class OrderController {
         );
 
         orderRepository.save(order);
+
+        appUserService.emptyUserBasket(user);
+
         return ResponseEntity.ok("ok");
+    }
+
+
+    @GetMapping("listorders")
+    @Transactional
+    public ResponseEntity<?> listOrders(HttpServletRequest request) throws CredentialNotFoundException {
+
+
+        AppUser user = appUserService.getUserFromRequest(request);
+
+        List<OrderInfoResponse> orders = new ArrayList<>();
+
+        List<Order> ordersByAppUser = orderRepository.findOrdersByAppUser(user);
+
+        for (Order order: ordersByAppUser) {
+            List<ProductInBasketResponse> items = new ArrayList<>();
+
+            for (OrderItem orderItem : order.getItems()) {
+                items.add(new ProductInBasketResponse(orderItem.getId(), orderItem.getProduct().getPrice(), orderItem.getProduct().getStock(), Math.toIntExact(orderItem.getQuantity()), orderItem.getProduct().getName()));
+            }
+
+            orders.add(new OrderInfoResponse(
+                    order.getId(),
+                    order.getEmail(),
+                    order.getDeliveryName(),
+                    order.getDate().toString(),
+                    order.getPhoneNumber(),
+                    order.getDeliveryAddress().toString(),
+                    order.isPaid() ? "true" : "false",
+                    order.isClosed() ? "true" : "false",
+                    items
+                    ));
+        }
+
+        return ResponseEntity.ok(orders);
     }
 }

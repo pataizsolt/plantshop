@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import hu.plantshop.domain.Basket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,10 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email).orElseThrow(()
             -> new UsernameNotFoundException
             ("user Not Found"));
+    }
+    @Transactional
+    public void emptyUserBasket(AppUser appUser) {
+        appUser.setBasket(new Basket());
     }
 
     public AppUser getUserFromRequest(HttpServletRequest httpServletRequest) throws CredentialNotFoundException {

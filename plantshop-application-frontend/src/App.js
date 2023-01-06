@@ -9,6 +9,7 @@ import LandingPage from './components/LandingPage';
 import Store from './components/Store';
 import ShoppingBasket from './components/ShoppingBasket';
 import CheckoutForm from './components/CheckoutForm';
+import Orders from './components/Orders';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/store' element={<Store />} />
         <Route path='/shoppingbasket' element={<ShoppingBasket />} />
         <Route path='/checkout' element={<CheckoutForm />} />
+        <Route path='/orders' element={<Orders />} />
         <Route path='*' element={<Error />} />
       </Route>
     </Routes>

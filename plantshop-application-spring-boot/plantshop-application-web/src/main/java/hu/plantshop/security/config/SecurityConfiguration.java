@@ -54,7 +54,7 @@ public class SecurityConfiguration {
             .authorizeRequests()
             .antMatchers("/api/auth/**", "/api/files/**")
             .permitAll()
-            .antMatchers("/api/test/**", "/api/user/**", "/api/store/**")
+            .antMatchers("/api/test/**", "/api/user/**", "/api/store/**", "/api/order/**")
             .permitAll().anyRequest().authenticated();
 
         http.addFilterBefore(new AuthTokenFilter(jwtUtils, appUserService),

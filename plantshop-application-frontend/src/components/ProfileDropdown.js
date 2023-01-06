@@ -96,6 +96,19 @@ export default function ProfileDropdown() {
                                     </Menu.Item>
                                     <Menu.Item>
                                         {({ active }) => (
+                                            <Link
+                                                to="/orders"
+                                                className={classNames(
+                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                    'block px-4 py-2 text-sm'
+                                                )}
+                                            >
+                                                Orders
+                                            </Link>
+                                        )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        {({ active }) => (
                                             <a
                                                 onClick={wrapper}
                                                 className={classNames(
