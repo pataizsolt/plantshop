@@ -48,10 +48,11 @@ public class Application {
     CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository, FileService fileService, OrderRepository orderRepository, OrderItemRepository orderItemRepository) {
         return args -> {
             appUserRoleRepository.save(new AppUserRole("USER"));
+            appUserRoleRepository.save(new AppUserRole("ADMIN"));
             Address address = new Address("8319", "Mordor", "Sample utca", "223");
             addressRepository.save(address);
             //appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
-            AppUser user = new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444");
+            AppUser user = new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("ADMIN")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444");
             appUserRepository.save(user);
 
 

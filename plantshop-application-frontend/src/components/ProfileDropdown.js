@@ -81,6 +81,27 @@ export default function ProfileDropdown() {
                                 </>
                                 :
                                 <>
+                                    {auth.roles[0].authority === 'ADMIN' ?
+                                        (
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <Link
+                                                        to="/admin"
+                                                        className={classNames(
+                                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                            'block px-4 py-2 text-sm'
+                                                        )}
+                                                    >
+                                                        Admin
+                                                    </Link>
+                                                )}
+                                            </Menu.Item>
+                                        )
+                                        :
+                                        (
+                                            <div></div>
+                                        )
+                                    }
                                     <Menu.Item>
                                         {({ active }) => (
                                             <Link
