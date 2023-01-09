@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './Header'
+import AdminHeader from './AdminHeader'
 import { Outlet } from 'react-router-dom'
 
 const Admin = () => {
     return (
         <>
-            <Header />
+            <AdminHeader />
             <section>
                 <Outlet />
             </section>

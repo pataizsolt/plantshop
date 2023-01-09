@@ -11,6 +11,8 @@ package hu.plantshop.dto.response;
 @Setter
 @AllArgsConstructor
 public class BranchCategoryContainer {
+
+    Long id;
     String BranchCategoryName;
     List<CategoryContainer> categoryContainers;
 

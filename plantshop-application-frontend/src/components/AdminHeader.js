@@ -5,14 +5,15 @@ import { BsPerson, BsCart } from "react-icons/bs";
 import useAuth from '../hooks/useAuth';
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import ProfileDropdown from './ProfileDropdown';
+import AdminProfileDropdown from './AdminProfileDropdown';
 import { useEffect } from 'react';
 import axios from '../api/axios';
 
 
 const navigation = {
     pages: [
-        { name: 'Store', href: '/store' },
+        { name: 'CategoryManager', href: '/admin/categorymanager' },
+        { name: 'BranchCategoryManager', href: '/admin/branchcategorymanager' },
     ],
 }
 
@@ -61,7 +62,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-const Header = () => {
+const AdminHeader = () => {
     const { auth } = useAuth();
     const logout = useLogout();
     const navigate = useNavigate();
@@ -239,7 +240,7 @@ const Header = () => {
                             <div className="ml-auto flex items-center">
                                 <div className="ml-4 flow-root lg:ml-6">
                                     <Link to="#" className="group -m-2 flex items-center p-2">
-                                        <ProfileDropdown />
+                                        <AdminProfileDropdown />
                                     </Link>
                                 </div>
                                 {/* Cart */}
@@ -267,101 +268,28 @@ const Header = () => {
                                     <span className="sr-only">Open menu</span>
                                     <BsPerson className="h-6 w-6" aria-hidden="true" />
                                 </button>
-                                {isFetching ? (<div></div>) : (
-                                    <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">
-                                        <div className="flex h-full space-x-8">
 
-                                            {
-                                                categoriesNavigation.categories.map((catitem) => (
-
-                                                    <Popover key={catitem.branchCategoryName} className="flex">
-                                                        {({ open }) => (
-                                                            <>
-                                                                <div className="relative flex">
-                                                                    <Popover.Button
-                                                                        className={classNames(
-                                                                            open
-                                                                                ? 'border-indigo-600 text-indigo-600'
-                                                                                : 'border-transparent text-gray-700 hover:text-gray-800',
-                                                                            'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
-                                                                        )}
-                                                                    >
-                                                                        {catitem.branchCategoryName}
-                                                                    </Popover.Button>
-                                                                </div>
-                                                                <Transition
-                                                                    as={Fragment}
-                                                                    enter="transition ease-out duration-200"
-                                                                    enterFrom="opacity-0"
-                                                                    enterTo="opacity-100"
-                                                                    leave="transition ease-in duration-150"
-                                                                    leaveFrom="opacity-100"
-                                                                    leaveTo="opacity-0"
-                                                                >
-                                                                    <Popover.Panel className="absolute z-10 inset-x-0 top-full text-sm text-gray-500">
-                                                                        <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
-                                                                        <div className="relative bg-white">
-                                                                            <div className="mx-auto max-w-7x1 px-8">
-                                                                                <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
-                                                                                    <div className="row-start-1 grid grid-cols-2 gap-y-10 gap-x-8 text-sm">
-                                                                                        {
-                                                                                            catitem.categoryContainers.map((element) => (
-                                                                                                < div key={element.mainCategory.categoryName} >
-                                                                                                    <p id={`${element.mainCategory.categoryName}-heading`} className="font-medium text-gray-900">
-
-                                                                                                        <Link to={`/store/${element.mainCategory.href}`} className="hover:text-gray-800">
-                                                                                                            {element.mainCategory.categoryName}
-                                                                                                        </Link>
-                                                                                                    </p>
-
-                                                                                                    <ul
-                                                                                                        role="list"
-                                                                                                        aria-labelledby={`${element.mainCategory.categoryName}-heading`}
-                                                                                                        className="mt-6 space-y-6 sm:mt-4 sm:space-y-4 list-none"
-                                                                                                    >
-                                                                                                        {element.subCategories.map((item) => (
-                                                                                                            <li key={item.categoryName} className="flex">
-                                                                                                                <Link to={`/store/${item.href}`} className="hover:text-gray-800">
-                                                                                                                    {item.categoryName}
-                                                                                                                </Link>
-                                                                                                            </li>
-                                                                                                        ))}
-                                                                                                    </ul>
-                                                                                                </div>
+                                <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">
+                                    <div className="flex h-full space-x-8">
 
 
-                                                                                            ))
-                                                                                        }
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </Popover.Panel>
-                                                                </Transition>
-                                                            </>
-                                                        )}
-                                                    </Popover>
+                                        {
+                                            navigation.pages.map((page) => (
+
+                                                <Link
+                                                    key={page.name}
+                                                    to={page.href}
+                                                    className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                                                >
+                                                    {page.name}
+                                                </Link>
+                                            ))
+                                        }
 
 
-                                                ))
-                                            }
-                                            {
-                                                navigation.pages.map((page) => (
+                                    </div>
+                                </Popover.Group>
 
-                                                    <Link
-                                                        key={page.name}
-                                                        to={page.href}
-                                                        className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                                                    >
-                                                        {page.name}
-                                                    </Link>
-                                                ))
-                                            }
-
-
-                                        </div>
-                                    </Popover.Group>
-                                )}
                             </div>
                         </div>
                     </nav>
@@ -371,4 +299,4 @@ const Header = () => {
     );
 }
 
-export default Header
+export default AdminHeader

@@ -1,10 +1,8 @@
 package hu.plantshop.controller;
 
+import hu.plantshop.dto.request.SimpleIdRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import hu.plantshop.dto.response.CategoryResponse;
 import hu.plantshop.service.CategoryService;
 import lombok.AllArgsConstructor;
@@ -21,8 +19,20 @@ public class CategoryController {
     public ResponseEntity<?> getAllCategories() {
         CategoryResponse categories = categoryService.getAllCategories();
         if(categories == null) {
-            return ResponseEntity.ok("no products");
+            return ResponseEntity.ok("no categories");
         }
         return ResponseEntity.ok(categories);
     }
+
+    @DeleteMapping("/deletecategory")
+    public ResponseEntity<?> deleteCategoryById(@RequestBody SimpleIdRequest id) {
+
+        categoryService.deleteBranchCategory(id.getId());
+
+        return ResponseEntity.ok("deleted" + id.getId());
+    }
+
+
+
+
 }

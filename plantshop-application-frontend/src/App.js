@@ -12,6 +12,7 @@ import CheckoutForm from './components/CheckoutForm';
 import Orders from './components/Orders';
 import CategoryManager from './components/CategoryManager';
 import Admin from './components/Admin';
+import BranchCategoryManager from './components/BranchCategoryManager';
 
 function App() {
 
@@ -29,10 +30,11 @@ function App() {
         <Route path='/shoppingbasket' element={<ShoppingBasket />} />
         <Route path='/checkout' element={<CheckoutForm />} />
         <Route path='/orders' element={<Orders />} />
-        <Route path='/categorymanager' element={<CategoryManager />} />
-        <Route path='/admin' element={<Admin />} />
         <Route path='*' element={<Error />} />
-
+      </Route>
+      <Route path='/admin' element={<Admin />}>
+        <Route path='/admin/categorymanager' element={<CategoryManager />} />
+        <Route path='/admin/branchcategorymanager' element={<BranchCategoryManager />} />
       </Route>
     </Routes>
 

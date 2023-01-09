@@ -50,34 +50,16 @@ public class CategoryService {
                 categoryContainer.add(new CategoryContainer(mainCategory, subCategories));
             }
 
-            branchCategoryContainers.add(new BranchCategoryContainer(branchName, categoryContainer));
+            branchCategoryContainers.add(new BranchCategoryContainer(branchCategory.getId(), branchName, categoryContainer));
 
         }
         return new CategoryResponse(branchCategoryContainers);
-
-
-
-
-
-
-
-
-        /*HashMap<Category, List<Category>> categoriesGrouped =  new HashMap<>();
-
-        for (Category category : categories) {
-            if( category.getParentId()==null) {
-                categoriesGrouped.put(category, categoryRepository.getCategoriesByParentId(category.getId()));
-            }
-        }
-
-
-
-        for (Map.Entry<Category, List<Category>> entry : categoriesGrouped.entrySet()) {
-            CategoryContainer item = new CategoryContainer(entry.getKey(), entry.getValue());
-            categoryContainer.add(item);
-        }
-
-        return new CategoryResponse(categoryContainer);*/
     }
+
+    public void deleteBranchCategory(Long id) {
+        branchCategoryRepository.deleteById(id);
+    }
+
+
 
 }
