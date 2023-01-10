@@ -40,6 +40,7 @@ const Login = () => {
             setEmail('');
             setPassword('');
             navigate(from, { replace: true });
+            //navigate("/store");
         } catch (err) {
             console.log(err)
             if (!err?.response) {

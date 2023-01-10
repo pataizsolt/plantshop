@@ -15,7 +15,7 @@ const BranchCategory = (props) => {
             </td>
 
             <td class="px-6 py-4">
-                <button onClick={props.handleClick}><MdClose /></button>
+                <button onClick={props.handleClick} ><MdClose /></button>
             </td>
 
         </tr>

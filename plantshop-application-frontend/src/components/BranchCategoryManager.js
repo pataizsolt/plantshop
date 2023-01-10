@@ -4,6 +4,7 @@ import useAuth from '../hooks/useAuth'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { MdClose } from 'react-icons/md';
 import BranchCategory from './BranchCategory';
+import { data } from 'autoprefixer';
 
 const ORDER_URL = '/api/store';
 const BranchCategoryManager = () => {
@@ -15,7 +16,7 @@ const BranchCategoryManager = () => {
     const [isFetching, setIsFetching] = useState(true);
     const axiosPrivate = useAxiosPrivate();
 
-    function refreshOrderData() {
+    function refreshBranchCategoryData() {
         axiosPrivate.get(ORDER_URL + "/categories",
             {
                 headers: { 'Content-Type': 'application/json' },
@@ -28,22 +29,24 @@ const BranchCategoryManager = () => {
     }
 
     function handleClick(id) {
-        axiosPrivate.delete(ORDER_URL + "/deletecategory",
-            JSON.stringify({ id }),
+        axiosPrivate.delete(ORDER_URL + "/deletecategory?id=" + id,
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
-            }
+            },
         ).then(resp => {
             console.log(resp);
+            refreshBranchCategoryData();
         });
     }
+
 
     useEffect(() => {
 
         console.log("asd")
-        refreshOrderData();
+
         console.log(categoryData);
+        refreshBranchCategoryData();
 
 
     }, []);

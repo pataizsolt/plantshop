@@ -13,26 +13,41 @@ import Orders from './components/Orders';
 import CategoryManager from './components/CategoryManager';
 import Admin from './components/Admin';
 import BranchCategoryManager from './components/BranchCategoryManager';
+import { RequireAuth } from './components/RequireAuth';
 
 function App() {
 
   return (
 
     <Routes>
+
       <Route path='/' element={<Home />} >
-        <Route path='/home' element={<LandingPage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/home' element={<LandingPage />} />
         <Route path='/private' element={<PrivateContent />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/store/:category' element={<Store />} />
         <Route path='/store' element={<Store />} />
-        <Route path='/shoppingbasket' element={<ShoppingBasket />} />
-        <Route path='/checkout' element={<CheckoutForm />} />
-        <Route path='/orders' element={<Orders />} />
         <Route path='*' element={<Error />} />
+
+
+        <Route path='/shoppingbasket' element={
+          <RequireAuth><ShoppingBasket /></RequireAuth>}
+        />
+        <Route path='/checkout' element={
+          <RequireAuth><CheckoutForm /></RequireAuth>}
+        />
+        <Route path='/orders' element={
+          <RequireAuth><Orders /></RequireAuth>}
+        />
+
       </Route>
-      <Route path='/admin' element={<Admin />}>
+      <Route path='/admin' element={
+        <RequireAuth>
+          <Admin />
+        </RequireAuth>
+      }>
         <Route path='/admin/categorymanager' element={<CategoryManager />} />
         <Route path='/admin/branchcategorymanager' element={<BranchCategoryManager />} />
       </Route>
