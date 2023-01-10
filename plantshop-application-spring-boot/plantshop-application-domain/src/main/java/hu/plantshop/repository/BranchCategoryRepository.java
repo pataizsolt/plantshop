@@ -9,4 +9,5 @@ import hu.plantshop.domain.Category;
 
 public interface BranchCategoryRepository extends JpaRepository<BranchCategory, Long> {
 
+
 }

@@ -17,6 +17,8 @@ import hu.plantshop.repository.BranchCategoryRepository;
 import hu.plantshop.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
 public class CategoryService {
@@ -59,6 +61,18 @@ public class CategoryService {
     public void deleteBranchCategory(Long id) {
         branchCategoryRepository.deleteById(id);
     }
+
+    @Transactional
+    public void updateBranchCategory(Long id, String newBranchName) {
+        branchCategoryRepository.findById(id).get().setCategoryName(newBranchName);
+    }
+
+    @Transactional
+    public void addBranchCategory(String newBranchName) {
+        branchCategoryRepository.save(new BranchCategory(newBranchName, null));
+    }
+
+
 
 
 
