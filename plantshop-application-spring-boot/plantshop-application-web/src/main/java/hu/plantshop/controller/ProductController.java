@@ -37,7 +37,7 @@ public class ProductController {
     public ResponseEntity<?> getAllProducts() {
         List<ProductResponse> products = productService.getAllProducts();
         if(products.size() == 0) {
-            return ResponseEntity.ok("no products");
+            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NO_CONTENT);
         }
         return ResponseEntity.ok(products);
     }
@@ -49,7 +49,7 @@ public class ProductController {
 
         List<ProductResponse> products = productService.getProductsByCategory(categoryName);
         if(products.size() == 0) {
-            return ResponseEntity.ok("no products in this category");
+            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NO_CONTENT);
         }
         return ResponseEntity.ok(products);
     }

@@ -6,7 +6,7 @@ import MainCategory from './MainCategory';
 import { MdAdd } from 'react-icons/md';
 
 const CATEGORY_URL = '/api/store';
-const MainCategoryManager = () => {
+const SubCategoryManager = () => {
     let { id } = useParams();
 
     const [isFetching, setIsFetching] = useState(true);
@@ -174,4 +174,4 @@ const MainCategoryManager = () => {
     )
 }
 
-export default MainCategoryManager
+export default SubCategoryManager

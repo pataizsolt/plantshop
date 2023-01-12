@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
 const CATEGORY_URL = '/api/store';
-const MainCategory = (props) => {
-    const [mainCategoryName, setMainCategoryName] = useState(props.category.categoryName);
+const SubCategory = (props) => {
+    const [subCategoryName, setSubCategoryName] = useState(props.category.categoryName);
     const id = props.category.id;
     const [previousName, setPreviousName] = useState(mainCategoryName);
     const [clicked, setClicked] = useState(false);
 
     function saveMainCategory() {
-        axiosPrivate.put(CATEGORY_URL + "/updatemaincategory",
-            JSON.stringify({ id, mainCategoryName }),
+        axiosPrivate.put(CATEGORY_URL + "/updatesubcategory",
+            JSON.stringify({ id, subCategoryName }),
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
@@ -37,14 +37,14 @@ const MainCategory = (props) => {
                         <div>
                             <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
                             <input type="text" id="small-input" className=""
-                                onChange={(e) => setMainCategoryName(e.target.value)} value={mainCategoryName} />
+                                onChange={(e) => setSubCategoryName(e.target.value)} value={mainCategoryName} />
                         </div>
                     </td>
                 )
                 :
                 (
                     <td className="px-6 py-4">
-                        {mainCategoryName}
+                        {subCategoryName}
                     </td>
                 )
             }
@@ -75,7 +75,7 @@ const MainCategory = (props) => {
                         <td className="px-6 py-4">
                             <button onClick={() => {
                                 setClicked(prevClicked => !prevClicked);
-                                setMainCategoryName(previousName);
+                                setSubCategoryName(previousName);
                             }} >Cancel</button>
                         </td>
                     </>
@@ -85,15 +85,13 @@ const MainCategory = (props) => {
                     <td className="px-6 py-4">
                         <button onClick={() => {
                             setClicked(prevClicked => !prevClicked);
-                            setPreviousName(mainCategoryName);
+                            setPreviousName(subCategoryName);
                         }} >Edit</button>
                     </td>
                 )
 
             }
-            <td className="px-6 py-4 text-right">
-                <Link to={'/admin/maincategorymanager/' + id}><button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">...</button></Link>
-            </td>
+
 
 
 
@@ -102,4 +100,4 @@ const MainCategory = (props) => {
     )
 }
 
-export default MainCategory
+export default SubCategory

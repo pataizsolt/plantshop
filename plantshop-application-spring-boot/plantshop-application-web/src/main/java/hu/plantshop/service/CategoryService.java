@@ -117,9 +117,9 @@ public class CategoryService {
     }
 
     @Transactional
-    public void addSubCategory(Long id, String newCategoryName, Long parentId) {
+    public void addSubCategory(String newCategoryName, Long parentId) {
         //categoryRepository.save(new Category(newCategoryName, null));
-        branchCategoryRepository.findById(id).get().getMainCategories().add(new Category(newCategoryName, null));
+        categoryRepository.save(new Category(newCategoryName, parentId));
 
     }
 
