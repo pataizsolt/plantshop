@@ -21,6 +21,7 @@ import javax.transaction.Transactional;
 import hu.plantshop.domain.*;
 import hu.plantshop.repository.*;
 import hu.plantshop.service.AppUserService;
+import hu.plantshop.service.CategoryService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -45,7 +46,7 @@ public class Application {
 
     @Bean
 
-    CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository, FileService fileService, OrderRepository orderRepository, OrderItemRepository orderItemRepository) {
+    CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository, FileService fileService, OrderRepository orderRepository, OrderItemRepository orderItemRepository, CategoryService categoryService) {
         return args -> {
             appUserRoleRepository.save(new AppUserRole("USER"));
             appUserRoleRepository.save(new AppUserRole("ADMIN"));
@@ -112,7 +113,7 @@ public class Application {
             categoryRepository.save(mainCategory9);
             categoryRepository.save(mainCategory10);
 
-
+/*
             List<Category> subCategories1 = new ArrayList<>();
             List<Category> subCategories2 = new ArrayList<>();
             List<Category> subCategories3 = new ArrayList<>();
@@ -209,10 +210,28 @@ public class Application {
             categoryRepository.save(category12);
             categoryRepository.save(category13);
             categoryRepository.save(category14);
-            categoryRepository.save(category15);
-            branchCategoryRepository.save(new BranchCategory("Indoor Plants", mainCategories1));
-            branchCategoryRepository.save(new BranchCategory("Pots", mainCategories2));
-            branchCategoryRepository.save(new BranchCategory("Accessories", mainCategories3));
+            categoryRepository.save(category15);*/
+
+
+            branchCategoryRepository.save(new BranchCategory("Indoor Plants", new ArrayList<>()));
+            branchCategoryRepository.save(new BranchCategory("Pots", new ArrayList<>()));
+            branchCategoryRepository.save(new BranchCategory("Accessories", new ArrayList<>()));
+
+
+
+
+
+
+            /*
+            for (Category category : mainCategories1) {
+                categoryService.addMainCategory(31L, category.getCategoryName());
+            }
+            for (Category category : mainCategories2) {
+                categoryService.addMainCategory(32L, category.getCategoryName());
+            }
+            for (Category category : mainCategories3) {
+                categoryService.addMainCategory(33L, category.getCategoryName());
+            }
 
 
             Product product = new Product(100, subCategories1, 10, "Tulip", "productdescription");
@@ -231,7 +250,7 @@ public class Application {
             productRepository.save(new Product(100, subCategories11, 1, "generic sprinkler", "productdescription2"));
             productRepository.save(new Product(105, subCategories12, 11, "Generic flower soil", "productdescription2"));
             productRepository.save(new Product(105, subCategories13, 1, "Generic coconut soil", "productdescription2"));
-
+*/
 
             //OrderItem orderItem = new OrderItem(null, new Product(100, subCategories1, 10, "Tulip2", "productdescription"), 3L);
             //orderItemRepository.save(orderItem);

@@ -1,19 +1,19 @@
 import React from 'react'
-import { MdClose } from 'react-icons/md'
 import { useState } from 'react';
 import { axiosPrivate } from '../api/axios';
 import { Link } from 'react-router-dom';
+import { MdClose } from 'react-icons/md';
 
 const CATEGORY_URL = '/api/store';
-const BranchCategory = (props) => {
-    const [branchCategoryName, setBranchCategoryName] = useState(props.category.branchCategoryName);
+const MainCategory = (props) => {
+    const [mainCategoryName, setMainCategoryName] = useState(props.category.categoryName);
     const id = props.category.id;
-    const [previousName, setPreviousName] = useState(branchCategoryName);
+    const [previousName, setPreviousName] = useState(mainCategoryName);
     const [clicked, setClicked] = useState(false);
 
-    function saveBranchCategory() {
+    function saveMainCategory() {
         axiosPrivate.put(CATEGORY_URL + "/updatecategory",
-            JSON.stringify({ id, branchCategoryName }),
+            JSON.stringify({ id, mainCategoryName }),
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
@@ -37,14 +37,14 @@ const BranchCategory = (props) => {
                         <div>
                             <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
                             <input type="text" id="small-input" className=""
-                                onChange={(e) => setBranchCategoryName(e.target.value)} value={branchCategoryName} />
+                                onChange={(e) => setMainCategoryName(e.target.value)} value={mainCategoryName} />
                         </div>
                     </td>
                 )
                 :
                 (
                     <td className="px-6 py-4">
-                        {branchCategoryName}
+                        {mainCategoryName}
                     </td>
                 )
             }
@@ -64,13 +64,13 @@ const BranchCategory = (props) => {
                         <td className="px-6 py-4">
                             <button onClick={() => {
                                 setClicked(prevClicked => !prevClicked);
-                                saveBranchCategory();
+                                saveMainCategory();
                             }} >Save</button>
                         </td>
                         <td className="px-6 py-4">
                             <button onClick={() => {
                                 setClicked(prevClicked => !prevClicked);
-                                setBranchCategoryName(previousName);
+                                setMainCategoryName(previousName);
                             }} >Cancel</button>
                         </td>
                     </>
@@ -80,7 +80,7 @@ const BranchCategory = (props) => {
                     <td className="px-6 py-4">
                         <button onClick={() => {
                             setClicked(prevClicked => !prevClicked);
-                            setPreviousName(branchCategoryName);
+                            setPreviousName(mainCategoryName);
                         }} >Edit</button>
                     </td>
                 )
@@ -97,4 +97,4 @@ const BranchCategory = (props) => {
     )
 }
 
-export default BranchCategory
+export default MainCategory

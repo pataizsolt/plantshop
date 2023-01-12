@@ -75,5 +75,58 @@ public class CategoryService {
 
 
 
+    public List<Category> getMainCategoriesById(Long id) {
+        BranchCategory branchCategory = branchCategoryRepository.findById(id).get();
+        List<Category> mainCategories = branchCategory.getMainCategories();
+        return mainCategories;
+    }
+
+    public BranchCategory getBranchCategoryById(Long id){
+        return branchCategoryRepository.findById(id).get();
+    }
+
+    public void deleteMainCategory(Long id) {
+        categoryRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateMainCategory(Long id, String newBranchName) {
+        categoryRepository.findById(id).get().setCategoryName(newBranchName);
+        categoryRepository.findById(id).get().setHref(newBranchName.toLowerCase().replaceAll(" ", "-"));
+        categoryRepository.findById(id).get().setCategoryName(newBranchName);
+    }
+
+    @Transactional
+    public void addMainCategory(Long id, String newCategoryName) {
+        //categoryRepository.save(new Category(newCategoryName, null));
+        branchCategoryRepository.findById(id).get().getMainCategories().add(new Category(newCategoryName, null));
+
+    }
+
+
+
+    public void deleteSubCategory(Long id) {
+        categoryRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateSubCategory(Long id, String newBranchName) {
+        categoryRepository.findById(id).get().setCategoryName(newBranchName);
+        categoryRepository.findById(id).get().setHref(newBranchName.toLowerCase().replaceAll(" ", "-"));
+        categoryRepository.findById(id).get().setCategoryName(newBranchName);
+    }
+
+    @Transactional
+    public void addSubCategory(Long id, String newCategoryName, Long parentId) {
+        //categoryRepository.save(new Category(newCategoryName, null));
+        branchCategoryRepository.findById(id).get().getMainCategories().add(new Category(newCategoryName, null));
+
+    }
+
+
+
+
+
+
 
 }

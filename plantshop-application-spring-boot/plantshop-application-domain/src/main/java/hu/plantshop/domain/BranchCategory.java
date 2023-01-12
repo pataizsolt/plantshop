@@ -2,10 +2,7 @@ package hu.plantshop.domain;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +18,7 @@ public class BranchCategory {
     private Long id;
     private String categoryName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Category> mainCategories;
 
     public BranchCategory(String categoryName, List<Category> mainCategories) {
