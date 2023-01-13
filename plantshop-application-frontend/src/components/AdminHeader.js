@@ -14,6 +14,7 @@ const navigation = {
     pages: [
         { name: 'CategoryManager', href: '/admin/categorymanager' },
         { name: 'BranchCategoryManager', href: '/admin/branchcategorymanager' },
+        { name: 'ProductManager', href: '/admin/productmanager' }
     ],
 }
 

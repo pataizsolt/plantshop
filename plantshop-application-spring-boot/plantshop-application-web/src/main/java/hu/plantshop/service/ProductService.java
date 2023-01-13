@@ -103,4 +103,8 @@ public class ProductService {
 
         return fileResponse;
     }
+
+    public void addProduct() {
+        productRepository.save(new Product());
+    }
 }

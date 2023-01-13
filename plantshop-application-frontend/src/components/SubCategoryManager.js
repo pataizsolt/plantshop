@@ -9,6 +9,8 @@ import SubCategory from './SubCategory';
 const CATEGORY_URL = '/api/store';
 const SubCategoryManager = () => {
     let { id } = useParams();
+    let parentId = id;
+
 
     const [isFetching, setIsFetching] = useState(true);
     const [subCategory, setSubCategory] = useState();
@@ -24,25 +26,27 @@ const SubCategoryManager = () => {
 
 
     function getSubCategory() {
-        axiosPrivate.get(CATEGORY_URL + "/subcategories?id=" + id,
+        axiosPrivate.get(CATEGORY_URL + "/subcategories?id=" + parentId,
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             }
         ).then(resp => {
+            getMainAndBranchCategoryData()
             setSubCategory(resp.data);
-            //setIsFetching(false);
+
         });
     }
 
 
     function getMainAndBranchCategoryData() {
-        axiosPrivate.get(CATEGORY_URL + "/branchandmaindata?id=" + id,
+        axiosPrivate.get(CATEGORY_URL + "/branchandmaindata?id=" + parentId,
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             }
         ).then(resp => {
+            console.log(resp);
             setMainAndBranchCategoryData(resp.data);
             setIsFetching(false);
         });
@@ -61,15 +65,15 @@ const SubCategoryManager = () => {
                 withCredentials: true
             },
         ).then(resp => {
-            console.log(resp);
+
             getSubCategory();
         });
     }
 
 
     function saveSubCategory() {
-        axiosPrivate.post(CATEGORY_URL + "/addMainCategory",
-            JSON.stringify({ id, subCategoryName }),
+        axiosPrivate.post(CATEGORY_URL + "/addSubCategory",
+            JSON.stringify({ subCategoryName, parentId }),
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
@@ -81,8 +85,11 @@ const SubCategoryManager = () => {
     }
 
 
+
+
+
+
     useEffect(() => {
-        getMainAndBranchCategoryData();
         getSubCategory();
     }, [])
 

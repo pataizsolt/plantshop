@@ -16,6 +16,8 @@ import BranchCategoryManager from './components/BranchCategoryManager';
 import { RequireAuth } from './components/RequireAuth';
 import MainCategoryManager from './components/MainCategoryManager';
 import SubCategoryManager from './components/SubCategoryManager';
+import Product from './components/Product';
+import ProductManager from './components/ProductManager';
 
 function App() {
 
@@ -54,6 +56,7 @@ function App() {
         <Route path='/admin/branchcategorymanager' element={<BranchCategoryManager />} />
         <Route path='/admin/maincategorymanager/:id' element={<MainCategoryManager />} />
         <Route path='/admin/subcategorymanager/:id' element={<SubCategoryManager />} />
+        <Route path='/admin/productmanager' element={<ProductManager />} />
       </Route>
     </Routes>
 
