@@ -92,7 +92,7 @@ const MainCategory = (props) => {
 
             }
             <td className="px-6 py-4 text-right">
-                <Link to={'/admin/maincategorymanager/' + id}><button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">...</button></Link>
+                <Link to={'/admin/subcategorymanager/' + id}><button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">...</button></Link>
             </td>
 
 

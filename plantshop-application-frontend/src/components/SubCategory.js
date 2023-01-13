@@ -8,7 +8,7 @@ const CATEGORY_URL = '/api/store';
 const SubCategory = (props) => {
     const [subCategoryName, setSubCategoryName] = useState(props.category.categoryName);
     const id = props.category.id;
-    const [previousName, setPreviousName] = useState(mainCategoryName);
+    const [previousName, setPreviousName] = useState(subCategoryName);
     const [clicked, setClicked] = useState(false);
 
     function saveMainCategory() {
@@ -37,7 +37,7 @@ const SubCategory = (props) => {
                         <div>
                             <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
                             <input type="text" id="small-input" className=""
-                                onChange={(e) => setSubCategoryName(e.target.value)} value={mainCategoryName} />
+                                onChange={(e) => setSubCategoryName(e.target.value)} value={subCategoryName} />
                         </div>
                     </td>
                 )

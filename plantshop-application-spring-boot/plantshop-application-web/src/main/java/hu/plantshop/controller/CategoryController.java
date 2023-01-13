@@ -3,8 +3,10 @@ package hu.plantshop.controller;
 import hu.plantshop.domain.BranchCategory;
 import hu.plantshop.domain.Category;
 import hu.plantshop.dto.request.*;
+import hu.plantshop.dto.response.SubCategorysMainAndBranchCategoryResponse;
 import hu.plantshop.repository.BranchCategoryRepository;
 import hu.plantshop.repository.CategoryRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import hu.plantshop.dto.response.CategoryResponse;
@@ -74,6 +76,12 @@ public class CategoryController {
         return ResponseEntity.ok(category);
     }
 
+    @GetMapping("/subcategories")
+    public ResponseEntity<?> getSubCategoriesByMainCategoryId(@RequestParam Long id) {
+        List<Category> categories = categoryService.getSubCategoriesByMainId(id);
+        return ResponseEntity.ok(categories);
+    }
+
 
     @Transactional
     @DeleteMapping("/deletemaincategory")
@@ -138,5 +146,27 @@ public class CategoryController {
     }
 
 
+    @GetMapping("/branchandmaindata")
+    public ResponseEntity<?> getBranchAndMainCategoryDataByMainCategoryId(@RequestParam Long id) {
+        String branchName = null;
+        Long branchId = null;
+        String mainName = categoryRepository.findById(id).get().getCategoryName();
+        Long mainId = id;
 
+        for (int i = 0; i < branchCategoryRepository.findAll().size(); i++) {
+            for (int j = 0; j < branchCategoryRepository.findAll().get(i).getMainCategories().size(); j++) {
+                if(branchCategoryRepository.findAll().get(i).getMainCategories().get(j).getId() == id){
+                    branchName = branchCategoryRepository.findAll().get(i).getCategoryName();
+                    branchId = branchCategoryRepository.findAll().get(i).getId();
+                }
+            }
+        }
+        try{
+            SubCategorysMainAndBranchCategoryResponse response = new SubCategorysMainAndBranchCategoryResponse(branchId, branchName, mainId, mainName);
+            return ResponseEntity.ok(response);
+        }
+        catch (Exception e){
+            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

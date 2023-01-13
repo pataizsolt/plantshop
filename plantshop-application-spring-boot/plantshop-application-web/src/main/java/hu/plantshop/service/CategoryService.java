@@ -58,6 +58,10 @@ public class CategoryService {
         return new CategoryResponse(branchCategoryContainers);
     }
 
+    public List<Category> getSubCategoriesByMainId(Long id){
+        return categoryRepository.findCategoriesByParentId(id);
+    }
+
     public void deleteBranchCategory(Long id) {
         branchCategoryRepository.deleteById(id);
     }

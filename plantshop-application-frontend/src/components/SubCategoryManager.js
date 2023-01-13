@@ -4,29 +4,46 @@ import { axiosPrivate } from '../api/axios';
 import { useState } from 'react';
 import MainCategory from './MainCategory';
 import { MdAdd } from 'react-icons/md';
+import SubCategory from './SubCategory';
 
 const CATEGORY_URL = '/api/store';
 const SubCategoryManager = () => {
     let { id } = useParams();
 
     const [isFetching, setIsFetching] = useState(true);
-    const [branchCategory, setBranchCategory] = useState();
+    const [subCategory, setSubCategory] = useState();
     const [clicked, setClicked] = useState(false);
 
 
-    const [mainCategoryName, setMainCategoryName] = useState();
+    const [mainAndBranchCategoryData, setMainAndBranchCategoryData] = useState();
+
+
+    const [subCategoryName, setSubCategoryName] = useState();
 
 
 
 
-    function getBranchCategory() {
-        axiosPrivate.get(CATEGORY_URL + "/branchcategory?id=" + id,
+    function getSubCategory() {
+        axiosPrivate.get(CATEGORY_URL + "/subcategories?id=" + id,
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             }
         ).then(resp => {
-            setBranchCategory(resp.data);
+            setSubCategory(resp.data);
+            //setIsFetching(false);
+        });
+    }
+
+
+    function getMainAndBranchCategoryData() {
+        axiosPrivate.get(CATEGORY_URL + "/branchandmaindata?id=" + id,
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            }
+        ).then(resp => {
+            setMainAndBranchCategoryData(resp.data);
             setIsFetching(false);
         });
     }
@@ -45,28 +62,28 @@ const SubCategoryManager = () => {
             },
         ).then(resp => {
             console.log(resp);
-            getBranchCategory();
+            getSubCategory();
         });
     }
 
 
-    function saveMainCategory() {
+    function saveSubCategory() {
         axiosPrivate.post(CATEGORY_URL + "/addMainCategory",
-            JSON.stringify({ id, mainCategoryName }),
+            JSON.stringify({ id, subCategoryName }),
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             }
         ).then(resp => {
-            getBranchCategory();
+            getSubCategory();
             console.log(resp.data);
         });
     }
 
 
     useEffect(() => {
-
-        getBranchCategory();
+        getMainAndBranchCategoryData();
+        getSubCategory();
     }, [])
 
     return (
@@ -80,7 +97,11 @@ const SubCategoryManager = () => {
                             <>
                                 <table className="w-full text-sm text-left text-black " >
                                     <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-gray-50">
-                                        Main categories of {branchCategory.categoryName} - {branchCategory.id}
+                                        Sub categories of
+                                        <br />
+                                        Branch Category: {mainAndBranchCategoryData.branchCategoryName} - {mainAndBranchCategoryData.branchId}
+                                        <br />
+                                        Main Category: {mainAndBranchCategoryData.mainCategoryName} - {mainAndBranchCategoryData.mainId}
                                         <p className="mt-1 text-sm font-normal text-black"></p>
                                     </caption>
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-black">
@@ -108,9 +129,9 @@ const SubCategoryManager = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {branchCategory.mainCategories.map((category) => (
+                                        {subCategory.map((category) => (
 
-                                            <MainCategory key={category.id} category={category} handleClick={() => handleClick(category.id)} refresh={() => getBranchCategory()} />
+                                            <SubCategory key={category.id} category={category} handleClick={() => handleClick(category.id)} refresh={() => getSubCategory()} />
 
                                         ))}
 
@@ -126,14 +147,14 @@ const SubCategoryManager = () => {
                                                             <div>
                                                                 <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
                                                                 <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setMainCategoryName(e.target.value)} value={mainCategoryName} />
+                                                                    onChange={(e) => setSubCategoryName(e.target.value)} value={subCategoryName} />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4">
                                                             <button onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
-                                                                saveMainCategory();
-                                                                setMainCategoryName('');
+                                                                saveSubCategory();
+                                                                setSubCategoryName('');
                                                             }} >Save</button>
                                                         </td>
                                                         <td className="px-6 py-4">
