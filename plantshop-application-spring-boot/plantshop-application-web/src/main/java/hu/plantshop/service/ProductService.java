@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import hu.plantshop.dto.request.NewProductRequest;
+import hu.plantshop.dto.response.AdminProductResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -47,6 +49,41 @@ public class ProductService {
             }
             else{
                 response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList()));
+            }
+
+        }
+        return response;
+    }
+
+    public List<AdminProductResponse> getAllAdminProducts() {
+        List<Product> products = productRepository.findAll();
+        List<AdminProductResponse> response = new ArrayList<>();
+
+
+        for (Product product : products) {
+            String categoryName = "";
+            String subCategoryName = "";
+            Long categoryId = null;
+            Long subCategoryId = null;
+            for (Category category : product.getCategory()) {
+                if( category.getParentId() == null ) {
+                    categoryId = category.getId();
+                    categoryName = category.getCategoryName();
+                }
+                else {
+                    subCategoryId = category.getId();
+                    subCategoryName = category.getCategoryName();
+                }
+            }
+            if(product.getPictures()!=null){
+                List<FileResponse> images = new ArrayList<>();
+                for (FileEntity file : product.getPictures()) {
+                    images.add(mapToFileResponse(file));
+                }
+                response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), images));
+            }
+            else{
+                response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList()));
             }
 
         }
@@ -104,7 +141,10 @@ public class ProductService {
         return fileResponse;
     }
 
-    public void addProduct() {
-        productRepository.save(new Product());
+    public void addProduct(NewProductRequest newProductRequest) {
+        List<Category> categories = new ArrayList<>();
+        categories.add(categoryRepository.findById(newProductRequest.getCategoryId()).get());
+        categories.add(categoryRepository.findById(newProductRequest.getSubCategoryId()).get());
+        productRepository.save(new Product(Math.toIntExact(newProductRequest.getPrice()), categories, Math.toIntExact(newProductRequest.getStock()), newProductRequest.getName(), newProductRequest.getDescription()));
     }
 }

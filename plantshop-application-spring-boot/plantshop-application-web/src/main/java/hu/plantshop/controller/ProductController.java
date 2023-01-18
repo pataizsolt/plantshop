@@ -5,19 +5,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
+import hu.plantshop.dto.request.NewProductRequest;
+import hu.plantshop.dto.request.UpdateBranchCategoryRequest;
+import hu.plantshop.dto.response.AdminProductResponse;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import hu.plantshop.domain.AppUser;
 import hu.plantshop.domain.Product;
@@ -40,6 +39,25 @@ public class ProductController {
             return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NO_CONTENT);
         }
         return ResponseEntity.ok(products);
+    }
+
+
+    @GetMapping("/adminproducts")
+    public ResponseEntity<?> getAllAdminProducts() {
+        List<AdminProductResponse> products = productService.getAllAdminProducts();
+        if(products.size() == 0) {
+            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(products);
+    }
+
+    @Transactional
+    @PostMapping("/addproduct")
+    public ResponseEntity<?> addBranchCategory(@RequestBody NewProductRequest newProductRequest) {
+
+        productService.addProduct(newProductRequest);
+
+        return ResponseEntity.ok("added " + newProductRequest.getName());
     }
 
     @GetMapping("/products/{categoryName}")
