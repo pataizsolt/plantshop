@@ -10,12 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -28,6 +23,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("api/files")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class FilesController {
 
     private final FileService fileService;
@@ -37,13 +33,16 @@ public class FilesController {
 
 
     @Transactional
-    @PostMapping("/add_image_to_product")
-    public ResponseEntity<String> uploadToProduct(@RequestParam("file") MultipartFile file, @RequestParam("productId") Long id) {
+    @PostMapping("/add_image_to_product/{productId}")
+    public ResponseEntity<String> uploadToProduct(@RequestParam("file") MultipartFile file, @PathVariable("productId") Long id) {
         try {
+
+            productService.deleteAllFilesFromProduct(id);
 
             FileEntity image = fileService.save(file);
 
             productService.getProductById(id).getPictures().add(image);
+
 
 
             return ResponseEntity.status(HttpStatus.OK)

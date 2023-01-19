@@ -1,6 +1,7 @@
 package hu.plantshop.controller;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +10,9 @@ import javax.transaction.Transactional;
 
 import hu.plantshop.dto.request.NewProductRequest;
 import hu.plantshop.dto.request.UpdateBranchCategoryRequest;
+import hu.plantshop.dto.request.UpdateProductRequest;
 import hu.plantshop.dto.response.AdminProductResponse;
+import hu.plantshop.service.CategoryService;
 import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +35,37 @@ import lombok.AllArgsConstructor;
 public class ProductController {
     private ProductService productService;
 
+    private CategoryService categoryService;
+
+
+    @PutMapping("/updateproduct")
+    @Transactional
+    public ResponseEntity<?> updateProductById(@RequestBody UpdateProductRequest update) {
+
+        productService.updateProductById(update.getId(), update.getName(), update.getDescription(), update.getPrice(), update.getStock(), update.getCategoryId(), update.getSubcategoryId());
+
+        return ResponseEntity.ok("updated " + update.getId());
+    }
+
+    @DeleteMapping("/deleteproduct")
+    public ResponseEntity<?> deleteCategoryById(@RequestParam Long id) {
+
+        productService.deleteProductById(id);
+
+        return ResponseEntity.ok("deleted" + id);
+    }
+
+    @GetMapping("/categoryDTO")
+    public ResponseEntity<?> getAllCategoriesInDTO() {
+        return ResponseEntity.ok(categoryService.getSubAndMainCategoriesInDTO());
+    }
+
+
     @GetMapping("/products")
     public ResponseEntity<?> getAllProducts() {
         List<ProductResponse> products = productService.getAllProducts();
         if(products.size() == 0) {
-            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NO_CONTENT);
+            return ResponseEntity.ok(Collections.emptyList());
         }
         return ResponseEntity.ok(products);
     }
@@ -46,7 +75,7 @@ public class ProductController {
     public ResponseEntity<?> getAllAdminProducts() {
         List<AdminProductResponse> products = productService.getAllAdminProducts();
         if(products.size() == 0) {
-            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NO_CONTENT);
+            return ResponseEntity.ok(Collections.emptyList());
         }
         return ResponseEntity.ok(products);
     }
@@ -67,7 +96,7 @@ public class ProductController {
 
         List<ProductResponse> products = productService.getProductsByCategory(categoryName);
         if(products.size() == 0) {
-            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NO_CONTENT);
+            return ResponseEntity.ok(Collections.emptyList());
         }
         return ResponseEntity.ok(products);
     }

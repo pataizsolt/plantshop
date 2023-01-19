@@ -76,7 +76,7 @@ public class Application {
 
 
 
-            Category mainCategory1 = new Category("Flowering plants", null);
+            /*Category mainCategory1 = new Category("Flowering plants", null);
             Category mainCategory2 = new Category("Pet-Friendly plants", null);
             Category mainCategory3 = new Category("Exotic plants", null);
             Category mainCategory4 = new Category("Spooky collection", null);
@@ -111,7 +111,7 @@ public class Application {
             categoryRepository.save(mainCategory7);
             categoryRepository.save(mainCategory8);
             categoryRepository.save(mainCategory9);
-            categoryRepository.save(mainCategory10);
+            categoryRepository.save(mainCategory10);*/
 
 /*
             List<Category> subCategories1 = new ArrayList<>();

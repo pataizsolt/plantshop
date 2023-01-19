@@ -15,18 +15,47 @@ const ProductManager = () => {
 
     const [clicked, setClicked] = useState(false);
 
-    const [productName, setProductName] = useState('');
-    const [productDescription, setProductDescription] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const [productStock, setProductStock] = useState('');
-    const [productCategoryName, setProductCategoryName] = useState('');
-    const [productCategoryId, setProductCategoryId] = useState('');
-    const [productSubCategoryName, setProductSubCategoryName] = useState('');
-    const [productSubCategoryId, setProductSubCategoryId] = useState('');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [stock, setStock] = useState('');
+    const [categoryName, setCategoryName] = useState('');
+    const [categoryId, setCategoryId] = useState('');
+    const [subCategoryName, setSubCategoryName] = useState('');
+    const [subCategoryId, setSubCategoryId] = useState('');
 
     const [productData, setProductData] = useState('');
+    const [categoryData, setCategoryData] = useState('');
+    const [subCategoryData, setSubCategoryData] = useState('');
+    const [isFetchingProduct, setIsFetchingProduct] = useState(true);
+    const [isFetchingCategory, setIsFetchingCategory] = useState(true);
     const [isFetching, setIsFetching] = useState(true);
     const axiosPrivate = useAxiosPrivate();
+
+    function saveProduct() {
+        axiosPrivate.post(PRODUCT_URL + "/addproduct",
+            JSON.stringify({ name, description, price, stock, categoryId, subCategoryId }),
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            }
+        ).then(resp => {
+            refreshProductData();
+
+        });
+    }
+
+    function handleClick(id) {
+        axiosPrivate.delete(ORDER_URL + "/deleteproduct?id=" + id,
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            },
+        ).then(resp => {
+
+            refreshProductData();
+        });
+    }
 
     function refreshProductData() {
         axiosPrivate.get(PRODUCT_URL + "/adminproducts",
@@ -36,43 +65,52 @@ const ProductManager = () => {
             }
         ).then(resp => {
             setProductData(resp.data);
-            console.log(productData);
-            setIsFetching(false);
+
+            setIsFetchingProduct(false);
         });
     }
 
-    function saveBranchCategory() {
-        axiosPrivate.post(CATEGORY_URL + "/addBranchCategory",
-            JSON.stringify({ id, productName }),
+    function getCategories() {
+        axiosPrivate.get(PRODUCT_URL + "/categoryDTO",
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             }
         ).then(resp => {
-            refreshProductData();
-            console.log(resp);
+            setCategoryData(resp.data);
+
+            setIsFetchingCategory(false);
         });
     }
 
-    function handleClick(id) {
-        axiosPrivate.delete(ORDER_URL + "/deletecategory?id=" + id,
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            },
-        ).then(resp => {
-            console.log(resp);
-            refreshProductData();
-        });
+    function refreshSubCategories(mainCategoryId) {
+        let result = categoryData.subCategoryList.filter(function (el) {
+            return parseInt(el.parentId) === parseInt(mainCategoryId);
+        })
+        setSubCategoryId('');
+        setSubCategoryName('');
+        setSubCategoryData(result);
+        setIsFetching(false);
     }
-
 
     useEffect(() => {
 
-        console.log("asd")
 
 
-        refreshProductData();
+        if (isFetchingCategory) {
+            getCategories();
+        }
+        if (isFetchingProduct) {
+            refreshProductData();
+        }
+
+
+
+
+
+
+
+
 
 
     }, []);
@@ -83,7 +121,7 @@ const ProductManager = () => {
                 <div className="overflow-hidden">
 
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        {isFetching ? (<div></div>) : (
+                        {isFetchingProduct ? (<div></div>) : (
 
                             <>
                                 <table className="w-full text-sm text-left text-black " >
@@ -148,35 +186,80 @@ const ProductManager = () => {
                                                             <div>
                                                                 <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
                                                                 <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setProductName(e.target.value)} value={productName} />
+                                                                    onChange={(e) => setName(e.target.value)} value={name} />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
                                                             <div>
                                                                 <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
                                                                 <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setProductDescription(e.target.value)} value={productDescription} />
+                                                                    onChange={(e) => setDescription(e.target.value)} value={description} />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
                                                             <div>
                                                                 <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
                                                                 <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setProductPrice(e.target.value)} value={productPrice} />
+                                                                    onChange={(e) => setPrice(e.target.value)} value={price} />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
                                                             <div>
                                                                 <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
                                                                 <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setProductStock(e.target.value)} value={productStock} />
+                                                                    onChange={(e) => setStock(e.target.value)} value={stock} />
                                                             </div>
                                                         </td>
+                                                        <td className="px-6 py-4 text-right">
+                                                            <div class="flex justify-center">
+                                                                <div class="mb-3 xl:w-96">
+                                                                    <select onChange={(e) => {
+                                                                        setCategoryId(e.target.value);
+                                                                        refreshSubCategories(e.target.value);
+                                                                    }}
+                                                                        value={categoryId}
+
+                                                                        class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                                                                        <option selected >Select a main category</option>
+
+                                                                        {isFetchingCategory ? (<div></div>) : (
+                                                                            categoryData.categoryList.map((category) => (
+
+                                                                                <option key={category.id} value={category.id} >{category.categoryName} - {category.id}</option>
+
+                                                                            ))
+                                                                        )}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-6 py-4 text-right">
+                                                            <div class="flex justify-center">
+                                                                <div class="mb-3 xl:w-96">
+                                                                    <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
+                                                                        onChange={(e) => {
+                                                                            setSubCategoryId(e.target.value);
+
+                                                                        }}
+                                                                        value={subCategoryId}>
+                                                                        <option selected >Select a sub category</option>
+                                                                        {isFetching ? (<div></div>) : (
+                                                                            subCategoryData.map((category) => (
+
+                                                                                <option key={category.id} value={category.id}>{category.categoryName} - {category.id}</option>
+
+                                                                            ))
+                                                                        )}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
                                                         <td className="px-6 py-4">
                                                             <button onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
-                                                                saveBranchCategory();
-                                                                setProductName('');
+                                                                saveProduct();
+                                                                setName('');
                                                             }} >Save</button>
                                                         </td>
                                                         <td className="px-6 py-4">

@@ -19,6 +19,8 @@ import hu.plantshop.repository.CategoryRepository;
 import hu.plantshop.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
 public class ProductService {
@@ -91,7 +93,7 @@ public class ProductService {
     }
 
 
-    public List<ProductResponse> getProductsByCategory( String categoryText) {
+    public List<ProductResponse> getProductsByCategory( String categoryText ) {
 
         List<Product> products = productRepository.getProductsByCategory(categoryRepository.getCategoryByHref(categoryText));
         List<ProductResponse> response = new ArrayList<>();
@@ -120,6 +122,27 @@ public class ProductService {
 
         }
         return response;
+    }
+
+    public void deleteProductById(Long id){
+        productRepository.deleteById(id);
+    }
+
+    public void updateProductById(Long id, String name, String description, Long price, Long stock, Long categoryId, Long subCategoryId){
+        Product product = productRepository.getProductById(id);
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(Math.toIntExact(price));
+        product.setStock(Math.toIntExact(stock));
+        product.setCategory(new ArrayList<>());
+        product.getCategory().add(categoryRepository.findById(categoryId).get());
+        product.getCategory().add(categoryRepository.findById(subCategoryId).get());
+    }
+
+    @Transactional
+    public void deleteAllFilesFromProduct(Long id){
+        Product product = productRepository.getProductById(id);
+        product.setPictures(new ArrayList<>());
     }
 
     public Product getProductById(Long id){

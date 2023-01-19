@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import hu.plantshop.dto.response.ChooseCategoryResponse;
 import org.springframework.stereotype.Service;
 
 import hu.plantshop.domain.BranchCategory;
@@ -124,6 +125,22 @@ public class CategoryService {
     public void addSubCategory(String newCategoryName, Long parentId) {
         //categoryRepository.save(new Category(newCategoryName, null));
         categoryRepository.save(new Category(newCategoryName, parentId));
+
+    }
+
+    public ChooseCategoryResponse getSubAndMainCategoriesInDTO() {
+        List<Category> mainCategories = new ArrayList<>();
+        List<Category> subCategories =  new ArrayList<>();
+
+        for (Category category : categoryRepository.findAll()) {
+            if(category.getParentId() == null) {
+                mainCategories.add(category);
+            }
+            else {
+                subCategories.add(category);
+            }
+        }
+        return new ChooseCategoryResponse(mainCategories, subCategories);
 
     }
 
