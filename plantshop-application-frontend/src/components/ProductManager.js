@@ -32,6 +32,8 @@ const ProductManager = () => {
     const [isFetching, setIsFetching] = useState(true);
     const axiosPrivate = useAxiosPrivate();
 
+
+
     function saveProduct() {
         axiosPrivate.post(PRODUCT_URL + "/addproduct",
             JSON.stringify({ name, description, price, stock, categoryId, subCategoryId }),
@@ -46,7 +48,7 @@ const ProductManager = () => {
     }
 
     function handleClick(id) {
-        axiosPrivate.delete(ORDER_URL + "/deleteproduct?id=" + id,
+        axiosPrivate.post(ORDER_URL + "/changeproductavailability?id=" + id,
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
@@ -132,6 +134,9 @@ const ProductManager = () => {
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-black">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
+                                                PICTURE
+                                            </th>
+                                            <th scope="col" className="px-6 py-3">
                                                 ID
                                             </th>
                                             <th scope="col" className="px-6 py-3">
@@ -153,24 +158,15 @@ const ProductManager = () => {
                                                 SUBCATEGORY NAME - ID
                                             </th>
                                             <th scope="col" className="px-6 py-3">
-                                                FILES
-                                            </th>
-
-                                            <th scope="col" className="px-6 py-3">
                                                 <span className="sr-only">More info</span>
                                             </th>
-                                            <th scope="col" className="px-6 py-3">
 
-                                            </th>
-                                            <th scope="col" className="px-6 py-3">
-
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {productData.map((product) => (
 
-                                            <AdminProduct key={product.id} product={product} handleClick={() => handleClick(product.id)} />
+                                            <AdminProduct key={product.id} product={product} handleClick={() => handleClick(product.id)} refresh={() => refreshProductData()} />
 
                                         ))}
 

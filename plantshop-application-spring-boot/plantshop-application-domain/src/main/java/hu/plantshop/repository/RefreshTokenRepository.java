@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Modifying;
 
 import hu.plantshop.domain.AppUser;
 import hu.plantshop.domain.RefreshToken;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
     Optional<RefreshToken> findByToken(String token);
     @Modifying

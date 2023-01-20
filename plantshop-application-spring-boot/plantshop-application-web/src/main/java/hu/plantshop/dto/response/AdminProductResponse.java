@@ -21,7 +21,9 @@ public class AdminProductResponse {
     private String description;
     private List<FileResponse> files;
 
-    public AdminProductResponse(Long id, Integer price, String categoryName, Long categoryId, String subcategoryName, Long subcategoryId, Integer stock, String name, String description, List<FileResponse> files) {
+    private boolean available;
+
+    public AdminProductResponse(Long id, Integer price, String categoryName, Long categoryId, String subcategoryName, Long subcategoryId, Integer stock, String name, String description, List<FileResponse> files, boolean available) {
         this.id = id;
         this.price = price;
         this.categoryName = categoryName;
@@ -32,5 +34,6 @@ public class AdminProductResponse {
         this.name = name;
         this.description = description;
         this.files = files;
+        this.available=available;
     }
 }

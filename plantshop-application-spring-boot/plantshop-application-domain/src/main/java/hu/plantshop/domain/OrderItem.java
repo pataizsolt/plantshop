@@ -16,7 +16,7 @@ public class OrderItem {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     Product product;
     Long quantity;
 

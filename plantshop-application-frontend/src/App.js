@@ -18,6 +18,7 @@ import MainCategoryManager from './components/MainCategoryManager';
 import SubCategoryManager from './components/SubCategoryManager';
 import Product from './components/Product';
 import ProductManager from './components/ProductManager';
+import ContactForm from './components/ContactForm';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/store/:category' element={<Store />} />
         <Route path='/store' element={<Store />} />
+        <Route path='/contactform' element={<ContactForm />} />
         <Route path='*' element={<Error />} />
 
 

@@ -105,7 +105,8 @@ const Header = () => {
     return (
         <>
             <div className="bg-white">
-                {/* Mobile menu */}
+
+                {/*
                 <Transition.Root show={open} as={Fragment}>
                     <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
                         <Transition.Child
@@ -143,7 +144,7 @@ const Header = () => {
                                     </div>
 
 
-                                    {/* Links */}
+                                    
                                     {isFetching ? (<div></div>) : (
                                         <Tab.Group as="div" className="mt-2">
                                             <div className="border-b border-gray-200">
@@ -226,7 +227,7 @@ const Header = () => {
                         </div>
                     </Dialog>
                 </Transition.Root>
-
+            */}
                 <header className="relative bg-white">
                     <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
                         asd
@@ -242,15 +243,13 @@ const Header = () => {
                                         <ProfileDropdown />
                                     </Link>
                                 </div>
-                                {/* Cart */}
+
                                 <div className="ml-4 flow-root lg:ml-6">
                                     <Link to="/shoppingbasket" className="group -m-2 flex items-center p-2">
                                         <BsCart
                                             className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                             aria-hidden="true"
                                         />
-                                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                        <span className="sr-only">items in cart, view bag</span>
                                     </Link>
                                 </div>
                             </div>
@@ -259,6 +258,7 @@ const Header = () => {
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="border-b border-gray-200">
                             <div className="flex h-16 items-center justify-center">
+                                {/* Cart 
                                 <button
                                     type="button"
                                     className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
@@ -266,7 +266,7 @@ const Header = () => {
                                 >
                                     <span className="sr-only">Open menu</span>
                                     <BsPerson className="h-6 w-6" aria-hidden="true" />
-                                </button>
+                                </button>*/}
                                 {isFetching ? (<div></div>) : (
                                     <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">
                                         <div className="flex h-full space-x-8">

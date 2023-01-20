@@ -3,6 +3,9 @@ import useAuth from '../hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BsLock } from 'react-icons/bs'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from '../api/axios';
 const LOGIN_URL = '/api/auth/signin';
 
@@ -18,7 +21,7 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {
-        setErrMsg('');
+
     }, [email, password])
 
     const handleSubmit = async (e) => {
@@ -41,6 +44,16 @@ const Login = () => {
             setPassword('');
             navigate(from, { replace: true });
             //navigate("/store");
+
+            toast.success("Logged in", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         } catch (err) {
             console.log(err)
             if (!err?.response) {
@@ -52,13 +65,22 @@ const Login = () => {
             } else {
                 setErrMsg('Login Failed');
             }
-            console.log(errMsg)
+            toast.error(errMsg, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     }
 
 
     return (
         <>
+
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-md space-y-8">
                     <div>

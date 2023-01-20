@@ -19,7 +19,9 @@ public class ProductResponse {
     private String description;
     private List<FileResponse> files;
 
-    public ProductResponse(Long id, Integer price, List<String> categoryName, List<String> subcategoryName, Integer stock, String name, String description, List<FileResponse> files) {
+    private boolean available;
+
+    public ProductResponse(Long id, Integer price, List<String> categoryName, List<String> subcategoryName, Integer stock, String name, String description, List<FileResponse> files, boolean available) {
         this.id = id;
         this.price = price;
         this.categoryName = categoryName;
@@ -28,6 +30,7 @@ public class ProductResponse {
         this.name = name;
         this.description = description;
         this.files = files;
+        this.available=available;
     }
 
 }

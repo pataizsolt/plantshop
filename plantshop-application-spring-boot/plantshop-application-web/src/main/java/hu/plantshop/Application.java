@@ -48,16 +48,19 @@ public class Application {
 
     CommandLineRunner run(AppUserRepository appUserRepository, AppUserRoleRepository appUserRoleRepository, AddressRepository addressRepository, CategoryRepository categoryRepository, ProductRepository productRepository, BCryptPasswordEncoder passwordEncoder, BranchCategoryRepository branchCategoryRepository, FileService fileService, OrderRepository orderRepository, OrderItemRepository orderItemRepository, CategoryService categoryService) {
         return args -> {
-            appUserRoleRepository.save(new AppUserRole("USER"));
-            appUserRoleRepository.save(new AppUserRole("ADMIN"));
-            Address address = new Address("8319", "Mordor", "Sample utca", "223");
-            addressRepository.save(address);
-            //appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
-            AppUser user = new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("ADMIN")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444");
-            appUserRepository.save(user);
+            if(appUserRepository.findAll().size()==0){
+                appUserRoleRepository.save(new AppUserRole("USER"));
+                appUserRoleRepository.save(new AppUserRole("ADMIN"));
+                Address address = new Address("8319", "Mordor", "Sample utca", "223");
+                addressRepository.save(address);
+                //appUserRepository.save(new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("USER"))));
+                AppUser user = new AppUser("asd", "asd", "asd@asd.com", passwordEncoder.encode("asd123"), Collections.singleton(appUserRoleRepository.findAppUserRoleByName("ADMIN")), addressRepository.findAddressById(2L), addressRepository.findAddressById(2L), "+36302224444");
+                appUserRepository.save(user);
+
+            }
 
 
-            Resource resource = new ClassPathResource("pictures/sample.jpg");
+            /*Resource resource = new ClassPathResource("pictures/sample.jpg");
 
             InputStream input = resource.getInputStream();
 
@@ -76,7 +79,7 @@ public class Application {
 
 
 
-            /*Category mainCategory1 = new Category("Flowering plants", null);
+            Category mainCategory1 = new Category("Flowering plants", null);
             Category mainCategory2 = new Category("Pet-Friendly plants", null);
             Category mainCategory3 = new Category("Exotic plants", null);
             Category mainCategory4 = new Category("Spooky collection", null);
@@ -213,9 +216,9 @@ public class Application {
             categoryRepository.save(category15);*/
 
 
-            branchCategoryRepository.save(new BranchCategory("Indoor Plants", new ArrayList<>()));
-            branchCategoryRepository.save(new BranchCategory("Pots", new ArrayList<>()));
-            branchCategoryRepository.save(new BranchCategory("Accessories", new ArrayList<>()));
+            //branchCategoryRepository.save(new BranchCategory("Indoor Plants", new ArrayList<>()));
+            //branchCategoryRepository.save(new BranchCategory("Pots", new ArrayList<>()));
+            //branchCategoryRepository.save(new BranchCategory("Accessories", new ArrayList<>()));
 
 
 

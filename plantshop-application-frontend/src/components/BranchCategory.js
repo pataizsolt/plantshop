@@ -3,8 +3,11 @@ import { MdClose } from 'react-icons/md'
 import { useState } from 'react';
 import { axiosPrivate } from '../api/axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const CATEGORY_URL = '/api/store';
+const regex = /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/;
+
 const BranchCategory = (props) => {
     const [branchCategoryName, setBranchCategoryName] = useState(props.category.branchCategoryName);
     const id = props.category.id;
@@ -12,18 +15,40 @@ const BranchCategory = (props) => {
     const [clicked, setClicked] = useState(false);
 
     function saveBranchCategory() {
-        axiosPrivate.put(CATEGORY_URL + "/updatecategory",
-            JSON.stringify({ id, branchCategoryName }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            }
-        ).then(resp => {
-            console.log(resp);
-
-
-        });
+        if (regex.test(branchCategoryName)) {
+            axiosPrivate.put(CATEGORY_URL + "/updatecategory",
+                JSON.stringify({ id, branchCategoryName }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            ).then(resp => {
+                toast.success("Saved branch category", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+        }
+        else {
+            toast.error("Bad branch category format", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setBranchCategoryName('');
+        }
     }
+
+
 
 
     return (
@@ -34,10 +59,14 @@ const BranchCategory = (props) => {
             {clicked ?
                 (
                     <td className="px-6 py-4 text-right">
-                        <div>
-                            <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                            <input type="text" id="small-input" className=""
-                                onChange={(e) => setBranchCategoryName(e.target.value)} value={branchCategoryName} />
+                        <div className="relative rounded-md shadow-sm">
+                            <input
+                                type="text"
+                                className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                placeholder="Branch category name"
+                                onChange={(e) => setBranchCategoryName(e.target.value)}
+                                value={branchCategoryName}
+                            />
                         </div>
                     </td>
                 )
@@ -77,7 +106,7 @@ const BranchCategory = (props) => {
                 )
                 :
                 (
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4" colSpan="2">
                         <button onClick={() => {
                             setClicked(prevClicked => !prevClicked);
                             setPreviousName(branchCategoryName);
@@ -87,7 +116,7 @@ const BranchCategory = (props) => {
 
             }
             <td className="px-6 py-4 text-right">
-                <Link to={'/admin/maincategorymanager/' + id}><button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">...</button></Link>
+                <Link to={'/admin/maincategorymanager/' + id}><button className="font-medium text-blue-600 dark:text-blue-500">...</button></Link>
             </td>
 
 

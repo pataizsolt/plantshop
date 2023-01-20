@@ -14,6 +14,7 @@ import hu.plantshop.service.CategoryService;
 import lombok.AllArgsConstructor;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
@@ -36,8 +37,13 @@ public class CategoryController {
     }
 
     @DeleteMapping("/deletecategory")
+    @Transactional
     public ResponseEntity<?> deleteCategoryById(@RequestParam Long id) {
 
+        for (Category category : categoryService.getBranchCategoryById(id).getMainCategories()) {
+            categoryService.deleteMainCategory(category.getId());
+        }
+        //categoryService.getBranchCategoryById(id).setMainCategories(new ArrayList<>());
         categoryService.deleteBranchCategory(id);
 
         return ResponseEntity.ok("deleted" + id);
@@ -95,6 +101,8 @@ public class CategoryController {
                 }
             }
         }
+
+        categoryService.deleteSubCategoriesWithMainId(id);
 
 
         categoryService.deleteMainCategory(id);

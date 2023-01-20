@@ -91,6 +91,12 @@ public class CategoryService {
     }
 
     public void deleteMainCategory(Long id) {
+
+        for (Category category : categoryRepository.findAll()) {
+            if(category.getParentId()==id){
+                categoryRepository.deleteById(category.getId());
+            }
+        }
         categoryRepository.deleteById(id);
     }
 
@@ -142,6 +148,15 @@ public class CategoryService {
         }
         return new ChooseCategoryResponse(mainCategories, subCategories);
 
+    }
+
+    @Transactional
+    public void deleteSubCategoriesWithMainId(Long id){
+        for (Category category : categoryRepository.findAll()) {
+            if(category.getParentId() == id){
+                categoryRepository.deleteById(category.getId());
+            }
+        }
     }
 
 

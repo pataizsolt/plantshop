@@ -1,5 +1,6 @@
 package hu.plantshop.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ public class Category {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(unique=true)
     private String categoryName;
 
     private String href;

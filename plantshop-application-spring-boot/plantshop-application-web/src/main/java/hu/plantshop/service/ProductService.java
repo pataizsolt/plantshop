@@ -6,6 +6,7 @@ import java.util.List;
 
 import hu.plantshop.dto.request.NewProductRequest;
 import hu.plantshop.dto.response.AdminProductResponse;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -47,10 +48,16 @@ public class ProductService {
                 for (FileEntity file : product.getPictures()) {
                     images.add(mapToFileResponse(file));
                 }
-                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), images));
+                if(product.isAvailable()){
+                    response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), images, product.isAvailable()));
+                }
+
             }
             else{
-                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList()));
+                if(product.isAvailable()) {
+                    response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList(), product.isAvailable()));
+                }
+
             }
 
         }
@@ -58,7 +65,7 @@ public class ProductService {
     }
 
     public List<AdminProductResponse> getAllAdminProducts() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findAll((Sort.by(Sort.Direction.ASC, "id")));
         List<AdminProductResponse> response = new ArrayList<>();
 
 
@@ -82,10 +89,10 @@ public class ProductService {
                 for (FileEntity file : product.getPictures()) {
                     images.add(mapToFileResponse(file));
                 }
-                response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), images));
+                response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), images, product.isAvailable()));
             }
             else{
-                response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList()));
+                response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList(), product.isAvailable()));
             }
 
         }
@@ -113,10 +120,10 @@ public class ProductService {
                 for (FileEntity file : product.getPictures()) {
                     images.add(mapToFileResponse(file));
                 }
-                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), images));
+                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), images, product.isAvailable()));
             }
             else{
-                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList()));
+                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList(), product.isAvailable()));
             }
 
 
@@ -124,6 +131,7 @@ public class ProductService {
         return response;
     }
 
+    @Transactional
     public void deleteProductById(Long id){
         productRepository.deleteById(id);
     }

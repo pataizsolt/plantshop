@@ -28,8 +28,9 @@ const Product = ({ product }) => {
     useEffect(() => {
         setLink("");
         if (product.files.length > 0) {
-            setLink(product.files[0].url);
-            console.log(link);
+            if (product.files !== undefined) {
+                setLink(product.files[0].url);
+            }
         }
         setIsFetching(false);
     })

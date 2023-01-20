@@ -1,30 +1,26 @@
 package hu.plantshop.controller;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import hu.plantshop.domain.*;
 import hu.plantshop.dto.request.NewProductRequest;
-import hu.plantshop.dto.request.UpdateBranchCategoryRequest;
 import hu.plantshop.dto.request.UpdateProductRequest;
 import hu.plantshop.dto.response.AdminProductResponse;
+import hu.plantshop.repository.AppUserRepository;
+import hu.plantshop.repository.BasketItemRepository;
+import hu.plantshop.repository.BasketRepository;
+import hu.plantshop.repository.OrderItemRepository;
+import hu.plantshop.service.BasketService;
 import hu.plantshop.service.CategoryService;
-import org.slf4j.Logger;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import hu.plantshop.domain.AppUser;
-import hu.plantshop.domain.Product;
 import hu.plantshop.dto.response.ProductResponse;
-import hu.plantshop.dto.response.UserInfoResponse;
 import hu.plantshop.service.ProductService;
 import lombok.AllArgsConstructor;
 
@@ -38,6 +34,7 @@ public class ProductController {
     private CategoryService categoryService;
 
 
+
     @PutMapping("/updateproduct")
     @Transactional
     public ResponseEntity<?> updateProductById(@RequestBody UpdateProductRequest update) {
@@ -47,12 +44,11 @@ public class ProductController {
         return ResponseEntity.ok("updated " + update.getId());
     }
 
-    @DeleteMapping("/deleteproduct")
-    public ResponseEntity<?> deleteCategoryById(@RequestParam Long id) {
-
-        productService.deleteProductById(id);
-
-        return ResponseEntity.ok("deleted" + id);
+    @PostMapping("/changeproductavailability")
+    @Transactional
+    public ResponseEntity<?> deleteProductById(@RequestParam Long id) {
+        productService.getProductById(id).setAvailable(!productService.getProductById(id).isAvailable());
+        return ResponseEntity.ok("changed" + id);
     }
 
     @GetMapping("/categoryDTO")

@@ -38,12 +38,14 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FileEntity> pictures;
 
+    private boolean available;
     public Product(Integer price, List<Category> category, Integer stock, String name, String description) {
         this.price = price;
         this.category = category;
         this.stock = stock;
         this.name = name;
         this.description = description;
+        this.available=true;
     }
     public Product(Integer price, List<Category> category, Integer stock, String name, String description, List<FileEntity> pictures) {
         this.price = price;
@@ -52,5 +54,6 @@ public class Product {
         this.name = name;
         this.description = description;
         this.pictures = pictures;
+        this.available=true;
     }
 }

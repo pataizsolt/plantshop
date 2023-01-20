@@ -22,6 +22,7 @@ const AdminProduct = (props) => {
     const [categoryId, setCategoryId] = useState(props.product.categoryId);
     const [subcategoryName, setSubcategoryName] = useState(props.product.subcategoryName);
     const [subcategoryId, setSubcategoryId] = useState(props.product.subcategoryId);
+    const [available, setAvailable] = useState(props.product.available);
     const [file, setFile] = useState();
 
     const [previousName, setPreviousName] = useState(name);
@@ -65,7 +66,7 @@ const AdminProduct = (props) => {
                 withCredentials: true
             }
         ).then(resp => {
-            console.log(resp.data);
+            props.refresh();
 
         });
     }
@@ -84,7 +85,7 @@ const AdminProduct = (props) => {
             }
         ).then(resp => {
 
-
+            props.refresh();
         });
     }
 
@@ -96,7 +97,7 @@ const AdminProduct = (props) => {
             }
         ).then(resp => {
             setProductData(resp.data);
-
+            console.log(available);
             setIsFetchingProduct(false);
         });
     }
@@ -130,6 +131,8 @@ const AdminProduct = (props) => {
 
         if (isFetchingCategory) {
             getCategories();
+
+
         }
         if (isFetchingProduct) {
             refreshProductData();
@@ -149,38 +152,61 @@ const AdminProduct = (props) => {
 
     return (
         <tr className="border-b bg-gray-50">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                {props.product.id}
+            <th scope="row" className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+
+                <img
+                    src={props.product.files[0] ? props.product.files[0].url : ""}
+                    className="h-full w-full object-cover object-center"
+                />
             </th>
+            <td className="px-6 py-4 text-right">
+                {props.product.id}
+            </td>
             {clicked ?
                 (
                     <>
                         <td className="px-6 py-4 text-right">
-                            <div>
-                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                <input type="text" id="small-input" className=""
-                                    onChange={(e) => setName(e.target.value)} value={name} />
+                            <div className="relative rounded-md shadow-sm">
+                                <input
+                                    type="text"
+                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    placeholder="Name"
+                                    onChange={(e) => setName(e.target.value)}
+                                    value={name}
+                                />
                             </div>
                         </td>
                         <td className="px-6 py-4 text-right">
-                            <div>
-                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                <input type="text" id="small-input" className=""
-                                    onChange={(e) => setDescription(e.target.value)} value={description} />
+                            <div className="relative rounded-md shadow-sm">
+                                <input
+                                    type="text"
+                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    placeholder="Description"
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    value={description}
+                                />
                             </div>
                         </td>
                         <td className="px-6 py-4 text-right">
-                            <div>
-                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                <input type="text" id="small-input" className=""
-                                    onChange={(e) => setPrice(e.target.value)} value={price} />
+                            <div className="relative rounded-md shadow-sm">
+                                <input
+                                    type="text"
+                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    placeholder="Price"
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    value={price}
+                                />
                             </div>
                         </td>
                         <td className="px-6 py-4 text-right">
-                            <div>
-                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                <input type="text" id="small-input" className=""
-                                    onChange={(e) => setStock(e.target.value)} value={stock} />
+                            <div className="relative rounded-md shadow-sm">
+                                <input
+                                    type="text"
+                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    placeholder="Price"
+                                    onChange={(e) => setStock(e.target.value)}
+                                    value={stock}
+                                />
                             </div>
                         </td>
                         <td className="px-6 py-4 text-right">
@@ -192,15 +218,22 @@ const AdminProduct = (props) => {
                                     }}
                                         value={categoryId}
 
-                                        class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                                        <option selected value={props.product.categoryId}>{props.product.categoryName} - {props.product.categoryId}</option>
+                                        class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+
 
                                         {isFetchingCategory ? (<div></div>) : (
-                                            categoryData.categoryList.map((category) => (
+                                            <>
+                                                <option selected value={categoryData.categoryList[0].id} >{categoryData.categoryList[0].categoryName} - {categoryData.categoryList[0].id}</option>
 
-                                                <option selected key={category.id} value={category.id} >{category.categoryName} - {category.id}</option>
+                                                {isFetchingCategory ? (<div></div>) : (
+                                                    categoryData.categoryList.slice(1).map((category) => (
 
-                                            ))
+                                                        <option key={category.id} value={category.id} >{category.categoryName} - {category.id}</option>
+
+                                                    ))
+                                                )}
+
+                                            </>
                                         )}
                                     </select>
                                 </div>
@@ -215,13 +248,19 @@ const AdminProduct = (props) => {
 
                                         }}
                                         value={subcategoryId}>
-                                        <option selected value={props.product.subcategoryId}>{props.product.subcategoryName} - {props.product.subcategoryId}</option>
+
                                         {isFetching ? (<div></div>) : (
-                                            subCategoryData.map((category) => (
+                                            <>
 
-                                                <option selected key={category.id} value={category.id}>{category.categoryName} - {category.id}</option>
+                                                <option selected >Select a sub category</option>
+                                                {isFetching ? (<div></div>) : (
+                                                    subCategoryData.map((category) => (
 
-                                            ))
+                                                        <option key={category.id} value={category.id}>{category.categoryName} - {category.id}</option>
+
+                                                    ))
+                                                )}
+                                            </>
                                         )}
                                     </select>
                                 </div>
@@ -262,19 +301,21 @@ const AdminProduct = (props) => {
                         <td className="px-6 py-4">
                             {subcategoryName} - {subcategoryId}
                         </td>
+                        <td className="">
+
+                        </td>
                     </>
                 )
             }
 
-
-
-
-
-
-            <td className="px-6 py-4">
-                <button onClick={props.handleClick} ><MdClose /></button>
+            <td className="h-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button onClick={() => {
+                    props.handleClick();
+                    setAvailable(!available);
+                }
+                } >
+                    {(available.toString())}</button>
             </td>
-
 
             {clicked ?
 
@@ -292,6 +333,13 @@ const AdminProduct = (props) => {
                             <button onClick={() => {
                                 setClicked(prevClicked => !prevClicked);
                                 setName(previousName);
+                                setDescription(previousDescription);
+                                setPrice(previousPrice);
+                                setStock(previousStock);
+                                setCategoryId(previousCategoryId);
+                                setCategoryName(previousCategoryName);
+                                setSubcategoryName(previousSubCategoryName);
+                                setSubcategoryId(previousCategoryId);
                             }} >Cancel</button>
                         </td>
                     </>
@@ -302,6 +350,13 @@ const AdminProduct = (props) => {
                         <button onClick={() => {
                             setClicked(prevClicked => !prevClicked);
                             setPreviousName(name);
+                            setPreviousDescription(description);
+                            setPreviousPrice(price);
+                            setPreviousStock(stock);
+                            setPreviousCategoryName(categoryName);
+                            setPreviousCategoryId(categoryId);
+                            setPreviousSubCategoryName(subcategoryName);
+                            setPreviousSubcategoryId(subcategoryId);
                         }} >Edit</button>
                     </td>
                 )

@@ -40,13 +40,7 @@ const BasketProduct = (props) => {
     return (
 
         <>
-            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                <img
-                    src={props.product.imageSrc}
-                    alt={props.product.imageAlt}
-                    className="h-full w-full object-cover object-center"
-                />
-            </div>
+
 
             <div className="ml-4 flex flex-1 flex-col">
                 <div>

@@ -29,7 +29,7 @@ public class Order {
     private Address billingAddress;
     @ManyToOne(cascade = CascadeType.ALL)
     private AppUser appUser;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<OrderItem> items;
 
     private boolean paid;

@@ -3,6 +3,9 @@ package hu.plantshop.service;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import hu.plantshop.domain.BasketItem;
+import hu.plantshop.repository.BasketItemRepository;
+import hu.plantshop.repository.OrderItemRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,10 @@ import hu.plantshop.domain.Product;
 import hu.plantshop.repository.BasketRepository;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
+
 @Service
 @AllArgsConstructor
 public class BasketService {
@@ -22,6 +29,8 @@ public class BasketService {
     private AppUserService appUserService;
 
     private ProductService productService;
+    private final BasketItemRepository basketItemRepository;
+    private final OrderItemRepository orderItemRepository;
 
     public Basket getBasketByRequest(HttpServletRequest httpServletRequest) {
         AppUser user;
@@ -54,5 +63,20 @@ public class BasketService {
         }
 
         return new ResponseEntity<>("Item "+ id + "deleted from user's basket", HttpStatus.OK);
+    }
+
+    @Transactional
+    public void deleteProductFromAllBasketById (Long id) {
+
+
+        for (int i = 0; i < basketRepository.findAll().size(); i++) {
+            for (int j = 0; j < basketRepository.findAll().get(i).getProducts().size(); j++) {
+                if(Objects.equals(basketRepository.findAll().get(i).getProducts().get(j).getProduct().getId(), id)) {
+                    basketRepository.findAll().get(i).getProducts().remove(basketRepository.findAll().get(i).getProducts().get(j).getProduct());
+                }
+            }
+        }
+
+
     }
 }
