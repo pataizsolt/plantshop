@@ -60,19 +60,19 @@ const Profile = () => {
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Phone number</td>
                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{userData.phoneNumber}</td>
                             </tr>
-                            <tr className="bg-white border-b">
+                            {/*<tr className="bg-white border-b">
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Delivery address</td>
                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{userData.deliveryAddress}</td>
                             </tr>
                             <tr className="bg-white border-b">
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Billing address</td>
                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{userData.billingAddress}</td>
-                            </tr>
+                        </tr>*/}
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

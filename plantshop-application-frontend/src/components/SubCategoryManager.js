@@ -5,7 +5,9 @@ import { useState } from 'react';
 import MainCategory from './MainCategory';
 import { MdAdd } from 'react-icons/md';
 import SubCategory from './SubCategory';
+import { ToastContainer, toast } from 'react-toastify';
 
+const regex = /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/;
 const CATEGORY_URL = '/api/store';
 const SubCategoryManager = () => {
     let { id } = useParams();
@@ -72,16 +74,43 @@ const SubCategoryManager = () => {
 
 
     function saveSubCategory() {
-        axiosPrivate.post(CATEGORY_URL + "/addSubCategory",
-            JSON.stringify({ subCategoryName, parentId }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            }
-        ).then(resp => {
-            getSubCategory();
-            console.log(resp.data);
-        });
+
+
+        if (regex.test(subCategoryName)) {
+            axiosPrivate.post(CATEGORY_URL + "/addSubCategory",
+                JSON.stringify({ subCategoryName, parentId }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            ).then(resp => {
+                getSubCategory();
+                console.log(resp.data);
+            }).catch(error => {
+                setSubCategoryName('');
+                toast.error("Choose different names for every branch category", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+        }
+        else {
+            toast.error("Bad subcategory format", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setSubCategoryName('');
+        }
     }
 
 
@@ -150,13 +179,19 @@ const SubCategoryManager = () => {
                                             {clicked ?
                                                 (
                                                     <>
+                                                        <td className="px-6 py-4 text-right"></td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div>
-                                                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                                                <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setSubCategoryName(e.target.value)} value={subCategoryName} />
+                                                            <div className="relative rounded-md shadow-sm">
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    placeholder="Branch category name"
+                                                                    onChange={(e) => setSubCategoryName(e.target.value)}
+                                                                    value={subCategoryName}
+                                                                />
                                                             </div>
                                                         </td>
+                                                        <td className="px-6 py-4 text-right" colSpan={2}></td>
                                                         <td className="px-6 py-4">
                                                             <button onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
@@ -164,6 +199,7 @@ const SubCategoryManager = () => {
                                                                 setSubCategoryName('');
                                                             }} >Save</button>
                                                         </td>
+
                                                         <td className="px-6 py-4">
                                                             <button onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
@@ -175,7 +211,7 @@ const SubCategoryManager = () => {
                                                 )
                                                 :
                                                 (
-                                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" colSpan="5">
+                                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" colSpan="6">
                                                         <button className=' block mx-auto' onClick={() => {
                                                             setClicked(prevClicked => !prevClicked);
 

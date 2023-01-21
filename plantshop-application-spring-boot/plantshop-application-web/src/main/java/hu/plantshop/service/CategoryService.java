@@ -1,12 +1,14 @@
 package hu.plantshop.service;
 
+
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 import java.util.Objects;
 
 import hu.plantshop.dto.response.ChooseCategoryResponse;
+
 import org.springframework.stereotype.Service;
 
 import hu.plantshop.domain.BranchCategory;
@@ -74,7 +76,11 @@ public class CategoryService {
 
     @Transactional
     public void addBranchCategory(String newBranchName) {
-        branchCategoryRepository.save(new BranchCategory(newBranchName, null));
+
+            branchCategoryRepository.save(new BranchCategory(newBranchName, null));
+
+
+
     }
 
 
@@ -110,7 +116,12 @@ public class CategoryService {
     @Transactional
     public void addMainCategory(Long id, String newCategoryName) {
         //categoryRepository.save(new Category(newCategoryName, null));
-        branchCategoryRepository.findById(id).get().getMainCategories().add(new Category(newCategoryName, null));
+
+            branchCategoryRepository.findById(id).get().getMainCategories().add(new Category(newCategoryName, null));
+
+
+
+
 
     }
 
@@ -129,8 +140,8 @@ public class CategoryService {
 
     @Transactional
     public void addSubCategory(String newCategoryName, Long parentId) {
-        //categoryRepository.save(new Category(newCategoryName, null));
-        categoryRepository.save(new Category(newCategoryName, parentId));
+
+            categoryRepository.save(new Category(newCategoryName, parentId));
 
     }
 

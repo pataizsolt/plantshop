@@ -1,20 +1,21 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import useLogout from '../hooks/useLogout'
-import { BsPerson, BsCart } from "react-icons/bs";
+import { BsPerson, BsCart, BsMenuButton, BsMenuApp } from "react-icons/bs";
 import useAuth from '../hooks/useAuth';
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import AdminProfileDropdown from './AdminProfileDropdown';
 import { useEffect } from 'react';
 import axios from '../api/axios';
+import { MdMenu } from 'react-icons/md';
 
 
 const navigation = {
     pages: [
-        { name: 'CategoryManager', href: '/admin/categorymanager' },
-        { name: 'BranchCategoryManager', href: '/admin/branchcategorymanager' },
-        { name: 'ProductManager', href: '/admin/productmanager' }
+        { name: 'Category list', href: '/admin/categorymanager' },
+        { name: 'Category Manager', href: '/admin/branchcategorymanager' },
+        { name: 'Product Manager', href: '/admin/productmanager' }
     ],
 }
 
@@ -107,7 +108,7 @@ const AdminHeader = () => {
     return (
         <>
             <div className="bg-white">
-                {/* Mobile menu */}
+                {/* Mobile menu 
                 <Transition.Root show={open} as={Fragment}>
                     <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
                         <Transition.Child
@@ -145,7 +146,7 @@ const AdminHeader = () => {
                                     </div>
 
 
-                                    {/* Links */}
+                                    
                                     {isFetching ? (<div></div>) : (
                                         <Tab.Group as="div" className="mt-2">
                                             <div className="border-b border-gray-200">
@@ -225,14 +226,11 @@ const AdminHeader = () => {
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
-                        </div>
+                        </div> 
                     </Dialog>
-                </Transition.Root>
+                </Transition.Root>*/}
 
                 <header className="relative bg-white">
-                    <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-                        asd
-                    </p>
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex h-16 items-center">
                             <div className="mr-auto flex items-center">
@@ -244,17 +242,8 @@ const AdminHeader = () => {
                                         <AdminProfileDropdown />
                                     </Link>
                                 </div>
-                                {/* Cart */}
-                                <div className="ml-4 flow-root lg:ml-6">
-                                    <Link to="/shoppingbasket" className="group -m-2 flex items-center p-2">
-                                        <BsCart
-                                            className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                            aria-hidden="true"
-                                        />
-                                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                                        <span className="sr-only">items in cart, view bag</span>
-                                    </Link>
-                                </div>
+
+
                             </div>
                         </div>
                     </nav>
@@ -267,7 +256,7 @@ const AdminHeader = () => {
                                     onClick={() => setOpen(true)}
                                 >
                                     <span className="sr-only">Open menu</span>
-                                    <BsPerson className="h-6 w-6" aria-hidden="true" />
+                                    <MdMenu className="h-6 w-6" aria-hidden="true" />
                                 </button>
 
                                 <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">

@@ -4,17 +4,23 @@ import { axiosPrivate } from '../api/axios';
 import { useState } from 'react';
 import MainCategory from './MainCategory';
 import { MdAdd } from 'react-icons/md';
+import { ToastContainer, toast } from 'react-toastify';
 
+const regex = /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/;
 const CATEGORY_URL = '/api/store';
+
+
 const MainCategoryManager = () => {
     let { id } = useParams();
 
     const [isFetching, setIsFetching] = useState(true);
-    const [branchCategory, setBranchCategory] = useState();
+    const [branchCategory, setBranchCategory] = useState('');
     const [clicked, setClicked] = useState(false);
 
 
-    const [mainCategoryName, setMainCategoryName] = useState();
+    const [mainCategoryName, setMainCategoryName] = useState('');
+
+    const [errMsg, setErrMsg] = useState('');
 
 
 
@@ -31,12 +37,6 @@ const MainCategoryManager = () => {
         });
     }
 
-
-    function handleClick(id) {
-        console.log(id);
-    }
-
-
     function handleClick(id) {
         axiosPrivate.delete(CATEGORY_URL + "/deletemaincategory?id=" + id,
             {
@@ -51,16 +51,41 @@ const MainCategoryManager = () => {
 
 
     function saveMainCategory() {
-        axiosPrivate.post(CATEGORY_URL + "/addMainCategory",
-            JSON.stringify({ id, mainCategoryName }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            }
-        ).then(resp => {
-            getBranchCategory();
-            console.log(resp.data);
-        });
+        if (regex.test(mainCategoryName)) {
+            axiosPrivate.post(CATEGORY_URL + "/addMainCategory",
+                JSON.stringify({ id, mainCategoryName }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            ).then(resp => {
+                getBranchCategory();
+                console.log(resp.data);
+            }).catch(error => {
+
+                toast.error("Choose different names for every branch category", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+        }
+        else {
+            toast.error("Bad main category format", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+
     }
 
 
@@ -99,12 +124,10 @@ const MainCategoryManager = () => {
                                             <th scope="col" className="px-6 py-3">
                                                 <span className="sr-only">More info</span>
                                             </th>
-                                            <th scope="col" className="px-6 py-3">
+                                            <th scope="col" className="px-6 py-3" colSpan={3}>
 
                                             </th>
-                                            <th scope="col" className="px-6 py-3">
 
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -122,13 +145,19 @@ const MainCategoryManager = () => {
                                             {clicked ?
                                                 (
                                                     <>
+                                                        <td></td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div>
-                                                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                                                <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setMainCategoryName(e.target.value)} value={mainCategoryName} />
+                                                            <div className="relative rounded-md shadow-sm">
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    placeholder="Branch category name"
+                                                                    onChange={(e) => setMainCategoryName(e.target.value)}
+                                                                    value={mainCategoryName}
+                                                                />
                                                             </div>
                                                         </td>
+                                                        <td></td>
                                                         <td className="px-6 py-4">
                                                             <button onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
@@ -147,7 +176,7 @@ const MainCategoryManager = () => {
                                                 )
                                                 :
                                                 (
-                                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" colSpan="5">
+                                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" colSpan="7">
                                                         <button className=' block mx-auto' onClick={() => {
                                                             setClicked(prevClicked => !prevClicked);
 

@@ -53,13 +53,11 @@ const CategoryManager = () => {
                                             <th scope="col" class="px-6 py-3">
                                                 ID
                                             </th>
-                                            <th scope="col" class="px-6 py-3">
+                                            <th scope="col" class="px-6 py-3" colSpan={3}>
                                                 NAME
                                             </th>
 
-                                            <th scope="col" class="px-6 py-3">
-                                                <span class="sr-only">More info</span>
-                                            </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,9 +69,7 @@ const CategoryManager = () => {
                                                 <td class="px-6 py-4">
                                                     {category.branchCategoryName}
                                                 </td>
-                                                <td class="px-6 py-4 text-right">
-                                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">...</a>
-                                                </td>
+
                                             </tr>
                                         ))}
 
@@ -98,9 +94,7 @@ const CategoryManager = () => {
                                                 BRANCH CATEGORY - ID
                                             </th>
 
-                                            <th scope="col" class="px-6 py-3">
-                                                <span class="sr-only">More info</span>
-                                            </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -119,9 +113,7 @@ const CategoryManager = () => {
                                                         <td class="px-6 py-4">
                                                             {category.branchCategoryName} - {category.id}
                                                         </td>
-                                                        <td class="px-6 py-4 text-right">
-                                                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">...</a>
-                                                        </td>
+
 
                                                     </tr>
                                                 ))}
@@ -155,9 +147,7 @@ const CategoryManager = () => {
                                                 MAIN CATEGORY - ID
                                             </th>
 
-                                            <th scope="col" class="px-6 py-3">
-                                                <span class="sr-only">More info</span>
-                                            </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -183,9 +173,7 @@ const CategoryManager = () => {
                                                                 <td class="px-6 py-4">
                                                                     {element.mainCategory.categoryName} - {element.mainCategory.id}
                                                                 </td>
-                                                                <td class="px-6 py-4 text-right">
-                                                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">...</a>
-                                                                </td>
+
 
                                                             </tr>
                                                         ))}

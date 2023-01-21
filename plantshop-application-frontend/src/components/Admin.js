@@ -9,27 +9,12 @@ const Admin = () => {
     const { auth } = useAuth();
     const nav = useNavigate();
 
-
-
-    useEffect(() => {
-        console.log(auth?.user);
-
-
-
-
-
-
-
-
-    }, []);
-
     return (
         <>
             <AdminHeader />
             <section>
                 <Outlet />
             </section>
-            <p>admin</p>
         </>
     )
 }

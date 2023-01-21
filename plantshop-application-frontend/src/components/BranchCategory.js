@@ -32,6 +32,17 @@ const BranchCategory = (props) => {
                     draggable: true,
                     progress: undefined,
                 });
+            }).catch(error => {
+                setBranchCategoryName(previousName);
+                toast.error("Choose different names for every branch category", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             });
         }
         else {
@@ -44,8 +55,12 @@ const BranchCategory = (props) => {
                 draggable: true,
                 progress: undefined,
             });
-            setBranchCategoryName('');
+            setBranchCategoryName(previousName);
         }
+
+
+
+
     }
 
 

@@ -8,6 +8,7 @@ import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import ProfileDropdown from './ProfileDropdown';
 import { useEffect } from 'react';
 import axios from '../api/axios';
+import { MdOutlineShoppingBasket, MdShoppingBasket, MdShoppingCart } from 'react-icons/md';
 
 
 const navigation = {
@@ -246,7 +247,7 @@ const Header = () => {
 
                                 <div className="ml-4 flow-root lg:ml-6">
                                     <Link to="/shoppingbasket" className="group -m-2 flex items-center p-2">
-                                        <BsCart
+                                        <MdShoppingCart
                                             className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                             aria-hidden="true"
                                         />

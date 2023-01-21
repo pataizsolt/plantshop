@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { axiosPrivate } from '../api/axios';
 import { Link } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
+import { ToastContainer, toast } from 'react-toastify';
 
+const regex = /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/;
 const CATEGORY_URL = '/api/store';
+
 const MainCategory = (props) => {
     const [mainCategoryName, setMainCategoryName] = useState(props.category.categoryName);
     const id = props.category.id;
@@ -12,17 +15,42 @@ const MainCategory = (props) => {
     const [clicked, setClicked] = useState(false);
 
     function saveMainCategory() {
-        axiosPrivate.put(CATEGORY_URL + "/updatemaincategory",
-            JSON.stringify({ id, mainCategoryName }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            }
-        ).then(resp => {
-            console.log(resp);
-            props.refresh();
+        if (regex.test(mainCategoryName)) {
+            axiosPrivate.put(CATEGORY_URL + "/updatemaincategory",
+                JSON.stringify({ id, mainCategoryName }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            ).then(resp => {
+                console.log(resp);
+                props.refresh();
 
-        });
+            }).catch(error => {
+
+                toast.error("Choose different names for every branch category", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+        }
+        else {
+            toast.error("Bad main category format", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setMainCategoryName(previousName);
+        }
     }
 
 
@@ -33,11 +61,16 @@ const MainCategory = (props) => {
             </th>
             {clicked ?
                 (
+
                     <td className="px-6 py-4 text-right">
-                        <div>
-                            <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                            <input type="text" id="small-input" className=""
-                                onChange={(e) => setMainCategoryName(e.target.value)} value={mainCategoryName} />
+                        <div className="relative rounded-md shadow-sm">
+                            <input
+                                type="text"
+                                className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                placeholder="Branch category name"
+                                onChange={(e) => setMainCategoryName(e.target.value)}
+                                value={mainCategoryName}
+                            />
                         </div>
                     </td>
                 )

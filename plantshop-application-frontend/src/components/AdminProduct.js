@@ -4,7 +4,10 @@ import { axiosPrivate } from '../api/axios';
 import { Link } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
+const regex = /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/;
+const regexnumber = /^\d+$/;
 const PRODUCT_URL = '/api/store';
 const ADD_FILE_URL = '/api/files/add_image_to_product/';
 const AdminProduct = (props) => {
@@ -46,9 +49,11 @@ const AdminProduct = (props) => {
 
 
     const [clicked, setClicked] = useState(false);
+    const [fileName, setFileName] = useState('');
 
     const changeHandler = (event) => {
         setFile(event.target.files[0]);
+        setFileName(event.target.files[0].name);
     };
 
     function uploadFile() {
@@ -73,20 +78,58 @@ const AdminProduct = (props) => {
 
 
     function updateProduct() {
+        if (regex.test(name) && regex.test(description) && regexnumber.test(price) && regexnumber.test(stock) && regexnumber.test(categoryId) && regexnumber.test(subcategoryId)) {
+            axiosPrivate.put(PRODUCT_URL + "/updateproduct",
+                JSON.stringify({ id, name, description, price, stock, categoryId, subcategoryId }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            ).then(resp => {
+
+                props.refresh();
+            }).catch(error => {
+                setName(previousName);
+                setDescription(previousDescription);
+                setPrice(previousPrice);
+                setStock(previousStock);
+                setCategoryName(previousCategoryName)
+                setCategoryId(previousCategoryId);
+                setSubcategoryName(previousSubCategoryName)
+                setSubcategoryId(previousSubcategoryId);
+                toast.error("Product saving error", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+        }
+        else {
+            toast.error("Bad product format", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setName(previousName);
+            setDescription(previousDescription);
+            setPrice(previousPrice);
+            setStock(previousStock);
+            setCategoryName(previousCategoryName)
+            setCategoryId(previousCategoryId);
+            setSubcategoryName(previousSubCategoryName)
+            setSubcategoryId(previousSubcategoryId);
+        }
 
 
 
-
-        axiosPrivate.put(PRODUCT_URL + "/updateproduct",
-            JSON.stringify({ id, name, description, price, stock, categoryId, subcategoryId }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            }
-        ).then(resp => {
-
-            props.refresh();
-        });
     }
 
     function refreshProductData() {
@@ -152,19 +195,23 @@ const AdminProduct = (props) => {
 
     return (
         <tr className="border-b bg-gray-50">
-            <th scope="row" className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
 
-                <img
-                    src={props.product.files[0] ? props.product.files[0].url : ""}
-                    className="h-full w-full object-cover object-center"
-                />
-            </th>
-            <td className="px-6 py-4 text-right">
-                {props.product.id}
-            </td>
+
             {clicked ?
                 (
                     <>
+                        <td className="px-6 py-4 text-right">
+
+                            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">
+                                <label htmlFor="file-upload" className="cursor-pointer">
+                                    {fileName || 'Choose File'}
+                                </label>
+                                <input id="file-upload" type="file" className="hidden" onChange={changeHandler} />
+                            </button>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                            {props.product.id}
+                        </td>
                         <td className="px-6 py-4 text-right">
                             <div className="relative rounded-md shadow-sm">
                                 <input
@@ -210,72 +257,63 @@ const AdminProduct = (props) => {
                             </div>
                         </td>
                         <td className="px-6 py-4 text-right">
-                            <div class="flex justify-center">
-                                <div class="mb-3 xl:w-96">
-                                    <select onChange={(e) => {
-                                        setCategoryId(e.target.value);
-                                        refreshSubCategories(e.target.value);
+                            <div class="relative rounded-md shadow-sm">
+
+                                <select onChange={(e) => {
+                                    setCategoryId(e.target.value);
+                                    refreshSubCategories(e.target.value);
+                                }}
+                                    value={categoryId}
+
+                                    class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+
+
+                                    {isFetchingCategory ? (<div></div>) : (
+                                        <>
+                                            <option selected >Select a main category</option>
+
+                                            {isFetchingCategory ? (<div></div>) : (
+                                                categoryData.categoryList.map((category) => (
+
+                                                    <option key={category.id} value={category.id} >{category.categoryName} - {category.id}</option>
+
+                                                ))
+                                            )}
+
+                                        </>
+                                    )}
+                                </select>
+
+                            </div>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                            <div class="relative rounded-md shadow-sm">
+
+                                <select class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example"
+                                    onChange={(e) => {
+                                        setSubcategoryId(e.target.value);
+
                                     }}
-                                        value={categoryId}
+                                    value={subcategoryId}>
 
-                                        class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+                                    {isFetching ? (<div></div>) : (
+                                        <>
 
+                                            <option selected >Select a subcategory</option>
+                                            {isFetching ? (<div></div>) : (
+                                                subCategoryData.map((category) => (
 
-                                        {isFetchingCategory ? (<div></div>) : (
-                                            <>
-                                                <option selected value={categoryData.categoryList[0].id} >{categoryData.categoryList[0].categoryName} - {categoryData.categoryList[0].id}</option>
+                                                    <option key={category.id} value={category.id}>{category.categoryName} - {category.id}</option>
 
-                                                {isFetchingCategory ? (<div></div>) : (
-                                                    categoryData.categoryList.slice(1).map((category) => (
+                                                ))
+                                            )}
+                                        </>
+                                    )}
+                                </select>
 
-                                                        <option key={category.id} value={category.id} >{category.categoryName} - {category.id}</option>
-
-                                                    ))
-                                                )}
-
-                                            </>
-                                        )}
-                                    </select>
-                                </div>
                             </div>
                         </td>
-                        <td className="px-6 py-4 text-right">
-                            <div class="flex justify-center">
-                                <div class="mb-3 xl:w-96">
-                                    <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
-                                        onChange={(e) => {
-                                            setSubcategoryId(e.target.value);
 
-                                        }}
-                                        value={subcategoryId}>
-
-                                        {isFetching ? (<div></div>) : (
-                                            <>
-
-                                                <option selected >Select a sub category</option>
-                                                {isFetching ? (<div></div>) : (
-                                                    subCategoryData.map((category) => (
-
-                                                        <option key={category.id} value={category.id}>{category.categoryName} - {category.id}</option>
-
-                                                    ))
-                                                )}
-                                            </>
-                                        )}
-                                    </select>
-                                </div>
-                            </div>
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                            <div class="flex justify-center">
-                                <div class="mb-3 xl:w-96">
-                                    <div className="form-group files color">
-                                        <label>Upload Your File </label>
-                                        <input type="file" className="form-control" name="file" onChange={changeHandler} />
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
 
 
                     </>
@@ -283,6 +321,15 @@ const AdminProduct = (props) => {
                 :
                 (
                     <>
+                        <th scope="row" className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                            <img
+                                src={props.product.files[0] ? props.product.files[0].url : ""}
+                                className="h-full w-full object-cover object-center"
+                            />
+                        </th>
+                        <td className="px-6 py-4 text-right">
+                            {props.product.id}
+                        </td>
                         <td className="px-6 py-4">
                             {name}
                         </td>
@@ -301,15 +348,13 @@ const AdminProduct = (props) => {
                         <td className="px-6 py-4">
                             {subcategoryName} - {subcategoryId}
                         </td>
-                        <td className="">
 
-                        </td>
                     </>
                 )
             }
 
-            <td className="h-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                <button onClick={() => {
+            <td className="px-6 py-4" >
+                <button className="bg-transparent text-blue-500 font-medium py-2 px-4 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white" onClick={() => {
                     props.handleClick();
                     setAvailable(!available);
                 }
@@ -317,52 +362,53 @@ const AdminProduct = (props) => {
                     {(available.toString())}</button>
             </td>
 
-            {clicked ?
+            {
+                clicked ?
 
 
-                (
-                    <>
-                        <td className="px-6 py-4">
+                    (
+                        <>
+                            <td className="px-6 py-4">
+                                <button onClick={() => {
+                                    setClicked(prevClicked => !prevClicked);
+                                    uploadFile();
+                                    updateProduct();
+                                }} >Save</button>
+                            </td>
+                            <td className="px-6 py-4">
+                                <button onClick={() => {
+                                    setClicked(prevClicked => !prevClicked);
+                                    setName(previousName);
+                                    setDescription(previousDescription);
+                                    setPrice(previousPrice);
+                                    setStock(previousStock);
+                                    setCategoryId(previousCategoryId);
+                                    setCategoryName(previousCategoryName);
+                                    setSubcategoryName(previousSubCategoryName);
+                                    setSubcategoryId(previousCategoryId);
+                                }} >Cancel</button>
+                            </td>
+                        </>
+                    )
+                    :
+                    (
+                        <td className="px-6 py-4" colSpan={2}>
                             <button onClick={() => {
                                 setClicked(prevClicked => !prevClicked);
-                                uploadFile();
-                                updateProduct();
-                            }} >Save</button>
+                                setPreviousName(name);
+                                setPreviousDescription(description);
+                                setPreviousPrice(price);
+                                setPreviousStock(stock);
+                                setPreviousCategoryName(categoryName);
+                                setPreviousCategoryId(categoryId);
+                                setPreviousSubCategoryName(subcategoryName);
+                                setPreviousSubcategoryId(subcategoryId);
+                            }} >Edit</button>
                         </td>
-                        <td className="px-6 py-4">
-                            <button onClick={() => {
-                                setClicked(prevClicked => !prevClicked);
-                                setName(previousName);
-                                setDescription(previousDescription);
-                                setPrice(previousPrice);
-                                setStock(previousStock);
-                                setCategoryId(previousCategoryId);
-                                setCategoryName(previousCategoryName);
-                                setSubcategoryName(previousSubCategoryName);
-                                setSubcategoryId(previousCategoryId);
-                            }} >Cancel</button>
-                        </td>
-                    </>
-                )
-                :
-                (
-                    <td className="px-6 py-4">
-                        <button onClick={() => {
-                            setClicked(prevClicked => !prevClicked);
-                            setPreviousName(name);
-                            setPreviousDescription(description);
-                            setPreviousPrice(price);
-                            setPreviousStock(stock);
-                            setPreviousCategoryName(categoryName);
-                            setPreviousCategoryId(categoryId);
-                            setPreviousSubCategoryName(subcategoryName);
-                            setPreviousSubcategoryId(subcategoryId);
-                        }} >Edit</button>
-                    </td>
-                )
+                    )
 
             }
-        </tr>
+        </tr >
     )
 }
 

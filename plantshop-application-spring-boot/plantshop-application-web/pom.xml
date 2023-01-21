@@ -86,6 +86,11 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.microprofile-ext.restclient-ext</groupId>
+            <artifactId>configurable-errorresponse-handler</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 

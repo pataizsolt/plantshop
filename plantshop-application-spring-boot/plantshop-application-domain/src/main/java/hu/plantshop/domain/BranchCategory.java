@@ -18,6 +18,8 @@ public class BranchCategory {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(unique=true)
     private String categoryName;
 
 

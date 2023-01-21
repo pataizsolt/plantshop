@@ -4,7 +4,10 @@ import useAuth from '../hooks/useAuth'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { MdClose, MdAdd } from 'react-icons/md';
 import AdminProduct from './AdminProduct';
+import { ToastContainer, toast } from 'react-toastify';
 
+const regex = /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/;
+const regexnumber = /^\d+$/;
 const ORDER_URL = '/api/store';
 const PRODUCT_URL = '/api/store';
 const CATEGORY_URL = '/api/store';
@@ -34,17 +37,51 @@ const ProductManager = () => {
 
 
 
-    function saveProduct() {
-        axiosPrivate.post(PRODUCT_URL + "/addproduct",
-            JSON.stringify({ name, description, price, stock, categoryId, subCategoryId }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            }
-        ).then(resp => {
-            refreshProductData();
 
-        });
+
+
+    function saveProduct() {
+        if (regex.test(name) && regex.test(description) && regexnumber.test(price) && regexnumber.test(stock) && regexnumber.test(categoryId) && regexnumber.test(subCategoryId)) {
+            axiosPrivate.post(PRODUCT_URL + "/addproduct",
+                JSON.stringify({ name, description, price, stock, categoryId, subCategoryId }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            ).then(resp => {
+                refreshProductData();
+
+            }).catch(error => {
+
+                toast.error("Product saving error", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+        }
+        else {
+            toast.error("Bad product format", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+
+        setName('');
+        setDescription('');
+        setPrice('');
+        setStock('');
+        setCategoryId('');
+        setSubCategoryId('');
     }
 
     function handleClick(id) {
@@ -89,8 +126,7 @@ const ProductManager = () => {
         let result = categoryData.subCategoryList.filter(function (el) {
             return parseInt(el.parentId) === parseInt(mainCategoryId);
         })
-        setSubCategoryId('');
-        setSubCategoryName('');
+
         setSubCategoryData(result);
         setIsFetching(false);
     }
@@ -158,7 +194,10 @@ const ProductManager = () => {
                                                 SUBCATEGORY NAME - ID
                                             </th>
                                             <th scope="col" className="px-6 py-3">
-                                                <span className="sr-only">More info</span>
+                                                AVAILABLE
+                                            </th>
+                                            <th scope="col" className="py-3 pr-3" colSpan={3}>
+                                                OPERATIONS
                                             </th>
 
                                         </tr>
@@ -178,78 +217,92 @@ const ProductManager = () => {
                                             {clicked ?
                                                 (
                                                     <>
+                                                        <td className="px-6 py-4 text-right" colSpan={2}></td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div>
-                                                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                                                <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setName(e.target.value)} value={name} />
+                                                            <div className="relative rounded-md shadow-sm">
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    placeholder="Name"
+                                                                    onChange={(e) => setName(e.target.value)}
+                                                                    value={name}
+                                                                />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div>
-                                                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                                                <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setDescription(e.target.value)} value={description} />
+                                                            <div className="relative rounded-md shadow-sm">
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    placeholder="Description"
+                                                                    onChange={(e) => setDescription(e.target.value)}
+                                                                    value={description}
+                                                                />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div>
-                                                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                                                <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setPrice(e.target.value)} value={price} />
+                                                            <div className="relative rounded-md shadow-sm">
+                                                                <input
+                                                                    type="number"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    placeholder="Price"
+                                                                    onChange={(e) => setPrice(e.target.value)}
+                                                                    value={price}
+                                                                />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div>
-                                                                <label for="small-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Small input</label>
-                                                                <input type="text" id="small-input" className=""
-                                                                    onChange={(e) => setStock(e.target.value)} value={stock} />
+                                                            <div className="relative rounded-md shadow-sm">
+                                                                <input
+                                                                    type="number"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    placeholder="Stock"
+                                                                    onChange={(e) => setStock(e.target.value)}
+                                                                    value={stock}
+                                                                />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div class="flex justify-center">
-                                                                <div class="mb-3 xl:w-96">
-                                                                    <select onChange={(e) => {
-                                                                        setCategoryId(e.target.value);
-                                                                        refreshSubCategories(e.target.value);
+                                                            <div class="relative rounded-md shadow-sm">
+                                                                <select onChange={(e) => {
+                                                                    setCategoryId(e.target.value);
+                                                                    refreshSubCategories(e.target.value);
+                                                                }}
+                                                                    value={categoryId}
+
+                                                                    class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example">
+                                                                    <option selected >Select a main category</option>
+
+                                                                    {isFetchingCategory ? (<div></div>) : (
+                                                                        categoryData.categoryList.map((category) => (
+
+                                                                            <option key={category.id} value={category.id} >{category.categoryName} - {category.id}</option>
+
+                                                                        ))
+                                                                    )}
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-6 py-4 text-right">
+                                                            <div class="relative rounded-md shadow-sm">
+                                                                <select class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example"
+                                                                    onChange={(e) => {
+                                                                        setSubCategoryId(e.target.value);
                                                                     }}
-                                                                        value={categoryId}
-
-                                                                        class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
-                                                                        <option selected >Select a main category</option>
-
-                                                                        {isFetchingCategory ? (<div></div>) : (
-                                                                            categoryData.categoryList.map((category) => (
-
-                                                                                <option key={category.id} value={category.id} >{category.categoryName} - {category.id}</option>
-
-                                                                            ))
-                                                                        )}
-                                                                    </select>
-                                                                </div>
+                                                                    value={subCategoryId}>
+                                                                    <option selected >Select a sub category</option>
+                                                                    {isFetching ? (<div></div>) : (
+                                                                        subCategoryData.map((category) => (
+                                                                            <option key={category.id} value={category.id}>{category.categoryName} - {category.id}</option>
+                                                                        ))
+                                                                    )}
+                                                                </select>
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-4 text-right">
-                                                            <div class="flex justify-center">
-                                                                <div class="mb-3 xl:w-96">
-                                                                    <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
-                                                                        onChange={(e) => {
-                                                                            setSubCategoryId(e.target.value);
+                                                        <td className="px-6 py-4">
 
-                                                                        }}
-                                                                        value={subCategoryId}>
-                                                                        <option selected >Select a sub category</option>
-                                                                        {isFetching ? (<div></div>) : (
-                                                                            subCategoryData.map((category) => (
-
-                                                                                <option key={category.id} value={category.id}>{category.categoryName} - {category.id}</option>
-
-                                                                            ))
-                                                                        )}
-                                                                    </select>
-                                                                </div>
-                                                            </div>
                                                         </td>
+
 
                                                         <td className="px-6 py-4">
                                                             <button onClick={() => {
@@ -261,7 +314,6 @@ const ProductManager = () => {
                                                         <td className="px-6 py-4">
                                                             <button onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
-
                                                             }} >Cancel</button>
 
                                                         </td>
@@ -269,7 +321,7 @@ const ProductManager = () => {
                                                 )
                                                 :
                                                 (
-                                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" colSpan="5">
+                                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" colSpan="11">
                                                         <button className=' block mx-auto' onClick={() => {
                                                             setClicked(prevClicked => !prevClicked);
 

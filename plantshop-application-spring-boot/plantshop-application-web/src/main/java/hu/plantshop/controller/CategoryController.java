@@ -4,6 +4,7 @@ import hu.plantshop.domain.BranchCategory;
 import hu.plantshop.domain.Category;
 import hu.plantshop.dto.request.*;
 import hu.plantshop.dto.response.SubCategorysMainAndBranchCategoryResponse;
+import hu.plantshop.exception.NotUniqueNameException;
 import hu.plantshop.repository.BranchCategoryRepository;
 import hu.plantshop.repository.CategoryRepository;
 import org.springframework.http.HttpStatus;
@@ -59,11 +60,16 @@ public class CategoryController {
 
     @Transactional
     @PostMapping("/addBranchCategory")
-    public ResponseEntity<?> addBranchCategory(@RequestBody UpdateBranchCategoryRequest add) {
+    public ResponseEntity<?> addBranchCategory(@RequestBody UpdateBranchCategoryRequest add) throws NotUniqueNameException {
 
-        categoryService.addBranchCategory(add.getBranchCategoryName());
+        try{
+            categoryService.addBranchCategory(add.getBranchCategoryName());
+            return ResponseEntity.ok("added " + add.getBranchCategoryName());
+        }
+        catch (Exception e){
+            throw new NotUniqueNameException("same name as previous category");
+        }
 
-        return ResponseEntity.ok("added " + add.getBranchCategoryName());
     }
 
 

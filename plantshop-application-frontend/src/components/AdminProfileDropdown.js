@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import useLogout from '../hooks/useLogout';
 import { useNavigate } from 'react-router-dom';
+import { MdPerson } from 'react-icons/md';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -33,7 +34,7 @@ export default function AdminProfileDropdown() {
             <Menu as="div" className="relative inline-block text-left">
                 <div>
                     <Menu.Button as="div" className="inline-flex w-full justify-center px-4 py-2 text-sm font-medium">
-                        <BsPerson className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                        <MdPerson className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                             aria-hidden="true" />
                     </Menu.Button>
                 </div>
@@ -48,19 +49,19 @@ export default function AdminProfileDropdown() {
                     leaveTo="transform opacity-0 scale-95"
                 >
                     <Menu.Items className="absolute right-0 z-10 w-56 origin-top-right bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <div className="py-1">
+                        <div>
 
                             <>
                                 <Menu.Item>
                                     {({ active }) => (
                                         <Link
-                                            to="/admin"
+                                            to="/store"
                                             className={classNames(
                                                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                 'block px-4 py-2 text-sm'
                                             )}
                                         >
-                                            Admin
+                                            Back to store
                                         </Link>
                                     )}
                                 </Menu.Item>

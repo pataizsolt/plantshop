@@ -89,10 +89,16 @@ public class ProductService {
                 for (FileEntity file : product.getPictures()) {
                     images.add(mapToFileResponse(file));
                 }
-                response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), images, product.isAvailable()));
+
+                    response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), images, product.isAvailable()));
+
+
             }
             else{
-                response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList(), product.isAvailable()));
+
+                    response.add(new AdminProductResponse(product.getId(), product.getPrice(), categoryName, categoryId,subCategoryName, subCategoryId, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList(), product.isAvailable()));
+
+
             }
 
         }
@@ -120,10 +126,15 @@ public class ProductService {
                 for (FileEntity file : product.getPictures()) {
                     images.add(mapToFileResponse(file));
                 }
-                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), images, product.isAvailable()));
+                if(product.isAvailable()) {
+                    response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), images, product.isAvailable()));
+                }
             }
             else{
-                response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList(), product.isAvailable()));
+                if(product.isAvailable()){
+                    response.add(new ProductResponse(product.getId(), product.getPrice(), categories, subCategories, product.getStock(), product.getName(), product.getDescription(), Collections.emptyList(), product.isAvailable()));
+                }
+
             }
 
 

@@ -44,6 +44,17 @@ const BranchCategoryManager = () => {
                 }
             ).then(resp => {
                 refreshBranchCategoryData();
+            }).catch(error => {
+
+                toast.error("Choose different names for every branch category", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
             });
         }
         else {
@@ -134,16 +145,14 @@ const BranchCategoryManager = () => {
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
-                                                            <div>
-                                                                <div className="relative rounded-md shadow-sm">
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                                                                        placeholder="Branch category name"
-                                                                        onChange={(e) => setBranchCategoryName(e.target.value)}
-                                                                        value={branchCategoryName}
-                                                                    />
-                                                                </div>
+                                                            <div className="relative rounded-md shadow-sm">
+                                                                <input
+                                                                    type="text"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    placeholder="Branch category name"
+                                                                    onChange={(e) => setBranchCategoryName(e.target.value)}
+                                                                    value={branchCategoryName}
+                                                                />
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4">
