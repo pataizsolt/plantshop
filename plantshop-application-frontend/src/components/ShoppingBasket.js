@@ -80,48 +80,51 @@ const ShoppingBasket = () => {
         <>
 
             {isFetching ? (<div></div>) : (
-                <div className="flex h-full max-w-7xl mx-auto flex-col overflow-y-scroll bg-white shadow-xl">
-                    <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
-                        <div className="mt-8">
-                            <div className="flow-root">
-                                <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {basketData.products.map((product) => (
-                                        <li key={product.id} className="flex py-6">
-                                            <BasketProduct product={product} handleClick={() => handleClick(product.id)} refresh={() => refreshBasketData()} />
-                                        </li>
-                                    ))}
-                                </ul>
+                <>
+                    {basketData ? (<h1>YOUR CART IS EMPTY</h1>) : (
+                        <div className="flex h-full max-w-7xl mx-auto flex-col overflow-y-scroll bg-white shadow-xl">
+                            <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
+                                <div className="mt-8">
+                                    <div className="flow-root">
+                                        <ul role="list" className="-my-6 divide-y divide-gray-200">
+                                            {basketData.products.map((product) => (
+                                                <li key={product.id} className="flex py-6">
+                                                    <BasketProduct product={product} handleClick={() => handleClick(product.id)} refresh={() => refreshBasketData()} />
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
+
+                                <div className="mt-6">
+                                    <Link
+                                        to="/checkout"
+                                        className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                    >
+                                        Checkout
+                                    </Link>
+                                </div>
+                                <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                                    <p>
+                                        <p>or</p>
+                                        <Link to="/store">
+                                            <button
+                                                type="button"
+                                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                                            >
+                                                Continue Shopping
+                                                <span aria-hidden="true"> &rarr;</span>
+                                            </button>
+                                        </Link>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-
-                        <div className="mt-6">
-                            <Link
-                                to="/checkout"
-                                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                            >
-                                Checkout
-                            </Link>
-                        </div>
-                        <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                            <p>
-                                <p>or</p>
-                                <Link to="/store">
-                                    <button
-                                        type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                    >
-                                        Continue Shopping
-                                        <span aria-hidden="true"> &rarr;</span>
-                                    </button>
-                                </Link>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
+                    )}
+                </>
             )}
         </>
     )

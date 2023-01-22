@@ -24,7 +24,6 @@ export default function ProfileDropdown() {
 
     const wrapper = () => {
         logout();
-        navigate('/login');
     }
     return (
         <>

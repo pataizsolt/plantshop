@@ -403,6 +403,7 @@ const AdminProduct = (props) => {
                                 setPreviousCategoryId(categoryId);
                                 setPreviousSubCategoryName(subcategoryName);
                                 setPreviousSubcategoryId(subcategoryId);
+                                refreshSubCategories(categoryId);
                             }} >Edit</button>
                         </td>
                     )
