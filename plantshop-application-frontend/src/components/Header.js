@@ -17,47 +17,6 @@ const navigation = {
     ],
 }
 
-const categoriesNavigation1 = {
-    "categories": [
-        {
-            "mainCategory": {
-                "id": 5,
-                "categoryName": "Category2",
-                "href": "category2",
-                "parentId": null
-            },
-            "subCategories": []
-        },
-        {
-            "mainCategory": {
-                "id": 4,
-                "categoryName": "Category1",
-                "href": "category1",
-                "parentId": null
-            },
-            "subCategories": [
-                {
-                    "id": 6,
-                    "categoryName": "SubCategory1",
-                    "href": "scategory1",
-                    "parentId": 4
-                },
-                {
-                    "id": 7,
-                    "categoryName": "SubCategory2",
-                    "href": "scategory2",
-                    "parentId": 4
-                }
-            ]
-        }
-    ]
-}
-
-
-
-
-
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -82,13 +41,6 @@ const Header = () => {
         });
     }, [])
 
-
-
-
-
-
-
-
     function isEmpty(anObject) {
 
         return !Object.keys(anObject ?? {}).length;
@@ -105,7 +57,7 @@ const Header = () => {
 
     return (
         <>
-            <div className="bg-white">
+            <div>
 
                 {/*
                 <Transition.Root show={open} as={Fragment}>
@@ -229,10 +181,10 @@ const Header = () => {
                     </Dialog>
                 </Transition.Root>
             */}
-                <header className="relative bg-white">
-                    <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+                <header className="relative">
+                    {/*<p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
                         asd
-                    </p>
+                    </p>*/}
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex h-16 items-center">
                             <div className="mr-auto flex items-center">
@@ -300,8 +252,8 @@ const Header = () => {
                                                                     leaveTo="opacity-0"
                                                                 >
                                                                     <Popover.Panel className="absolute z-10 inset-x-0 top-full text-sm text-gray-500">
-                                                                        <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
-                                                                        <div className="relative bg-white">
+                                                                        <div className="absolute inset-0 top-1/2 shadow" aria-hidden="true" />
+                                                                        <div className="relative">
                                                                             <div className="mx-auto max-w-7x1 px-8">
                                                                                 <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
                                                                                     <div className="row-start-1 grid grid-cols-2 gap-y-10 gap-x-8 text-sm">

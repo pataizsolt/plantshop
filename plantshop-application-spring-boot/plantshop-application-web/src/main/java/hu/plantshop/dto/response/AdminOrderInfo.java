@@ -10,15 +10,15 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class OrderInfoResponse {
+public class AdminOrderInfo {
     private Long id;
     private String email;
     private String name;
     private String date;
     private String phoneNumber;
     private String address;
-    private String paid;
-    private String closed;
-    private String shipped;
+    private boolean paid;
+    private boolean shipped;
+    private boolean closed;
     private List<ProductInBasketResponse> products;
 }

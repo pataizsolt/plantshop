@@ -6,10 +6,14 @@ import Header from './Header'
 const Home = () => {
     return (
         <>
-            <Header />
-            <section>
-                <Outlet />
-            </section>
+            <div className='bg-black'>
+
+
+                <Header />
+                <section>
+                    <Outlet />
+                </section>
+            </div>
         </>
     )
 }

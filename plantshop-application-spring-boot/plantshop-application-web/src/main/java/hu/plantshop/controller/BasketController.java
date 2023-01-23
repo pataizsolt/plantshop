@@ -115,6 +115,7 @@ public class BasketController {
 
     @GetMapping("getbasket")
     @ResponseBody
+    @PreAuthorize("isAuthenticated()")
     @Transactional
     public ResponseEntity<?> getProductsByCategoryName(HttpServletRequest request) {
         try{
@@ -127,7 +128,7 @@ public class BasketController {
             if(sum != basket.getPrice()){
                 basket.setPrice(sum);
             }
-            System.out.println("ASDASDASDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+basket.getPrice());
+
 
 
             return ResponseEntity.ok(new BasketResponse(basket));

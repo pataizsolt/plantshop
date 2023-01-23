@@ -15,7 +15,8 @@ const navigation = {
     pages: [
         { name: 'Category list', href: '/admin/categorymanager' },
         { name: 'Category Manager', href: '/admin/branchcategorymanager' },
-        { name: 'Product Manager', href: '/admin/productmanager' }
+        { name: 'Product Manager', href: '/admin/productmanager' },
+        { name: 'Order Manager', href: '/admin/ordermanager' }
     ],
 }
 

@@ -19,6 +19,7 @@ import SubCategoryManager from './components/SubCategoryManager';
 import Product from './components/Product';
 import ProductManager from './components/ProductManager';
 import ContactForm from './components/ContactForm';
+import OrderManager from './components/OrderManager';
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
         <Route path='/admin/maincategorymanager/:id' element={<MainCategoryManager />} />
         <Route path='/admin/subcategorymanager/:id' element={<SubCategoryManager />} />
         <Route path='/admin/productmanager' element={<ProductManager />} />
+        <Route path='/admin/ordermanager' element={<OrderManager />} />
       </Route>
     </Routes>
 

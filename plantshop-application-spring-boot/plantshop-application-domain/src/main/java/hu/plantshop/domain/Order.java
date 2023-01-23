@@ -34,6 +34,8 @@ public class Order {
 
     private boolean paid;
 
+    private boolean shipped;
+
     private boolean closed;
 
     public Order(String billingName, String deliveryName, String email, String phoneNumber, Address deliveryAddress, Address billingAddress, AppUser appUser, List<OrderItem> items) {
@@ -46,6 +48,7 @@ public class Order {
         this.billingAddress = billingAddress;
         this.appUser = appUser;
         this.items = items;
+        this.shipped = false;
         this.closed = false;
         this.paid = false;
     }

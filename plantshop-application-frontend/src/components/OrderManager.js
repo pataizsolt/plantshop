@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import OrderItem from "./OrderItem";
+import OrderManagerItem from "./OrderManagerItem";
 
 const ORDER_URL = '/api/order';
-const Orders = () => {
+const OrderManager = () => {
 
 
     const [orderData, setOrderData] = useState('');
@@ -15,7 +15,7 @@ const Orders = () => {
     const axiosPrivate = useAxiosPrivate();
 
     function refreshOrderData() {
-        axiosPrivate.get(ORDER_URL + "/listorders",
+        axiosPrivate.get(ORDER_URL + "/listordersadmin",
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
@@ -32,6 +32,42 @@ const Orders = () => {
             else {
                 setIsEmpty(true);
             }
+        });
+    }
+
+    function handleClickPaid(id) {
+        axiosPrivate.post(ORDER_URL + "/changeorderpaid?id=" + id,
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            },
+        ).then(resp => {
+
+            refreshOrderData();
+        });
+    }
+
+    function handleClickShipped(id) {
+        axiosPrivate.post(ORDER_URL + "/changeordershipped?id=" + id,
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            },
+        ).then(resp => {
+
+            refreshOrderData();
+        });
+    }
+
+    function handleClickClosed(id) {
+        axiosPrivate.post(ORDER_URL + "/changeorderclosed?id=" + id,
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            },
+        ).then(resp => {
+
+            refreshOrderData();
         });
     }
 
@@ -86,7 +122,7 @@ const Orders = () => {
                                 <tbody className="">
                                     {orderData.map((order) => (
                                         <>
-                                            <OrderItem order={order} />
+                                            <OrderManagerItem order={order} handleClickShipped={() => handleClickShipped(order.id)} handleClickClosed={() => handleClickClosed(order.id)} handleClickPaid={() => handleClickPaid(order.id)} />
 
                                         </>
                                     ))}
@@ -102,4 +138,4 @@ const Orders = () => {
     )
 }
 
-export default Orders
+export default OrderManager
