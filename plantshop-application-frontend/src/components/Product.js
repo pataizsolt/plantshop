@@ -54,10 +54,10 @@ const Product = ({ product }) => {
                     </div>
                     <div className='flex justify-between'>
                         <div>
-                            <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                            <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
+                            <h3 className="mt-4 text-m text-gray-700">{product.name}</h3>
+                            <p className="mt-1 text-lg font-medium text-gray-900">{product.price} $</p>
                         </div>
-                        <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mt-4' onClick={() => handleClick(product.id)}>Add to basket</button>
+                        <button className="my-auto bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => handleClick(product.id)}>Add to basket</button>
                     </div>
                 </div>
             )}

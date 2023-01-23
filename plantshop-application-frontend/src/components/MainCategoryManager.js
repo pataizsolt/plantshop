@@ -96,7 +96,7 @@ const MainCategoryManager = () => {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="py-2 inline-block">
+            <div className="my-20 inline-block">
                 <div className="overflow-hidden">
 
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -104,11 +104,11 @@ const MainCategoryManager = () => {
 
                             <>
                                 <table className="w-full text-sm text-left text-black " >
-                                    <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-gray-50">
+                                    <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-themebackground4">
                                         Main categories of {branchCategory.categoryName} - {branchCategory.id}
                                         <p className="mt-1 text-sm font-normal text-black"></p>
                                     </caption>
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-black">
+                                    <thead className="text-xs text-gray-700 uppercase bg-themebackground4 dark:text-black">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
                                                 ID
@@ -138,7 +138,7 @@ const MainCategoryManager = () => {
                                         ))}
 
 
-                                        <tr className="border-b bg-gray-50">
+                                        <tr className="bg-themebackground4">
 
 
 
@@ -150,7 +150,7 @@ const MainCategoryManager = () => {
                                                             <div className="relative rounded-md shadow-sm">
                                                                 <input
                                                                     type="text"
-                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                                                     placeholder="Branch category name"
                                                                     onChange={(e) => setMainCategoryName(e.target.value)}
                                                                     value={mainCategoryName}
@@ -158,15 +158,17 @@ const MainCategoryManager = () => {
                                                             </div>
                                                         </td>
                                                         <td></td>
+                                                        <td></td>
+
                                                         <td className="px-6 py-4">
-                                                            <button onClick={() => {
+                                                            <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
                                                                 saveMainCategory();
                                                                 setMainCategoryName('');
                                                             }} >Save</button>
                                                         </td>
-                                                        <td className="px-6 py-4">
-                                                            <button onClick={() => {
+                                                        <td className="px-6 py-4" colSpan={2}>
+                                                            <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
 
                                                             }} >Cancel</button>

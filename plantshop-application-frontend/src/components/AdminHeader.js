@@ -108,7 +108,7 @@ const AdminHeader = () => {
 
     return (
         <>
-            <div className="bg-white">
+            <div className="">
                 {/* Mobile menu 
                 <Transition.Root show={open} as={Fragment}>
                     <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -121,7 +121,7 @@ const AdminHeader = () => {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                         >
-                            <div className="fixed inset-0 bg-black bg-opacity-25" />
+                            <div className="fixed inset-0  bg-opacity-25" />
                         </Transition.Child>
 
                         <div className="fixed inset-0 z-40 flex">
@@ -134,7 +134,7 @@ const AdminHeader = () => {
                                 leaveFrom="translate-x-0"
                                 leaveTo="-translate-x-full"
                             >
-                                <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
+                                <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto  pb-12 shadow-xl">
                                     <div className="flex px-4 pt-5 pb-2">
                                         <button
                                             type="button"
@@ -231,14 +231,16 @@ const AdminHeader = () => {
                     </Dialog>
                 </Transition.Root>*/}
 
-                <header className="relative bg-white">
+                <header className="relative bg-themebackground1 shadow-2xl">
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex h-16 items-center">
-                            <div className="mr-auto flex items-center">
-                                <div className="p-2 text-gray-400"><Link to="/">Indoor Gardeners</Link></div>
+                            <div className="p-2 text-themetext1 text-3xl font-bold tracking-tight "><Link to="/home">
+                                <div className="group -m-2 flex items-center p-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 16" width="36" height="36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"> <path d="m8.75 6.75c0 1.25-.75 3-.75 3m.25-2.5s.75-2-1-3.5-4.5-1-4.5-1 0 2 1.5 3.5 4 1 4 1zm.5-1s-.75-2 1-3.5 4.5-1 4.5-1 0 2-1.5 3.5-4 1-4 1z" /> <path d="m4.75 9.75h6.5s.5 4.5-3.25 4.5-3.25-4.5-3.25-4.5z" /> </svg>
+                                    <p className='font-bold pl-1'>Indoor gardeners admin</p></div></Link>
                             </div>
                             <div className="ml-auto flex items-center">
-                                <div className="ml-4 flow-root lg:ml-6">
+                                <div className="ml-4 flow-root lg:ml-6" >
                                     <Link to="#" className="group -m-2 flex items-center p-2">
                                         <AdminProfileDropdown />
                                     </Link>
@@ -249,11 +251,11 @@ const AdminHeader = () => {
                         </div>
                     </nav>
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="border-b border-gray-200">
+                        <div className="">
                             <div className="flex h-16 items-center justify-center">
                                 <button
                                     type="button"
-                                    className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
+                                    className="rounded-md  p-2 text-themetext1 lg:hidden"
                                     onClick={() => setOpen(true)}
                                 >
                                     <span className="sr-only">Open menu</span>
@@ -270,7 +272,7 @@ const AdminHeader = () => {
                                                 <Link
                                                     key={page.name}
                                                     to={page.href}
-                                                    className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                                                    className="flex items-center text-xl font-medium text-themetext1 hover:text-gray-800"
                                                 >
                                                     {page.name}
                                                 </Link>

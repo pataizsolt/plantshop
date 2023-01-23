@@ -55,7 +55,7 @@ const MainCategory = (props) => {
 
 
     return (
-        <tr className="border-b bg-gray-50">
+        <tr className="border-b bg-themebackground4">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                 {props.category.id}
             </th>
@@ -66,7 +66,7 @@ const MainCategory = (props) => {
                         <div className="relative rounded-md shadow-sm">
                             <input
                                 type="text"
-                                className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                 placeholder="Branch category name"
                                 onChange={(e) => setMainCategoryName(e.target.value)}
                                 value={mainCategoryName}
@@ -100,13 +100,13 @@ const MainCategory = (props) => {
                 (
                     <>
                         <td className="px-6 py-4">
-                            <button onClick={() => {
+                            <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                 setClicked(prevClicked => !prevClicked);
                                 saveMainCategory();
                             }} >Save</button>
                         </td>
                         <td className="px-6 py-4">
-                            <button onClick={() => {
+                            <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                 setClicked(prevClicked => !prevClicked);
                                 setMainCategoryName(previousName);
                             }} >Cancel</button>
@@ -116,7 +116,7 @@ const MainCategory = (props) => {
                 :
                 (
                     <td className="px-6 py-4">
-                        <button onClick={() => {
+                        <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                             setClicked(prevClicked => !prevClicked);
                             setPreviousName(mainCategoryName);
                         }} >Edit</button>

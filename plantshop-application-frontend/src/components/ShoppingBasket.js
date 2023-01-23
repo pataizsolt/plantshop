@@ -79,11 +79,11 @@ const ShoppingBasket = () => {
             {isEmpty ? (<div class="text-center text-xl my-40">Your cart is empty</div>) : (
                 <>
 
-                    <div className="flex h-full max-w-7xl mx-auto flex-col overflow-y-scroll bg-white shadow-xl">
+                    <div className="flex h-full max-w-7xl w-full mx-auto flex-col shadow-xl my-40 bg-themebackground4">
                         <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                             <div className="mt-8">
                                 <div className="flow-root">
-                                    <ul role="list" className="-my-6 divide-y divide-gray-200">
+                                    <ul role="list" className="-my-6 divide-y divide-theme">
                                         {basketData.products.map((product) => (
                                             <li key={product.id} className="flex py-6">
                                                 <BasketProduct product={product} handleClick={() => handleClick(product.id)} refresh={() => refreshBasketData()} />
@@ -96,10 +96,10 @@ const ShoppingBasket = () => {
 
                         <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
 
-                            <div className="mt-6">
+                            <div className="mt-6 w-fit mx-auto">
                                 <Link
                                     to="/checkout"
-                                    className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                    className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg"
                                 >
                                     Checkout
                                 </Link>
@@ -110,7 +110,7 @@ const ShoppingBasket = () => {
                                     <Link to="/store">
                                         <button
                                             type="button"
-                                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                                            className="font-medium text-black hover:black"
                                         >
                                             Continue Shopping
                                             <span aria-hidden="true"> &rarr;</span>

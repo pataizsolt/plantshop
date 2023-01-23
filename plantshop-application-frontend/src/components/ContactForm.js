@@ -21,7 +21,7 @@ function ContactForm() {
     };
 
     return (
-        <form className="bg-white p-6 rounded-lg" onSubmit={handleSubmit}>
+        <form className=" p-6 rounded-lg" onSubmit={handleSubmit}>
             <h2 className="text-lg font-medium mb-4">Contact Us</h2>
             <div className="mb-4">
                 <label className="block text-gray-700 font-medium mb-2" htmlFor="name">

@@ -36,7 +36,7 @@ const CategoryManager = () => {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="py-2 inline-block">
+            <div className="my-20 inline-block">
                 <div className="overflow-hidden">
 
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -44,11 +44,11 @@ const CategoryManager = () => {
 
                             <>
                                 <table class="w-full text-sm text-left text-black " >
-                                    <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-gray-50">
+                                    <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-themebackground4">
                                         Branch Categories
                                         <p class="mt-1 text-sm font-normal text-black"></p>
                                     </caption>
-                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-black">
+                                    <thead class="text-xs text-gray-700 uppercase bg-themebackground4 dark:text-black">
                                         <tr>
                                             <th scope="col" class="px-6 py-3">
                                                 ID
@@ -62,7 +62,7 @@ const CategoryManager = () => {
                                     </thead>
                                     <tbody>
                                         {categoryData.categories.map((category) => (
-                                            <tr class="border-b bg-gray-50">
+                                            <tr class="border-b bg-themebackground4">
                                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                                     {category.id}
                                                 </th>
@@ -78,11 +78,11 @@ const CategoryManager = () => {
 
 
                                 <table class="w-full text-sm text-left text-black " >
-                                    <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-gray-50">
+                                    <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-themebackground4">
                                         Main categories
                                         <p class="mt-1 text-sm font-normal text-black"></p>
                                     </caption>
-                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-black">
+                                    <thead class="text-xs text-gray-700 uppercase bg-themebackground4 dark:text-black">
                                         <tr>
                                             <th scope="col" class="px-6 py-3">
                                                 ID
@@ -102,7 +102,7 @@ const CategoryManager = () => {
                                             <>
 
                                                 {category.categoryContainers.map((element) => (
-                                                    <tr class="border-b bg-gray-50">
+                                                    <tr class="border-b bg-themebackground4">
 
                                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                                             {element.mainCategory.id}
@@ -128,11 +128,11 @@ const CategoryManager = () => {
                                 </table>
 
                                 <table class="w-full text-sm text-left text-black " >
-                                    <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-gray-50">
+                                    <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-themebackground4">
                                         Subcategories
                                         <p class="mt-1 text-sm font-normal text-black"></p>
                                     </caption>
-                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-black">
+                                    <thead class="text-xs text-gray-700 uppercase bg-themebackground4 dark:text-black">
                                         <tr>
                                             <th scope="col" class="px-6 py-3">
                                                 ID
@@ -158,7 +158,7 @@ const CategoryManager = () => {
                                                     <>
 
                                                         {element.subCategories.map((subcategory) => (
-                                                            <tr class="border-b bg-gray-50">
+                                                            <tr class="border-b bg-themebackground4">
 
                                                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                                                     {subcategory.id}

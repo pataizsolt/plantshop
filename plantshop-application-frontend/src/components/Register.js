@@ -101,7 +101,6 @@ const Register = () => {
                         </h2>
                     </div>
                     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                        <input type="hidden" name="remember" defaultValue="true" />
                         <div className="-space-y-px rounded-md shadow-sm">
                             <div>
                                 <label htmlFor="email-address" className="sr-only">
@@ -113,7 +112,7 @@ const Register = () => {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-t-md border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Email address"
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
@@ -128,7 +127,7 @@ const Register = () => {
                                     name="firstName"
                                     type="firstName"
                                     required
-                                    className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-none border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="First name"
                                     onChange={(e) => setFirstName(e.target.value)}
                                     value={firstName}
@@ -143,7 +142,7 @@ const Register = () => {
                                     name="lastName"
                                     type="lastName"
                                     required
-                                    className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-none border border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Last Name"
                                     onChange={(e) => setLastName(e.target.value)}
                                     value={lastName}
@@ -158,7 +157,7 @@ const Register = () => {
                                     name="password"
                                     type="password"
                                     required
-                                    className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-none border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Password"
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}
@@ -173,39 +172,20 @@ const Register = () => {
                                     name="match-password"
                                     type="match-password"
                                     required
-                                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                    placeholder="Password"
+                                    className="relative block w-full appearance-none rounded-b-md border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
+                                    placeholder="Password again"
                                     onChange={(e) => setMatchPassword(e.target.value)}
                                     value={matchPassword}
                                 />
                             </div>
                         </div>
 
-                        {/*<div className="flex items-center justify-between">
-                         <div className="flex items-center">
-                            <input
-                                id="remember-me"
-                                name="remember-me"
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            />
-                            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                                Remember me
-                            </label>
-                        </div>
 
-                        <div className="text-sm">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                Forgot your password?
-                            </a>
-                        </div>
-                    </div>
-                    */}
 
                         <div>
                             <button
                                 type="submit"
-                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                className="w-full bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg"
 
                             >
                                 Sign up

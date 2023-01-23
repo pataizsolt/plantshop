@@ -194,7 +194,7 @@ const AdminProduct = (props) => {
 
 
     return (
-        <tr className="border-b bg-gray-50">
+        <tr className="border-b bg-themebackground4">
 
 
             {clicked ?
@@ -202,7 +202,7 @@ const AdminProduct = (props) => {
                     <>
                         <td className="px-6 py-4 text-right">
 
-                            <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">
+                            <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg">
                                 <label htmlFor="file-upload" className="cursor-pointer">
                                     {fileName || 'Choose File'}
                                 </label>
@@ -216,7 +216,7 @@ const AdminProduct = (props) => {
                             <div className="relative rounded-md shadow-sm">
                                 <input
                                     type="text"
-                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     placeholder="Name"
                                     onChange={(e) => setName(e.target.value)}
                                     value={name}
@@ -227,7 +227,7 @@ const AdminProduct = (props) => {
                             <div className="relative rounded-md shadow-sm">
                                 <input
                                     type="text"
-                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     placeholder="Description"
                                     onChange={(e) => setDescription(e.target.value)}
                                     value={description}
@@ -238,7 +238,7 @@ const AdminProduct = (props) => {
                             <div className="relative rounded-md shadow-sm">
                                 <input
                                     type="text"
-                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     placeholder="Price"
                                     onChange={(e) => setPrice(e.target.value)}
                                     value={price}
@@ -249,7 +249,7 @@ const AdminProduct = (props) => {
                             <div className="relative rounded-md shadow-sm">
                                 <input
                                     type="text"
-                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     placeholder="Price"
                                     onChange={(e) => setStock(e.target.value)}
                                     value={stock}
@@ -265,7 +265,7 @@ const AdminProduct = (props) => {
                                 }}
                                     value={categoryId}
 
-                                    class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+                                    class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
 
 
                                     {isFetchingCategory ? (<div></div>) : (
@@ -289,7 +289,7 @@ const AdminProduct = (props) => {
                         <td className="px-6 py-4 text-right">
                             <div class="relative rounded-md shadow-sm">
 
-                                <select class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example"
+                                <select class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example"
                                     onChange={(e) => {
                                         setSubcategoryId(e.target.value);
 
@@ -321,12 +321,14 @@ const AdminProduct = (props) => {
                 :
                 (
                     <>
-                        <th scope="row" className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                            <img
-                                src={props.product.files[0] ? props.product.files[0].url : ""}
-                                className="h-full w-full object-cover object-center"
-                            />
-                        </th>
+                        <td className="px-6 py-4 text-right">
+                            <div scope="row" className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                <img
+                                    src={props.product.files[0] ? props.product.files[0].url : ""}
+                                    className="h-full w-full object-cover object-center"
+                                />
+                            </div>
+                        </td>
                         <td className="px-6 py-4 text-right">
                             {props.product.id}
                         </td>
@@ -354,7 +356,7 @@ const AdminProduct = (props) => {
             }
 
             <td className="px-6 py-4" >
-                <button className="bg-transparent text-blue-500 font-medium py-2 px-4 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white" onClick={() => {
+                <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                     props.handleClick();
                     setAvailable(!available);
                 }
@@ -369,14 +371,14 @@ const AdminProduct = (props) => {
                     (
                         <>
                             <td className="px-6 py-4">
-                                <button onClick={() => {
+                                <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                     setClicked(prevClicked => !prevClicked);
                                     uploadFile();
                                     updateProduct();
                                 }} >Save</button>
                             </td>
                             <td className="px-6 py-4">
-                                <button onClick={() => {
+                                <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                     setClicked(prevClicked => !prevClicked);
                                     setName(previousName);
                                     setDescription(previousDescription);
@@ -393,7 +395,7 @@ const AdminProduct = (props) => {
                     :
                     (
                         <td className="px-6 py-4" colSpan={2}>
-                            <button onClick={() => {
+                            <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                 setClicked(prevClicked => !prevClicked);
                                 setPreviousName(name);
                                 setPreviousDescription(description);

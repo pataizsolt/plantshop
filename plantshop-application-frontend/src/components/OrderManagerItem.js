@@ -14,7 +14,7 @@ const OrderManagerItem = (props) => {
     return (
         <>
 
-            <tr className="bg-gray-50">
+            <tr className="bg-themebackground4">
                 <th className="px-6 py-4">
                     {props.order.name}
                 </th>
@@ -31,7 +31,7 @@ const OrderManagerItem = (props) => {
                     {props.order.date}
                 </td>
                 <td className="px-6 py-4" >
-                    <button className="bg-transparent text-blue-500 font-medium py-2 px-4 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white" onClick={() => {
+                    <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                         props.handleClickPaid();
                         setPaid(!paid);
                     }
@@ -39,7 +39,7 @@ const OrderManagerItem = (props) => {
                         {(paid.toString())}</button>
                 </td>
                 <td className="px-6 py-4" >
-                    <button className="bg-transparent text-blue-500 font-medium py-2 px-4 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white" onClick={() => {
+                    <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                         props.handleClickShipped();
                         setShipped(!shipped);
                     }
@@ -47,7 +47,7 @@ const OrderManagerItem = (props) => {
                         {(shipped.toString())}</button>
                 </td>
                 <td className="px-6 py-4" >
-                    <button className="bg-transparent text-blue-500 font-medium py-2 px-4 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white" onClick={() => {
+                    <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                         props.handleClickClosed();
                         setClosed(!closed);
                     }
@@ -55,20 +55,20 @@ const OrderManagerItem = (props) => {
                         {(closed.toString())}</button>
                 </td>
                 <td className="px-6 py-4">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={() => setIsOpen(!isOpen)}>
+                    <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => setIsOpen(!isOpen)}>
                         Show Products
                     </button>
                 </td>
             </tr>
-            <tr className='bg-gray-50'>
+            <tr className='bg-themebackground4'>
 
                 {isOpen && (
 
                     <table className="w-max" >
-                        <caption className="p-5 text-m font-semibold text-left text-gray-900 bg-gray-50">
+                        <caption className="p-5 text-m font-semibold text-left text-gray-900 bg-themebackground4">
                             Products
                         </caption>
-                        <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:text-black'>
+                        <thead className='text-xs text-gray-700 uppercase bg-themebackground4 dark:text-black'>
                             <tr>
                                 <th className="px-6 py-4">Name</th>
                                 <th className="px-6 py-4">Price</th>

@@ -80,14 +80,14 @@ const OrderManager = () => {
             <div className="py-2 inline-block">
                 <div className="overflow-hidden">
 
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <div className="relative overflow-x-auto sm:rounded-lg max-w-7xl shadow-2xl">
                         {isEmpty ? (<div></div>) : (
-                            <table className="text-sm text-left text-black" >
-                                <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-gray-50">
+                            <table className="text-sm mt-20 text-left text-black bg-themebackground4" >
+                                <caption className="p-5 text-lg font-semibold text-left text-black bg-themebackground4">
                                     List of orders
                                     <p className="mt-1 text-sm font-normal text-black">Here you can browse your previous and ongoing orders</p>
                                 </caption>
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-black">
+                                <thead className="text-xs text-gray-700 uppercase dark:text-black">
                                     <tr>
                                         <th scope="col" className="px-6 py-3">
                                             Name

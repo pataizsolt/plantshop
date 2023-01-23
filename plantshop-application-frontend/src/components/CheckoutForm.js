@@ -68,9 +68,9 @@ const CheckoutForm = () => {
         <>
 
             <div className="flex flex-col items-center justify-center">
-                <div className="py-2 inline-block">
+                <div className="my-20 inline-block bg-themebackground4 rounded-md">
                     <div className="overflow-hidden">
-                        <div className="grid lg:grid-cols-2 sm:px-10 lg:px-20 xl:px-32 ">
+                        <div className="grid lg:grid-cols-2 sm:px-10 lg:px-20 xl:px-32 max-w-7xl">
                             <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                                 <div className="mt-10 px-4 pt-8 lg:mt-0">
                                     <p className="text-xl font-medium">Payment Details</p>
@@ -139,14 +139,14 @@ const CheckoutForm = () => {
                                             <p className="text-2xl font-semibold text-gray-900">${basketData.price + 10.00}</p>
                                         </div>
                                     </div>
-                                    <button type="submit" className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
+                                    <button type="submit" className="mt-4 mb-8 w-full bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg">Place Order</button>
                                 </div>
                             </form>
                             <div className="px-4 pt-8">
                                 <p className="text-xl font-medium">Order Summary</p>
                                 <p className="text-gray-400">Check your items. And select a suitable shipping method.</p>
                                 {isFetching ? (<div></div>) : (
-                                    <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+                                    <div className="mt-8 space-y-3 rounded-lg border  px-2 py-4 sm:px-6">
                                         <ul role="list" className="-my-6 divide-y divide-gray-200">
                                             {basketData.products.map((product) => (
                                                 <li key={product.id} className="flex py-6">

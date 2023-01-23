@@ -104,7 +104,7 @@ const Login = () => {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-bg-themebackground3 sm:text-sm"
                                     placeholder="Email address"
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
@@ -120,7 +120,7 @@ const Login = () => {
                                     type="password"
                                     autoComplete="current-password"
                                     required
-                                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Password"
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}
@@ -130,7 +130,7 @@ const Login = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                className="w-full bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg"
                             >
                                 Sign in
                             </button>

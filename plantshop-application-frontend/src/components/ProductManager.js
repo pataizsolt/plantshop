@@ -154,8 +154,8 @@ const ProductManager = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center">
-            <div className="py-2 inline-block">
+        <div className="flex flex-col items-center justify-center ">
+            <div className="my-20 inline-block max-w-7xl">
                 <div className="overflow-hidden">
 
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -163,11 +163,11 @@ const ProductManager = () => {
 
                             <>
                                 <table className="w-full text-sm text-left text-black " >
-                                    <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-gray-50">
+                                    <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-themebackground4">
                                         Products
                                         <p className="mt-1 text-sm font-normal text-black"></p>
                                     </caption>
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-black">
+                                    <thead className="text-xs text-gray-700 uppercase bg-themebackground4 dark:text-black">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
                                                 PICTURE
@@ -210,7 +210,7 @@ const ProductManager = () => {
                                         ))}
 
 
-                                        <tr className="border-b bg-gray-50">
+                                        <tr className="bg-themebackground4">
 
 
 
@@ -222,7 +222,7 @@ const ProductManager = () => {
                                                             <div className="relative rounded-md shadow-sm">
                                                                 <input
                                                                     type="text"
-                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                                                     placeholder="Name"
                                                                     onChange={(e) => setName(e.target.value)}
                                                                     value={name}
@@ -233,7 +233,7 @@ const ProductManager = () => {
                                                             <div className="relative rounded-md shadow-sm">
                                                                 <input
                                                                     type="text"
-                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                                                     placeholder="Description"
                                                                     onChange={(e) => setDescription(e.target.value)}
                                                                     value={description}
@@ -244,7 +244,7 @@ const ProductManager = () => {
                                                             <div className="relative rounded-md shadow-sm">
                                                                 <input
                                                                     type="number"
-                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                                                     placeholder="Price"
                                                                     onChange={(e) => setPrice(e.target.value)}
                                                                     value={price}
@@ -255,7 +255,7 @@ const ProductManager = () => {
                                                             <div className="relative rounded-md shadow-sm">
                                                                 <input
                                                                     type="number"
-                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                                                     placeholder="Stock"
                                                                     onChange={(e) => setStock(e.target.value)}
                                                                     value={stock}
@@ -270,7 +270,7 @@ const ProductManager = () => {
                                                                 }}
                                                                     value={categoryId}
 
-                                                                    class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example">
+                                                                    class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example">
                                                                     <option selected >Select a main category</option>
 
                                                                     {isFetchingCategory ? (<div></div>) : (
@@ -285,7 +285,7 @@ const ProductManager = () => {
                                                         </td>
                                                         <td className="px-6 py-4 text-right">
                                                             <div class="relative rounded-md shadow-sm">
-                                                                <select class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out bg-white border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example"
+                                                                <select class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example"
                                                                     onChange={(e) => {
                                                                         setSubCategoryId(e.target.value);
                                                                     }}
@@ -305,14 +305,14 @@ const ProductManager = () => {
 
 
                                                         <td className="px-6 py-4">
-                                                            <button onClick={() => {
+                                                            <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
                                                                 saveProduct();
                                                                 setName('');
                                                             }} >Save</button>
                                                         </td>
                                                         <td className="px-6 py-4">
-                                                            <button onClick={() => {
+                                                            <button className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg" onClick={() => {
                                                                 setClicked(prevClicked => !prevClicked);
                                                             }} >Cancel</button>
 

@@ -40,8 +40,8 @@ const MenuItem = ({ categoriesNavigation }) => {
                                         leaveTo="opacity-0"
                                     >
                                         <Popover.Panel className="absolute z-10 inset-x-0 top-full text-sm text-gray-500">
-                                            <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
-                                            <div className="relative bg-white">
+                                            <div className="absolute inset-0 top-1/2  shadow" aria-hidden="true" />
+                                            <div className="relative ">
                                                 <div className="mx-auto max-w-7xl px-8">
                                                     <div className="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
                                                         <div className="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
