@@ -10,6 +10,7 @@ import hu.plantshop.repository.OrderItemRepository;
 import hu.plantshop.repository.OrderRepository;
 import hu.plantshop.service.AppUserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.security.auth.login.CredentialNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +93,7 @@ public class OrderController {
                         order.getId(),
                         order.getEmail(),
                         order.getDeliveryName(),
-                        order.getDate().toString(),
+                        order.getDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm")),
                         order.getPhoneNumber(),
                         order.getDeliveryAddress().toString(),
                         order.isPaid() ? "true" : "false",
@@ -114,9 +116,11 @@ public class OrderController {
     @Transactional
     public ResponseEntity<?> listOrdersAdmin() throws CredentialNotFoundException {
         try {
+            Sort sort = Sort.by(Sort.Direction.DESC, "date");
+
             List<AdminOrderInfo> orders = new ArrayList<>();
 
-            List<Order> ordersAll = orderRepository.findAll();
+            List<Order> ordersAll = orderRepository.findAll(sort);
 
             for (Order order : ordersAll) {
                 List<ProductInBasketResponse> items = new ArrayList<>();
@@ -129,7 +133,7 @@ public class OrderController {
                         order.getId(),
                         order.getEmail(),
                         order.getDeliveryName(),
-                        order.getDate().toString(),
+                        order.getDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm")),
                         order.getPhoneNumber(),
                         order.getDeliveryAddress().toString(),
                         order.isPaid(),

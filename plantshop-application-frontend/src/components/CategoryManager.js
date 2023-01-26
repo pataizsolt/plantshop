@@ -62,7 +62,7 @@ const CategoryManager = () => {
                                     </thead>
                                     <tbody>
                                         {categoryData.categories.map((category) => (
-                                            <tr class="border-b bg-themebackground4">
+                                            <tr class="bg-themebackground4">
                                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                                     {category.id}
                                                 </th>
@@ -102,7 +102,7 @@ const CategoryManager = () => {
                                             <>
 
                                                 {category.categoryContainers.map((element) => (
-                                                    <tr class="border-b bg-themebackground4">
+                                                    <tr class="bg-themebackground4">
 
                                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                                             {element.mainCategory.id}
@@ -158,7 +158,7 @@ const CategoryManager = () => {
                                                     <>
 
                                                         {element.subCategories.map((subcategory) => (
-                                                            <tr class="border-b bg-themebackground4">
+                                                            <tr class="bg-themebackground4">
 
                                                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                                                     {subcategory.id}

@@ -55,7 +55,7 @@ const MainCategory = (props) => {
 
 
     return (
-        <tr className="border-b bg-themebackground4">
+        <tr className="bg-themebackground4">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                 {props.category.id}
             </th>

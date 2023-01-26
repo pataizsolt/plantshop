@@ -42,11 +42,11 @@ const BasketProduct = (props) => {
         <>
 
 
-            <div className="ml-4 flex flex-1 flex-col">
+            <div className="ml-4 flex flex-1 flex-col bg-themebackground3 p-5 rounded-md">
                 <div>
-                    <div className="flex justify-between text-base font-medium text-gray-900">
+                    <div className="flex justify-between text-base font-medium text-gray-900 mb-5">
                         <h3>
-                            <a href={props.product.name}>{props.product.name}</a>
+                            <p>{props.product.name}</p>
                         </h3>
                         <p className="ml-4">{subtotal}</p>
                     </div>

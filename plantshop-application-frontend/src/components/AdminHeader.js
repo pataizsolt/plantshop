@@ -253,14 +253,14 @@ const AdminHeader = () => {
                     <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="">
                             <div className="flex h-16 items-center justify-center">
-                                <button
+                                {/*<button
                                     type="button"
                                     className="rounded-md  p-2 text-themetext1 lg:hidden"
                                     onClick={() => setOpen(true)}
                                 >
                                     <span className="sr-only">Open menu</span>
                                     <MdMenu className="h-6 w-6" aria-hidden="true" />
-                                </button>
+                                </button>*/}
 
                                 <Popover.Group className="hidden lg:ml-2 lg:block lg:self-stretch">
                                     <div className="flex h-full space-x-8">

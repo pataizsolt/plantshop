@@ -194,7 +194,7 @@ const AdminProduct = (props) => {
 
 
     return (
-        <tr className="border-b bg-themebackground4">
+        <tr className="bg-themebackground4">
 
 
             {clicked ?
@@ -216,7 +216,7 @@ const AdminProduct = (props) => {
                             <div className="relative rounded-md shadow-sm">
                                 <input
                                     type="text"
-                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    className="form-input py-2 px-4 block w-auto leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     placeholder="Name"
                                     onChange={(e) => setName(e.target.value)}
                                     value={name}
@@ -227,7 +227,7 @@ const AdminProduct = (props) => {
                             <div className="relative rounded-md shadow-sm">
                                 <input
                                     type="text"
-                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    className="form-input py-2 px-4 block w-auto leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     placeholder="Description"
                                     onChange={(e) => setDescription(e.target.value)}
                                     value={description}
@@ -238,7 +238,7 @@ const AdminProduct = (props) => {
                             <div className="relative rounded-md shadow-sm">
                                 <input
                                     type="text"
-                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    className="form-input py-2 px-4 block w-auto leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     placeholder="Price"
                                     onChange={(e) => setPrice(e.target.value)}
                                     value={price}
@@ -249,7 +249,7 @@ const AdminProduct = (props) => {
                             <div className="relative rounded-md shadow-sm">
                                 <input
                                     type="text"
-                                    className="form-input py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                                    className="form-input py-2 px-4 block w-auto leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                                     placeholder="Price"
                                     onChange={(e) => setStock(e.target.value)}
                                     value={stock}
@@ -265,7 +265,7 @@ const AdminProduct = (props) => {
                                 }}
                                     value={categoryId}
 
-                                    class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
+                                    class="form-select py-2 px-4 block w-auto leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
 
 
                                     {isFetchingCategory ? (<div></div>) : (
@@ -289,7 +289,7 @@ const AdminProduct = (props) => {
                         <td className="px-6 py-4 text-right">
                             <div class="relative rounded-md shadow-sm">
 
-                                <select class="form-select py-2 px-4 block w-full leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example"
+                                <select class="form-select py-2 px-4 block w-auto leading-5 transition duration-150 ease-in-out  border border-gray-300 placeholder-gray-500 rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5" aria-label="Default select example"
                                     onChange={(e) => {
                                         setSubcategoryId(e.target.value);
 

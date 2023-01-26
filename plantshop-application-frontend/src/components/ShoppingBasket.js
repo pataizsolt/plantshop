@@ -76,16 +76,20 @@ const ShoppingBasket = () => {
     return (
         <>
 
-            {isEmpty ? (<div class="text-center text-xl my-40">Your cart is empty</div>) : (
+            {isEmpty ? (<div className="text-center text-xl my-40 font-semibold" > Your cart is empty.</div>) : (
                 <>
 
-                    <div className="flex h-full max-w-7xl w-full mx-auto flex-col shadow-xl my-40 bg-themebackground4">
+                    <div className="flex h-full max-w-3xl w-full mx-auto flex-col shadow-xl my-40 bg-themebackground4 rounded-md">
+                        <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-themebackground4">
+                            Your basket:
+                            <p className="mt-1 text-sm font-normal text-black"></p>
+                        </caption>
                         <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
-                            <div className="mt-8">
+                            <div className="">
                                 <div className="flow-root">
-                                    <ul role="list" className="-my-6 divide-y divide-theme">
+                                    <ul role="list" className="">
                                         {basketData.products.map((product) => (
-                                            <li key={product.id} className="flex py-6">
+                                            <li key={product.id} className="flex py-3">
                                                 <BasketProduct product={product} handleClick={() => handleClick(product.id)} refresh={() => refreshBasketData()} />
                                             </li>
                                         ))}
@@ -94,9 +98,9 @@ const ShoppingBasket = () => {
                             </div>
                         </div>
 
-                        <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
+                        <div className="border-gray-200 py-6 px-4 sm:px-6">
 
-                            <div className="mt-6 w-fit mx-auto">
+                            <div className="mt-3 w-fit mx-auto">
                                 <Link
                                     to="/checkout"
                                     className="bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg"
@@ -113,7 +117,6 @@ const ShoppingBasket = () => {
                                             className="font-medium text-black hover:black"
                                         >
                                             Continue Shopping
-                                            <span aria-hidden="true"> &rarr;</span>
                                         </button>
                                     </Link>
                                 </p>

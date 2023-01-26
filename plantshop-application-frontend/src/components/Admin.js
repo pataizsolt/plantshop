@@ -10,6 +10,10 @@ const Admin = () => {
     const { auth } = useAuth();
     const nav = useNavigate();
 
+    useEffect(() => {
+        nav("/admin/categorymanager");
+    }, []);
+
     return (
         <>
 
@@ -17,6 +21,7 @@ const Admin = () => {
             <section className='flex flex-col min-h-screen'>
                 <Outlet />
             </section>
+            <div className='layer1 spacer'></div>
             <Footer />
 
         </>

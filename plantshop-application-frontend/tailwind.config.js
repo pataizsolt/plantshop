@@ -5,10 +5,11 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'themetext1': '#EAE7B1',
+      'themetext1': '#DDDDDD',
       'themetext2': '#DDDDDD',
       'themetext3': '#EEEEEE',
       'themetext4': '#ffffff',
+      'themetext5': '#ffffff',
       'themebackground1': '#3C6255',
       'themebackground2': '#61876E',
       'themebackground3': '#A6BB8D',

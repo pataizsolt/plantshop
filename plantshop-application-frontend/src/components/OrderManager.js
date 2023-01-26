@@ -76,12 +76,13 @@ const OrderManager = () => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center">
-            <div className="py-2 inline-block">
-                <div className="overflow-hidden">
+        isEmpty ? (<div className="text-center text-xl my-40 font-semibold" > No one has placed an order yet.</div>) : (
+            <div className="flex flex-col items-center justify-center">
+                <div className="py-2 inline-block">
+                    <div className="overflow-hidden">
 
-                    <div className="relative overflow-x-auto sm:rounded-lg max-w-7xl shadow-2xl">
-                        {isEmpty ? (<div></div>) : (
+                        <div className="relative overflow-x-auto sm:rounded-lg max-w-7xl shadow-2xl">
+
                             <table className="text-sm mt-20 text-left text-black bg-themebackground4" >
                                 <caption className="p-5 text-lg font-semibold text-left text-black bg-themebackground4">
                                     List of orders
@@ -129,12 +130,13 @@ const OrderManager = () => {
 
                                 </tbody>
                             </table>
-                        )}
-                    </div>
 
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
+        )
     )
 }
 

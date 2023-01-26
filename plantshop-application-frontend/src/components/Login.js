@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BsLock } from 'react-icons/bs'
+import { Link } from 'react-router-dom';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -84,8 +85,8 @@ const Login = () => {
 
     return (
         <>
-            <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="w-full max-w-md space-y-8">
+            <div className="flex h-screen items-center justify-center sm:px-6 lg:px-8 ">
+                <div className="w-full max-w-md">
                     <div>
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
                             Sign in to your account
@@ -134,6 +135,19 @@ const Login = () => {
                             >
                                 Sign in
                             </button>
+                        </div>
+                        <div className="mt-6 flex justify-center text-center text-sm text-themebackground1">
+                            <p>
+                                <p>or</p>
+                                <Link to="/store">
+                                    <button
+                                        type="button"
+                                        className="font-medium text-black hover:black"
+                                    >
+                                        Go back to the store
+                                    </button>
+                                </Link>
+                            </p>
                         </div>
                     </form>
                 </div>

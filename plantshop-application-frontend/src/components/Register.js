@@ -5,6 +5,7 @@ import axios from '../api/axios'
 import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const EMAIL_REGEX = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -93,10 +94,10 @@ const Register = () => {
 
     return (
         <>
-            <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div className="w-full max-w-md space-y-8">
+            <div className="flex h-screen items-center justify-center sm:px-6 lg:px-8 ">
+                <div className="w-full max-w-md">
                     <div>
-                        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+                        <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
                             Register your account
                         </h2>
                     </div>
@@ -190,6 +191,19 @@ const Register = () => {
                             >
                                 Sign up
                             </button>
+                        </div>
+                        <div className="mt-6 flex justify-center text-center text-sm text-themebackground1">
+                            <p>
+                                <p>or</p>
+                                <Link to="/store">
+                                    <button
+                                        type="button"
+                                        className="font-medium text-black hover:black"
+                                    >
+                                        Go back to the store
+                                    </button>
+                                </Link>
+                            </p>
                         </div>
                     </form>
                 </div>

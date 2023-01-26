@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import OrderSummaryProduct from './OrderSummaryProduct';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 const BASKET_URL = '/api/store';
 const ORDER_URL = '/api/order';
+const EMAIL_REGEX = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+const NAME_REGEX = /^[^\s][a-zA-Z0-9.\-\s]*[^\s]$/;
+const PHONENUMBER_REGEX = /^((?:\+?3|0)6)(?:-|\()?(\d{1,2})(?:-|\))?(\d{3})-?(\d{3,4})$/;
 const CheckoutForm = () => {
-    const [name, setName] = useState('Asd Asd');
-    const [email, setEmail] = useState('asd@asd.com');
-    const [phoneNumber, setPhoneNumber] = useState('+36303334444');
-    const [city, setCity] = useState('randomcity');
-    const [street, setStreet] = useState('random st');
-    const [houseNumber, setHouseNumber] = useState('32');
-    const [zipcode, setZipcode] = useState('3200');
-
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [city, setCity] = useState('');
+    const [street, setStreet] = useState('');
+    const [houseNumber, setHouseNumber] = useState('');
+    const [zipcode, setZipcode] = useState('');
+    const navigate = useNavigate();
 
 
 
@@ -26,18 +31,48 @@ const CheckoutForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-
-        const response = await axiosPrivate.post(ORDER_URL + "/createorder",
-            JSON.stringify({ name, email, phoneNumber, city, street, houseNumber, zipcode }),
-            {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true
-            }
-        );
-        console.log(JSON.stringify(response?.data));
-
-        refreshBasketData();
+        if (EMAIL_REGEX.test(email) && NAME_REGEX.test(name) && NAME_REGEX.test(city) && NAME_REGEX.test(street) && NAME_REGEX.test(houseNumber) && NAME_REGEX.test(zipcode) && PHONENUMBER_REGEX.test(phoneNumber)) {
+            const response = await axiosPrivate.post(ORDER_URL + "/createorder",
+                JSON.stringify({ name, email, phoneNumber, city, street, houseNumber, zipcode }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            ).then(resp => {
+                refreshBasketData();
+                navigate("/store");
+                toast.success("Order created successfully", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }).catch(error => {
+                toast.error("Order creating error", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            });
+        }
+        else {
+            toast.error("Bad order details format", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
     }
 
 
@@ -57,10 +92,8 @@ const CheckoutForm = () => {
 
     useEffect(() => {
 
-        console.log("asd")
         refreshBasketData();
         console.log(basketData);
-
 
     }, []);
 
@@ -71,14 +104,14 @@ const CheckoutForm = () => {
                 <div className="my-20 inline-block bg-themebackground4 rounded-md">
                     <div className="overflow-hidden">
                         <div className="grid lg:grid-cols-2 sm:px-10 lg:px-20 xl:px-32 max-w-7xl">
-                            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                            <form className="space-y-6" onSubmit={handleSubmit}>
                                 <div className="mt-10 px-4 pt-8 lg:mt-0">
                                     <p className="text-xl font-medium">Payment Details</p>
                                     <p className="text-gray-400">Complete your order by providing your payment details.</p>
                                     <div className="">
                                         <label for="name" className="mt-4 mb-2 block text-sm font-medium">Name</label>
                                         <div className="relative">
-                                            <input type="text" id="name" name="name" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Your Name" onChange={(e) => setName(e.target.value)}
+                                            <input type="text" id="name" name="name" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="Your Name" onChange={(e) => setName(e.target.value)}
                                                 value={name} />
                                             <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -88,7 +121,7 @@ const CheckoutForm = () => {
                                         </div>
                                         <label for="email" className="mt-4 mb-2 block text-sm font-medium">Email</label>
                                         <div className="relative">
-                                            <input type="text" id="email" name="email" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="your.email@gmail.com" onChange={(e) => setEmail(e.target.value)}
+                                            <input type="text" id="email" name="email" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="your.email@gmail.com" onChange={(e) => setEmail(e.target.value)}
                                                 value={email} />
                                             <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -98,7 +131,7 @@ const CheckoutForm = () => {
                                         </div>
                                         <label for="phone" className="mt-4 mb-2 block text-sm font-medium">Phone number</label>
                                         <div className="relative">
-                                            <input type="text" id="phone" name="phone" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="+36xxxxxxxxx" onChange={(e) => setPhoneNumber(e.target.value)}
+                                            <input type="text" id="phone" name="phone" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="+36xxxxxxxxx" onChange={(e) => setPhoneNumber(e.target.value)}
                                                 value={phoneNumber} />
                                             <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1">
@@ -111,7 +144,7 @@ const CheckoutForm = () => {
                                         <label for="billing-address" className="mt-4 mb-2 block text-sm font-medium">Address</label>
                                         <div className="flex">
                                             <div className="relative w-4/12 flex-shrink-0">
-                                                <input type="text" id="city" name="city" className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="City" onChange={(e) => setCity(e.target.value)}
+                                                <input type="text" id="city" name="city" className="w-full rounded-tl-md rounded-bl-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="City" onChange={(e) => setCity(e.target.value)}
                                                     value={city} />
                                                 <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                                     <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1">
@@ -119,24 +152,14 @@ const CheckoutForm = () => {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <input type="text" name="street" className="w-4/12 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Street" onChange={(e) => setStreet(e.target.value)} value={street} />
-                                            <input type="text" name="housenumber" className="w-2/12 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="House number" onChange={(e) => setHouseNumber(e.target.value)} value={houseNumber} />
-                                            <input type="text" name="zip" className="w-2/12 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="ZIP" onChange={(e) => setZipcode(e.target.value)} value={zipcode} />
+                                            <input type="text" name="street" className="w-4/12 border border-x-0 border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="Street" onChange={(e) => setStreet(e.target.value)} value={street} />
+                                            <input type="text" name="housenumber" className="w-2/12 border border-r-0 border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="House number" onChange={(e) => setHouseNumber(e.target.value)} value={houseNumber} />
+                                            <input type="text" name="zip" className="w-2/12 flex-shrink-0 rounded-tr-md rounded-br-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="ZIP" onChange={(e) => setZipcode(e.target.value)} value={zipcode} />
                                         </div>
 
-                                        <div className="mt-6 border-t border-b py-2">
-                                            <div className="flex items-center justify-between">
-                                                <p className="text-sm font-medium text-gray-900">Subtotal</p>
-                                                <p className="font-semibold text-gray-900">${basketData.price}</p>
-                                            </div>
-                                            <div className="flex items-center justify-between">
-                                                <p classNameName="text-sm font-medium text-gray-900">Shipping</p>
-                                                <p className="font-semibold text-gray-900">$10</p>
-                                            </div>
-                                        </div>
                                         <div className="mt-6 flex items-center justify-between">
                                             <p className="text-sm font-medium text-gray-900">Total</p>
-                                            <p className="text-2xl font-semibold text-gray-900">${basketData.price + 10.00}</p>
+                                            <p className="text-2xl font-semibold text-gray-900">${basketData.price}</p>
                                         </div>
                                     </div>
                                     <button type="submit" className="mt-4 mb-8 w-full bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg">Place Order</button>
@@ -146,10 +169,10 @@ const CheckoutForm = () => {
                                 <p className="text-xl font-medium">Order Summary</p>
                                 <p className="text-gray-400">Check your items. And select a suitable shipping method.</p>
                                 {isFetching ? (<div></div>) : (
-                                    <div className="mt-8 space-y-3 rounded-lg border  px-2 py-4 sm:px-6">
-                                        <ul role="list" className="-my-6 divide-y divide-gray-200">
+                                    <div className="mt-8 space-y-3 rounded-lg bg-themebackground3  px-2 py-4 sm:px-6">
+                                        <ul role="list" className="-my-1 divide-y divide-gray-200">
                                             {basketData.products.map((product) => (
-                                                <li key={product.id} className="flex py-6">
+                                                <li key={product.id} className="flex py-5">
                                                     <OrderSummaryProduct product={product} />
                                                 </li>
                                             ))}

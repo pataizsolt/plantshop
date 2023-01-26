@@ -155,7 +155,7 @@ const ProductManager = () => {
 
     return (
         <div className="flex flex-col items-center justify-center ">
-            <div className="my-20 inline-block max-w-7xl">
+            <div className="my-20 inline-block md:max-w-7xl">
                 <div className="overflow-hidden">
 
                     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
