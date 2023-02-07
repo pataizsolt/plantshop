@@ -52,7 +52,7 @@ public class SecurityConfiguration {
             .sessionManagement().sessionCreationPolicy
                 (SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
-            .antMatchers("/api/auth/**", "/api/files/**")
+            .antMatchers("/api/auth/**", "/api/files/**", "/api/payment/**")
             .permitAll()
             .antMatchers("/api/test/**", "/api/user/**", "/api/store/**", "/api/order/**")
             .permitAll().anyRequest().authenticated();

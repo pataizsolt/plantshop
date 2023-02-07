@@ -64,6 +64,8 @@ public class OrderController {
                 items
         );
 
+        order.setPaid(true);
+
         orderRepository.save(order);
 
         appUserService.emptyUserBasket(user);

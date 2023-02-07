@@ -20,6 +20,7 @@ import Product from './components/Product';
 import ProductManager from './components/ProductManager';
 import ContactForm from './components/ContactForm';
 import OrderManager from './components/OrderManager';
+import Payment from './components/Payment';
 
 function App() {
 

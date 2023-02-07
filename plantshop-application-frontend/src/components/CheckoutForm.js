@@ -4,6 +4,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import OrderSummaryProduct from './OrderSummaryProduct';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Payment from './Payment';
 
 
 
@@ -20,6 +21,7 @@ const CheckoutForm = () => {
     const [street, setStreet] = useState('');
     const [houseNumber, setHouseNumber] = useState('');
     const [zipcode, setZipcode] = useState('');
+    const [isDisabled, setIsDisabled] = useState(true);
     const navigate = useNavigate();
 
 
@@ -29,8 +31,8 @@ const CheckoutForm = () => {
     const axiosPrivate = useAxiosPrivate();
     let i = 0;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
+
         if (EMAIL_REGEX.test(email) && NAME_REGEX.test(name) && NAME_REGEX.test(city) && NAME_REGEX.test(street) && NAME_REGEX.test(houseNumber) && NAME_REGEX.test(zipcode) && PHONENUMBER_REGEX.test(phoneNumber)) {
             const response = await axiosPrivate.post(ORDER_URL + "/createorder",
                 JSON.stringify({ name, email, phoneNumber, city, street, houseNumber, zipcode }),
@@ -75,6 +77,11 @@ const CheckoutForm = () => {
         }
     }
 
+    const handleEvent = async (e) => {
+        e.preventDefault();
+
+    }
+
 
     function refreshBasketData() {
         axiosPrivate.get(BASKET_URL + "/getbasket",
@@ -88,12 +95,25 @@ const CheckoutForm = () => {
         });
     }
 
+    function checkIfRegexesAreCorrect() {
+        if (EMAIL_REGEX.test(email)
+            && NAME_REGEX.test(name)
+            && NAME_REGEX.test(city)
+            && NAME_REGEX.test(street)
+            && NAME_REGEX.test(houseNumber)
+            && NAME_REGEX.test(zipcode)
+            && PHONENUMBER_REGEX.test(phoneNumber)) {
+            setIsDisabled(false);
+        } else {
+            setIsDisabled(true);
+        }
+    }
 
 
     useEffect(() => {
 
         refreshBasketData();
-        console.log(basketData);
+
 
     }, []);
 
@@ -104,14 +124,14 @@ const CheckoutForm = () => {
                 <div className="my-20 inline-block bg-themebackground4 rounded-md">
                     <div className="overflow-hidden">
                         <div className="grid lg:grid-cols-2 sm:px-10 lg:px-20 xl:px-32 max-w-7xl">
-                            <form className="space-y-6" onSubmit={handleSubmit}>
+                            <form className="space-y-6" onSubmit={handleEvent}>
                                 <div className="mt-10 px-4 pt-8 lg:mt-0">
                                     <p className="text-xl font-medium">Payment Details</p>
                                     <p className="text-gray-400">Complete your order by providing your payment details.</p>
                                     <div className="">
                                         <label for="name" className="mt-4 mb-2 block text-sm font-medium">Name</label>
                                         <div className="relative">
-                                            <input type="text" id="name" name="name" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="Your Name" onChange={(e) => setName(e.target.value)}
+                                            <input type="text" id="name" name="name" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="Your Name" onChange={(e) => { setName(e.target.value); NAME_REGEX.test(e.target.value) ? setIsDisabled(false) : setIsDisabled(true); }}
                                                 value={name} />
                                             <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -121,7 +141,7 @@ const CheckoutForm = () => {
                                         </div>
                                         <label for="email" className="mt-4 mb-2 block text-sm font-medium">Email</label>
                                         <div className="relative">
-                                            <input type="text" id="email" name="email" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="your.email@gmail.com" onChange={(e) => setEmail(e.target.value)}
+                                            <input type="text" id="email" name="email" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="your.email@gmail.com" onChange={(e) => { setEmail(e.target.value); EMAIL_REGEX.test(e.target.value) ? setIsDisabled(false) : setIsDisabled(true); }}
                                                 value={email} />
                                             <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -131,7 +151,7 @@ const CheckoutForm = () => {
                                         </div>
                                         <label for="phone" className="mt-4 mb-2 block text-sm font-medium">Phone number</label>
                                         <div className="relative">
-                                            <input type="text" id="phone" name="phone" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="+36xxxxxxxxx" onChange={(e) => setPhoneNumber(e.target.value)}
+                                            <input type="text" id="phone" name="phone" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="+36xxxxxxxxx" onChange={(e) => { setPhoneNumber(e.target.value); PHONENUMBER_REGEX.test(e.target.value) ? setIsDisabled(false) : setIsDisabled(true) }}
                                                 value={phoneNumber} />
                                             <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1">
@@ -144,7 +164,7 @@ const CheckoutForm = () => {
                                         <label for="billing-address" className="mt-4 mb-2 block text-sm font-medium">Address</label>
                                         <div className="flex">
                                             <div className="relative w-4/12 flex-shrink-0">
-                                                <input type="text" id="city" name="city" className="w-full rounded-tl-md rounded-bl-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="City" onChange={(e) => setCity(e.target.value)}
+                                                <input type="text" id="city" name="city" className="w-full rounded-tl-md rounded-bl-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="City" onChange={(e) => { setCity(e.target.value); NAME_REGEX.test(e.target.value) ? setIsDisabled(false) : setIsDisabled(true);; }}
                                                     value={city} />
                                                 <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                                     <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 20 20" stroke="currentColor" stroke-width="1">
@@ -152,9 +172,9 @@ const CheckoutForm = () => {
                                                     </svg>
                                                 </div>
                                             </div>
-                                            <input type="text" name="street" className="w-4/12 border border-x-0 border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="Street" onChange={(e) => setStreet(e.target.value)} value={street} />
-                                            <input type="text" name="housenumber" className="w-2/12 border border-r-0 border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="House number" onChange={(e) => setHouseNumber(e.target.value)} value={houseNumber} />
-                                            <input type="text" name="zip" className="w-2/12 flex-shrink-0 rounded-tr-md rounded-br-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="ZIP" onChange={(e) => setZipcode(e.target.value)} value={zipcode} />
+                                            <input type="text" name="street" className="w-4/12 border border-x-0 border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="Street" onChange={(e) => { setStreet(e.target.value); NAME_REGEX.test(e.target.value) ? setIsDisabled(false) : setIsDisabled(true);; }} value={street} />
+                                            <input type="text" name="housenumber" className="w-2/12 border border-r-0 border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="House number" onChange={(e) => { setHouseNumber(e.target.value); NAME_REGEX.test(e.target.value) ? setIsDisabled(false) : setIsDisabled(true);; }} value={houseNumber} />
+                                            <input type="text" name="zip" className="w-2/12 flex-shrink-0 rounded-tr-md rounded-br-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border focus:ring-themebackground2" placeholder="ZIP" onChange={(e) => { setZipcode(e.target.value); NAME_REGEX.test(e.target.value) ? setIsDisabled(false) : setIsDisabled(true);; }} value={zipcode} />
                                         </div>
 
                                         <div className="mt-6 flex items-center justify-between">
@@ -162,7 +182,7 @@ const CheckoutForm = () => {
                                             <p className="text-2xl font-semibold text-gray-900">${basketData.price}</p>
                                         </div>
                                     </div>
-                                    <button type="submit" className="mt-4 mb-8 w-full bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg">Place Order</button>
+                                    <Payment price={basketData.price} handlePayment={() => handleSubmit()} disabled={isDisabled}></Payment>
                                 </div>
                             </form>
                             <div className="px-4 pt-8">
@@ -180,6 +200,7 @@ const CheckoutForm = () => {
                                     </div>
                                 )}
                             </div>
+
                         </div>
                     </div>
                 </div>
