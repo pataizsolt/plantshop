@@ -76,13 +76,13 @@ const ShoppingBasket = () => {
     return (
         <>
 
-            {isEmpty ? (<div className="text-center text-xl my-40 font-semibold" > Your cart is empty.</div>) : (
+            {isEmpty ? (<div className="text-center text-xl my-40 font-semibold text-themetext3" > Your cart is empty.</div>) : (
                 <>
 
                     <div className="flex h-full max-w-3xl w-full mx-auto flex-col shadow-xl my-40 bg-themebackground4 rounded-md">
-                        <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-themebackground4">
+                        <caption className="p-5 text-lg font-semibold text-left text-themetext4 bg-themebackground4 rounded-md">
                             Your basket:
-                            <p className="mt-1 text-sm font-normal text-black"></p>
+                            <p className="mt-1 text-sm font-normal text-themetext4"></p>
                         </caption>
                         <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                             <div className="">
@@ -114,7 +114,7 @@ const ShoppingBasket = () => {
                                     <Link to="/store">
                                         <button
                                             type="button"
-                                            className="font-medium text-black hover:black"
+                                            className="font-medium text-themetext4 hover:black"
                                         >
                                             Continue Shopping
                                         </button>

@@ -55,8 +55,8 @@ const MainCategory = (props) => {
 
 
     return (
-        <tr className="bg-themebackground4">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+        <tr className="bg-themebackground4 text-themetext4">
+            <th scope="row" className="px-6 py-4 font-medium text-themetext4 whitespace-nowrap">
                 {props.category.id}
             </th>
             {clicked ?
@@ -125,7 +125,7 @@ const MainCategory = (props) => {
 
             }
             <td className="px-6 py-4 text-right">
-                <Link to={'/admin/subcategorymanager/' + id}><button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">...</button></Link>
+                <Link to={'/admin/subcategorymanager/' + id}><button className="font-medium text-themetext4 hover:underline">...</button></Link>
             </td>
 
 

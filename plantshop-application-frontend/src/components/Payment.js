@@ -12,7 +12,7 @@ function Payment(props) {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
                 token: token.id,
-                amount: 500
+                amount: props.price
             },
         }).then(() => {
             alert("Payment Success");

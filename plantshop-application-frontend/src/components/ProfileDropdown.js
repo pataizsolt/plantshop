@@ -56,7 +56,7 @@ export default function ProfileDropdown() {
                                             <Link
                                                 to="/login"
                                                 className={classNames(
-                                                    active ? 'bg-themebackground3 text-themetext1' : 'bg-themebackground2 text-themetext1',
+                                                    active ? 'bg-themebackground3 text-themetext3' : 'bg-themebackground2 text-themetext2',
                                                     'block px-4 py-2 text-xl'
                                                 )}
                                             >
@@ -69,7 +69,7 @@ export default function ProfileDropdown() {
                                             <Link
                                                 to="/register"
                                                 className={classNames(
-                                                    active ? 'bg-themebackground3 text-themetext1' : 'text-themetext1 bg-themebackground2',
+                                                    active ? 'bg-themebackground3 text-themetext3' : 'text-themetext2 bg-themebackground2',
                                                     'block px-4 py-2 text-xl'
                                                 )}
                                             >
@@ -88,7 +88,7 @@ export default function ProfileDropdown() {
                                                     <Link
                                                         to="/admin"
                                                         className={classNames(
-                                                            active ? 'bg-themebackground3 text-themetext1' : 'text-themetext1 bg-themebackground2',
+                                                            active ? 'bg-themebackground3 text-themetext3' : 'text-themetext2 bg-themebackground2',
                                                             'block px-4 py-2 text-xl'
                                                         )}
                                                     >
@@ -107,7 +107,7 @@ export default function ProfileDropdown() {
                                             <Link
                                                 to="/profile"
                                                 className={classNames(
-                                                    active ? 'bg-themebackground3 text-themetext1' : 'text-themetext1 bg-themebackground2',
+                                                    active ? 'bg-themebackground3 text-themetext3' : 'bg-themebackground2 text-themetext2',
                                                     'block px-4 py-2 text-xl'
                                                 )}
                                             >
@@ -120,7 +120,7 @@ export default function ProfileDropdown() {
                                             <Link
                                                 to="/orders"
                                                 className={classNames(
-                                                    active ? 'bg-themebackground3 text-themetext1' : 'text-themetext1 bg-themebackground2',
+                                                    active ? 'bg-themebackground3 text-themetext3' : 'bg-themebackground2 text-themetext2',
                                                     'block px-4 py-2 text-xl'
                                                 )}
                                             >
@@ -133,7 +133,7 @@ export default function ProfileDropdown() {
                                             <a
                                                 onClick={wrapper}
                                                 className={classNames(
-                                                    active ? 'bg-themebackground3 text-themetext1' : 'text-themetext1 bg-themebackground2',
+                                                    active ? 'bg-themebackground3 text-themetext3' : 'bg-themebackground2 text-themetext2',
                                                     'block px-4 py-2 text-xl'
                                                 )}
                                             >

@@ -42,7 +42,7 @@ const BasketProduct = (props) => {
         <>
 
 
-            <div className="ml-4 flex flex-1 flex-col bg-themebackground3 p-5 rounded-md">
+            <div className="ml-4 flex flex-1 flex-col bg-themebackground1 text-themetext1 p-5 rounded-md">
                 <div>
                     <div className="flex justify-between text-base font-medium text-gray-900 mb-5">
                         <h3>
@@ -55,8 +55,13 @@ const BasketProduct = (props) => {
 
 
                     <NumericInput
+                        style={{
+                            input: {
+                                color: 'black'
+                            }
+                        }}
                         name="Quantity"
-                        className="form-control"
+                        className=""
                         min={1}
                         max={props.product.stock}
                         step={1}

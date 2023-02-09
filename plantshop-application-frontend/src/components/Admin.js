@@ -18,10 +18,9 @@ const Admin = () => {
         <>
 
             <AdminHeader />
-            <section className='flex flex-col min-h-screen'>
+            <body className='flex flex-col min-h-screen bg-themebackground3'>
                 <Outlet />
-            </section>
-            <div className='layer1 spacer'></div>
+            </body>
             <Footer />
 
         </>

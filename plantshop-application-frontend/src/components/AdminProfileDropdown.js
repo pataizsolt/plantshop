@@ -57,7 +57,7 @@ export default function AdminProfileDropdown() {
                                         <Link
                                             to="/store"
                                             className={classNames(
-                                                active ? 'bg-themebackground3 text-themetext1' : 'bg-themebackground2 text-themetext1',
+                                                active ? 'bg-themebackground3 text-themetext3' : 'bg-themebackground2 text-themetext2',
                                                 'block px-4 py-2 text-xl'
                                             )}
                                         >
@@ -70,7 +70,7 @@ export default function AdminProfileDropdown() {
                                         <a
                                             onClick={wrapper}
                                             className={classNames(
-                                                active ? 'bg-themebackground3 text-themetext1' : 'bg-themebackground2 text-themetext1',
+                                                active ? 'bg-themebackground3 text-themetext3' : 'bg-themebackground2 text-themetext2',
                                                 'block px-4 py-2 text-xl'
                                             )}
                                         >

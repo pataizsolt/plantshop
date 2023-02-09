@@ -11,10 +11,9 @@ const Home = () => {
 
 
                 <Header />
-                <body className='flex flex-col min-h-screen'>
+                <body className='flex flex-col min-h-screen bg-themebackground3'>
                     <Outlet />
                 </body>
-                <div className='layer1 spacer'></div>
                 <Footer />
 
 

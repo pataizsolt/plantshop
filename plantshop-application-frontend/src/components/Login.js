@@ -85,10 +85,10 @@ const Login = () => {
 
     return (
         <>
-            <div className="flex h-screen items-center justify-center sm:px-6 lg:px-8 ">
+            <div className="flex h-screen items-center justify-center sm:px-6 lg:px-8 bg-themebackground4">
                 <div className="w-full max-w-md">
                     <div>
-                        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+                        <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-themetext4">
                             Sign in to your account
                         </h2>
                     </div>
@@ -105,7 +105,7 @@ const Login = () => {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-bg-themebackground3 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground3 focus:outline-none focus:ring-bg-themebackground3 sm:text-sm"
                                     placeholder="Email address"
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
@@ -121,7 +121,7 @@ const Login = () => {
                                     type="password"
                                     autoComplete="current-password"
                                     required
-                                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground3 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Password"
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}
@@ -136,7 +136,7 @@ const Login = () => {
                                 Sign in
                             </button>
                         </div>
-                        <div className="mt-6 flex justify-center text-center text-sm text-themebackground1">
+                        <div className="mt-6 flex justify-center text-center text-sm text-themetext4">
                             <p>
                                 <p>or</p>
                                 <Link to="/store">

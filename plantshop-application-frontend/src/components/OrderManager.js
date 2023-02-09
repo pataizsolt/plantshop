@@ -76,7 +76,7 @@ const OrderManager = () => {
     }, []);
 
     return (
-        isEmpty ? (<div className="text-center text-xl my-40 font-semibold" > No one has placed an order yet.</div>) : (
+        isEmpty ? (<div className="text-center text-xl my-40 font-semibold text-themetext3" > No one has placed an order yet.</div>) : (
             <div className="flex flex-col items-center justify-center">
                 <div className="py-2 inline-block">
                     <div className="overflow-hidden">

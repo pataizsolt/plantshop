@@ -40,7 +40,7 @@ const Orders = () => {
     }, []);
 
     return (
-        isEmpty ? (<div className="text-center text-xl my-40 font-semibold" > You don't have any orders yet.</div>) : (
+        isEmpty ? (<div className="text-center text-xl my-40 font-semibold text-themetext3" > You don't have any orders yet.</div>) : (
             <>
                 <div className="flex flex-col items-center justify-center">
                     <div className="py-2 inline-block">
@@ -48,12 +48,12 @@ const Orders = () => {
 
                             <div className="relative overflow-x-auto sm:rounded-lg max-w-7xl shadow-2xl">
 
-                                <table className="text-sm mt-20 text-left text-black bg-themebackground4" >
-                                    <caption className="p-5 text-lg font-semibold text-left text-black bg-themebackground4">
+                                <table className="text-sm mt-20 text-left text-themetext4 bg-themebackground4" >
+                                    <caption className="p-5 text-lg font-semibold text-left text-themetext4 bg-themebackground4">
                                         List of orders
                                         <p className="mt-1 text-sm font-normal text-black">Here you can browse your previous and ongoing orders</p>
                                     </caption>
-                                    <thead className="text-xs text-black uppercase bg-themebackground4 dark:text-black">
+                                    <thead className="text-xs text-black uppercase bg-themebackground4 text-themetext4">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
                                                 Name

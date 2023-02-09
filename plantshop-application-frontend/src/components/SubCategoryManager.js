@@ -131,16 +131,16 @@ const SubCategoryManager = () => {
                         {isFetching ? (<div></div>) : (
 
                             <>
-                                <table className="w-full text-sm text-left text-black " >
+                                <table className="w-full text-sm text-left text-themetext4 " >
                                     <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-themebackground4">
                                         Sub categories of
                                         <br />
                                         Branch Category: {mainAndBranchCategoryData.branchCategoryName} - {mainAndBranchCategoryData.branchId}
                                         <br />
                                         Main Category: {mainAndBranchCategoryData.mainCategoryName} - {mainAndBranchCategoryData.mainId}
-                                        <p className="mt-1 text-sm font-normal text-black"></p>
+                                        <p className="mt-1 text-sm font-normal text-themetext4"></p>
                                     </caption>
-                                    <thead className="text-xs text-gray-700 uppercase bg-themebackground4 dark:text-black">
+                                    <thead className="text-xs uppercase bg-themebackground4 text-themetext4">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
                                                 ID
@@ -211,7 +211,7 @@ const SubCategoryManager = () => {
                                                 )
                                                 :
                                                 (
-                                                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" colSpan="6">
+                                                    <td scope="row" className="px-6 py-4 font-medium text-themetext4 whitespace-nowrap" colSpan="6">
                                                         <button className=' block mx-auto' onClick={() => {
                                                             setClicked(prevClicked => !prevClicked);
 

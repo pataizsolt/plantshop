@@ -55,7 +55,7 @@ const SubCategory = (props) => {
 
 
     return (
-        <tr className=" bg-themebackground4">
+        <tr className=" bg-themebackground4 text-themetext4">
             <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap">
                 {props.category.id}
             </th>

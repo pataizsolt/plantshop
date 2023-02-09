@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  background-color: #FFFBE9;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
@@ -15,27 +14,13 @@ body {
   background-size: cover;
 }
 
-.layer1 {
-  background-image: url('./assets/layer.svg');
+.layer {
+  aspect-ratio: 900/300;
 }
 
-.layer2 {
-  background-image: url('./assets/layer1.svg');
-  aspect-ratio: 900/200;
-}
-
-.layer3 {
-  background-image: url('./assets/layer2.svg');
-  aspect-ratio: 900/200;
-}
-
-.layer4 {
-  background-image: url('./assets/layer3.svg');
-  aspect-ratio: 900/200;
-}
 
 .headerLandingPage {
-  background-image: url('./assets/leaves.avif');
+  background-image: url('./assets/pcb.jpg');
   background-color: #cccccc;
   /* Used if the image is unavailable */
   height: 500px;

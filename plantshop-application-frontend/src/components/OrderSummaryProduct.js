@@ -40,9 +40,9 @@ const OrderSummaryProduct = (props) => {
         <>
 
 
-            <div className="ml-4 flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col bg-themebackground1 text-themetext1">
                 <div>
-                    <div className="flex justify-between text-base font-medium text-gray-900">
+                    <div className="flex justify-between text-base font-medium text-themetext1">
 
                         <p>{props.product.name}</p>
 

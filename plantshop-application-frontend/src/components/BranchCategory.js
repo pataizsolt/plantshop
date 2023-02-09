@@ -68,7 +68,7 @@ const BranchCategory = (props) => {
 
     return (
         <tr className="bg-themebackground4">
-            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+            <th scope="row" className="px-6 py-4 font-medium text-themetext4 whitespace-nowrap">
                 {props.category.id}
             </th>
             {clicked ?
@@ -136,7 +136,7 @@ const BranchCategory = (props) => {
 
             }
             <td className="px-6 py-4 text-right">
-                <Link to={'/admin/maincategorymanager/' + id}><button className="font-medium text-blue-600 dark:text-blue-500">...</button></Link>
+                <Link to={'/admin/maincategorymanager/' + id}><button className="font-medium text-themetext4">...</button></Link>
             </td>
 
 

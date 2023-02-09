@@ -94,7 +94,7 @@ const Register = () => {
 
     return (
         <>
-            <div className="flex h-screen items-center justify-center sm:px-6 lg:px-8 ">
+            <div className="flex h-screen items-center justify-center sm:px-6 lg:px-8 bg-themebackground4">
                 <div className="w-full max-w-md">
                     <div>
                         <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900">
@@ -113,7 +113,7 @@ const Register = () => {
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    className="relative block w-full appearance-none rounded-t-md border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-t-md px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground3 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Email address"
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email}
@@ -128,7 +128,7 @@ const Register = () => {
                                     name="firstName"
                                     type="firstName"
                                     required
-                                    className="relative block w-full appearance-none rounded-none border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
+                                    className="relative block w-full appearance-none border rounded-none px-3 py-2 text-themetext4 placeholder-gray-500 focus:z-10 focus:bg-themebackground3 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="First name"
                                     onChange={(e) => setFirstName(e.target.value)}
                                     value={firstName}
@@ -143,7 +143,7 @@ const Register = () => {
                                     name="lastName"
                                     type="lastName"
                                     required
-                                    className="relative block w-full appearance-none rounded-none border border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
+                                    className="relative block w-full appearance-none border rounded-none px-3 py-2 text-themetext4 placeholder-gray-500 focus:z-10 focus:bg-themebackground3 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Last Name"
                                     onChange={(e) => setLastName(e.target.value)}
                                     value={lastName}
@@ -158,7 +158,7 @@ const Register = () => {
                                     name="password"
                                     type="password"
                                     required
-                                    className="relative block w-full appearance-none rounded-none border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-none px-3 py-2 text-themetext4 placeholder-gray-500 focus:z-10 focus:bg-themebackground3 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Password"
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}
@@ -170,10 +170,10 @@ const Register = () => {
                                 </label>
                                 <input
                                     id="match-password"
-                                    name="match-password"
-                                    type="match-password"
+                                    name="password"
+                                    type="password"
                                     required
-                                    className="relative block w-full appearance-none rounded-b-md border-themetext4 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:bg-themebackground4 focus:outline-none focus:ring-themebackground3 sm:text-sm"
+                                    className="relative block w-full appearance-none rounded-b-md px-3 py-2 text-themetext4 placeholder-gray-500 focus:z-10 focus:bg-themebackground3 focus:outline-none focus:ring-themebackground3 sm:text-sm"
                                     placeholder="Password again"
                                     onChange={(e) => setMatchPassword(e.target.value)}
                                     value={matchPassword}
@@ -186,7 +186,7 @@ const Register = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="w-full bg-transparent border-themebackground1 hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3 border text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg"
+                                className="w-full bg-transparent hover:bg-themebackground1 hover:text-themetext1 bg-themebackground3  text-black text-black font-bold py-2 px-4 rounded-lg shadow-lg"
 
                             >
                                 Sign up

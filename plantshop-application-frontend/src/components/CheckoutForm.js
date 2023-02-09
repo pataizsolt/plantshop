@@ -178,8 +178,8 @@ const CheckoutForm = () => {
                                         </div>
 
                                         <div className="mt-6 flex items-center justify-between">
-                                            <p className="text-sm font-medium text-gray-900">Total</p>
-                                            <p className="text-2xl font-semibold text-gray-900">${basketData.price}</p>
+                                            <p className="text-sm font-medium text-themetext4">Total</p>
+                                            <p className="text-2xl font-semibold text-themetext4">${basketData.price}</p>
                                         </div>
                                     </div>
                                     <Payment price={basketData.price} handlePayment={() => handleSubmit()} disabled={isDisabled}></Payment>
@@ -189,10 +189,10 @@ const CheckoutForm = () => {
                                 <p className="text-xl font-medium">Order Summary</p>
                                 <p className="text-gray-400">Check your items. And select a suitable shipping method.</p>
                                 {isFetching ? (<div></div>) : (
-                                    <div className="mt-8 space-y-3 rounded-lg bg-themebackground3  px-2 py-4 sm:px-6">
+                                    <div className="mt-8 space-y-3 rounded-md bg-themebackground1 ">
                                         <ul role="list" className="-my-1 divide-y divide-gray-200">
                                             {basketData.products.map((product) => (
-                                                <li key={product.id} className="flex py-5">
+                                                <li key={product.id} className="flex p-5">
                                                     <OrderSummaryProduct product={product} />
                                                 </li>
                                             ))}
