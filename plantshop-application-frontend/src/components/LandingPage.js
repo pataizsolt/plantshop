@@ -6,15 +6,17 @@ const LandingPage = () => {
     return (
         <>
             <div className="relative overflow-hidden bg-no-repeat bg-cover" style={{ backgroundPosition: '50%', height: '400px' }}>
-                <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed headerLandingPage" style={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}>
+                <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed headerLandingPage" style={{
+                    backgroundImage: "url(/assets/" + textData.pictureUrl + ")"
+                }}>
                     <div className="flex justify-center items-center h-full">
                         <div className="text-center text-themetext2 px-6 md:px-12 my-auto">
                             <h1 className="text-5xl font-bold mt-0 mb-6">{textData.pageTitle}</h1>
                             <h3 className="text-3xl font-bold mb-8">{textData.pageSubtitle}</h3>
                             <button type="button" className="mb-10 inline-block px-6 py-2.5 border-4 border-white text-themetext2 font-medium text-lg leading-tight uppercase rounded hover:bg-themebackground1 hover:bg-opacity-50 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light">
-                                <Link to='/store'>
+                                <a href='/store'>
                                     Get started
-                                </Link>
+                                </a>
                             </button>
                         </div>
                     </div>

@@ -20,7 +20,7 @@ body {
 
 
 .headerLandingPage {
-  background-image: url('./assets/pcb.jpg');
+  /*background-image: url('./assets/pcb.jpg');*/
   background-color: #cccccc;
   /* Used if the image is unavailable */
   height: 500px;
