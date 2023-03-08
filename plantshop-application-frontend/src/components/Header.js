@@ -154,11 +154,11 @@ const Header = () => {
                                                                                                     <ul
                                                                                                         role="list"
                                                                                                         aria-labelledby={`${element.mainCategory.categoryName}-heading`}
-                                                                                                        className="mt-6 space-y-6 sm:mt-4 sm:space-y-4 list-none text-lg"
+                                                                                                        className="mt-6 space-y-6 sm:mt-4 sm:space-y-4 list-none text-lg "
                                                                                                     >
                                                                                                         {element.subCategories.map((item) => (
                                                                                                             <li key={item.categoryName} className="flex">
-                                                                                                                <Link to={`/store/${item.href}`} className="hover:text-themetext2">
+                                                                                                                <Link to={`/store/${item.href}`} className="hover:text-themetext2 text-sm">
                                                                                                                     {item.categoryName}
                                                                                                                 </Link>
                                                                                                             </li>

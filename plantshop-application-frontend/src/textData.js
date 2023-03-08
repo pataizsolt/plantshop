@@ -1,13 +1,13 @@
 export default {
-    /**/svgicon: `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 16" width="36" height="36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"> <path d="m8.75 6.75c0 1.25-.75 3-.75 3m.25-2.5s.75-2-1-3.5-4.5-1-4.5-1 0 2 1.5 3.5 4 1 4 1zm.5-1s-.75-2 1-3.5 4.5-1 4.5-1 0 2-1.5 3.5-4 1-4 1z" /> <path d="m4.75 9.75h6.5s.5 4.5-3.25 4.5-3.25-4.5-3.25-4.5z" /> </svg>`,
+    /*svgicon: `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 16" width="36" height="36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"> <path d="m8.75 6.75c0 1.25-.75 3-.75 3m.25-2.5s.75-2-1-3.5-4.5-1-4.5-1 0 2 1.5 3.5 4 1 4 1zm.5-1s-.75-2 1-3.5 4.5-1 4.5-1 0 2-1.5 3.5-4 1-4 1z" /> <path d="m4.75 9.75h6.5s.5 4.5-3.25 4.5-3.25-4.5-3.25-4.5z" /> </svg>`,
     websiteDomain: "Indoor Gardeners",
     pageTitle: "From soil to soul, gardening nourishes.",
     pageSubtitle: "Let your journey begin",
     pictureUrl: "leaves.avif",
     banner: "Attention all plant lovers! Our shipment of new and exotic plants has just arrived! Hurry, limited stock available!",
     landingPageText: "Welcome to our indoor gardening webshop! We believe that gardening is not just about growing plants, but it's also about nurturing the soul. Our motto, \"From soil to soul, gardening nourishes, \" reflects this belief. We have a wide range of indoor gardening products, from soil to seeds, pots to planters, and everything in between. Whether you are a seasoned gardener or just starting out, we have something for you. Be sure to check out our webshop, where you can find a wide range of products to help you on your gardening journey. Thank you for choosing us, and happy gardening!",
+    */
 
-    /*
     svgicon: `<svg fill="currentcolor" width="30" height="30" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
     viewBox="0 0 294 294" xml:space="preserve">
     <path d="M95.667,97h101v101h-101V97z M260.667,135v24H279c8.284,0,15,6.716,15,15s-6.716,15-15,15h-18.333v25H279
@@ -27,6 +27,6 @@ export default {
     pictureUrl: "pcb.jpg",
     banner: "New electronic parts in stock! Upgrade your projects with our latest shipment.",
     landingPageText: "Welcome to Circuit Haven, your ultimate destination for all things electronics. Whether you're a seasoned maker, a hobbyist, or just starting out, we've got you covered. With a wide range of products and components, from microcontrollers and sensors to project kits and tools, you'll find everything you need to bring your ideas to life. Our mission is to empower makers like you to pursue your passions and unleash your creativity. So why wait? Start browsing today and discover your next project at Circuit Haven!",
-*/
+    /**/
 
 };

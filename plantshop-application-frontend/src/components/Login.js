@@ -20,8 +20,8 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
-    const [email, setEmail] = useState('asd@asd.com');
-    const [password, setPassword] = useState('asd123');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {

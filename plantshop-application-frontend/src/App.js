@@ -21,8 +21,14 @@ import ProductManager from './components/ProductManager';
 import ContactForm from './components/ContactForm';
 import OrderManager from './components/OrderManager';
 import Payment from './components/Payment';
+import { useEffect } from 'react';
+import textData from './textData'
 
 function App() {
+
+  useEffect(() => {
+    document.title = textData.websiteDomain
+  }, []);
 
   return (
 
