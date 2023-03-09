@@ -21,24 +21,22 @@ module.exports = {
       'themesvg1': '#433040',
       'themesvg2': '#663A52',
       'themesvg3': '#894464',
-
-
+      /**/
 
       //Indoor Gardeners
-      /* 
-            'themetext1': '#E9E8E8',
-            'themetext2': '#E9E8E8',
-            'themetext3': '#000000',
-            'themetext4': '#000000',
-            'themebackground1': '#3C6255',
-            'themebackground2': '#61876E',
-            'themebackground3': '#F5EDCE',
-            'themebackground4': '#A6BB8D',
-            'themesvg1': '#6A8573',
-            'themesvg2': '#98A891',
-            'themesvg3': '#C6CBAF',
-      
-      */
+      /*
+      'themetext1': '#E9E8E8',
+      'themetext2': '#E9E8E8',
+      'themetext3': '#000000',
+      'themetext4': '#000000',
+      'themebackground1': '#3C6255',
+      'themebackground2': '#61876E',
+      'themebackground3': '#F5EDCE',
+      'themebackground4': '#A6BB8D',
+      'themesvg1': '#6A8573',
+      'themesvg2': '#98A891',
+      'themesvg3': '#C6CBAF',
+       */
     },
   },
   plugins: [
