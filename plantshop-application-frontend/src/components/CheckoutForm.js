@@ -33,7 +33,7 @@ const CheckoutForm = () => {
 
     const handleSubmit = async () => {
 
-        if (EMAIL_REGEX.test(email) && NAME_REGEX.test(name) && NAME_REGEX.test(city) && NAME_REGEX.test(street) && NAME_REGEX.test(zipcode)) {
+        if (NAME_REGEX.test(name) && NAME_REGEX.test(city) && NAME_REGEX.test(zipcode)) {
             const response = await axiosPrivate.post(ORDER_URL + "/createorder",
                 JSON.stringify({ name, email, phoneNumber, city, street, houseNumber, zipcode }),
                 {
