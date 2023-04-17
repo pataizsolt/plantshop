@@ -1,0 +1,19 @@
+package hu.plantshop.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import hu.plantshop.domain.Category;
+
+@Repository
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+
+    List<Category> getCategoriesByParentId(Long id);
+
+    Category getCategoryByHref(String categoryName);
+
+    List<Category> findCategoriesByParentId(Long id);
+
+}

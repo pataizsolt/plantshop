@@ -1,16 +1,24 @@
 package hu.plantshop.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +32,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 public class AppUser implements UserDetails {
@@ -36,23 +43,58 @@ public class AppUser implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
-    @Enumerated(EnumType.STRING)
-    private AppUserRole appUserRole;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Address deliveryAddress;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Address billingAddress;
+
+    private String phoneNumber;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<AppUserRole> appUserRoles;
     private Boolean locked = false;
     private Boolean enabled = true;
 
-    public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
+    @OneToOne(cascade = CascadeType.ALL)
+    private Basket basket;
+
+    //@OneToMany(cascade = CascadeType.ALL)
+    //private List<Order> orders;
+
+    public AppUser(String firstName, String lastName, String email, String password, Set<AppUserRole> appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.appUserRole = appUserRole;
+        this.appUserRoles = appUserRole;
+        this.basket = new Basket();
+        //this.orders = new ArrayList<Order>();
+
+    }
+
+    public AppUser(String firstName, String lastName, String email, String password, Set<AppUserRole> appUserRoles, Address deliveryAddress, Address billingAddress, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.deliveryAddress = deliveryAddress;
+        this.billingAddress = billingAddress;
+        this.phoneNumber = phoneNumber;
+        this.appUserRoles = appUserRoles;
+        this.basket = new Basket();
+        //this.orders = new ArrayList<Order>();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserRole.name());
-        return Collections.singletonList(authority);
+        List<GrantedAuthority> list = new ArrayList<>();
+
+        for (AppUserRole role : appUserRoles) {
+            list.add(new SimpleGrantedAuthority(role.getAuthority()));
+        }
+
+        return list;
     }
 
     @Override

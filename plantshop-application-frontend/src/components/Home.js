@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
+import Footer from './Footer'
 import Header from './Header'
+
 
 const Home = () => {
     return (
         <>
-            <Header />
+            <div className=''>
 
-            <section>
-                <Outlet />
-            </section>
+
+                <Header />
+                <body className='flex flex-col min-h-screen bg-themebackground3'>
+                    <Outlet />
+                </body>
+                <Footer />
+
+
+            </div>
         </>
     )
 }

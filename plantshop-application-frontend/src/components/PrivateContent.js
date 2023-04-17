@@ -1,34 +1,40 @@
-import React, { useState, useEffect } from "react";
-import PostService from "../services/Test";
-import { useNavigate } from "react-router-dom";
-import AuthService from "../services/AuthenticationService";
+import { useEffect } from "react";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const PrivateContent = () => {
-    const [privatePosts, setPrivatePosts] = useState([]);
-
+    const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-        PostService.getAllPrivatePosts().then(
-            (response) => {
-                setPrivatePosts(response.data.message);
-            },
-            (error) => {
-                console.log("Private page", error.response);
-                // Invalid token
-                if (error.response && error.response.status === 403) {
-                    AuthService.logout();
-                    navigate("/login");
-                    window.location.reload();
-                }
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const getUsers = async () => {
+            try {
+                const response = await axiosPrivate.get('/api/test/greeting', {
+
+                });
+                console.log(response.data);
+            } catch (err) {
+                console.error(err);
+                navigate('/login', { state: { from: location }, replace: true });
             }
-        );
-    }, []);
+        }
+
+        getUsers();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
+    }, [])
 
     return (
-        <div>
-            <h3>{JSON.stringify(privatePosts)}</h3>
-        </div>
+        <article>
+            <h2>private content</h2>
+        </article>
     );
 };
 
